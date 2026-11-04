@@ -1,0 +1,2180 @@
+[
+  {
+    "agravo": "Acidente de trabalho com exposição a material biológico",
+    "sinonimos": [
+      "acidente com material biológico",
+      "exposição ocupacional a material biológico"
+    ],
+    "cids": [],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Acidente de trabalho com exposição a material biológico",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/DRT/DRT_Acidente_Trabalho_Biologico.pdf",
+    "ficha_pdf": "fichas/acidente_material_biologico.pdf",
+    "observacao": "Notificação semanal; o atendimento antirrábico e a profilaxia pós-exposição seguem fluxo próprio.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Acidente de trabalho",
+    "sinonimos": [
+      "acidente de trabalho grave",
+      "acidente de trabalho fatal",
+      "acidente laboral"
+    ],
+    "cids": [],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Acidente de Trabalho Grave",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/DRT/DRT_Acidente_Trabalho_Grave.pdf",
+    "ficha_pdf": "fichas/acidente_trabalho_grave.pdf",
+    "observacao": "A ficha SINAN disponível é a de acidente grave/fatal; acidentes sem gravidade são registrados no SIST/CEVS-RS (Portaria SES/RS 440/2024).",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Acidente por animal peçonhento",
+    "sinonimos": [
+      "picada de cobra",
+      "escorpião",
+      "aranha",
+      "abelha",
+      "lagarta",
+      "animal venenoso"
+    ],
+    "cids": [
+      "T63"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Acidente por animal peçonhento",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/AAP/Animais_Peconhentos_v5.pdf",
+    "ficha_pdf": "fichas/animais_peconhentos.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Acidente por animal potencialmente transmissor da raiva",
+    "sinonimos": [
+      "mordedura",
+      "arranhadura",
+      "antirrábico",
+      "exposição à raiva"
+    ],
+    "cids": [
+      "Z20.3"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Atendimento Antirrábico",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Atendimento%20Anti-rabico/anti_rabico_v5.pdf",
+    "ficha_pdf": "fichas/atendimento_antirrabico.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Anomalias congênitas",
+    "sinonimos": [
+      "malformação congênita",
+      "defeito congênito"
+    ],
+    "cids": [],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINASC",
+    "ficha_nome": "SINASC — Declaração de Nascido Vivo (DNV)",
+    "ficha_url": "https://www.gov.br/saude/pt-br/composicao/svsa/sistemas-de-informacao/sinasc/sistema-de-informacoes-sobre-nascidos-vivos",
+    "ficha_pdf": null,
+    "observacao": "Notificação no SINASC (DNV) e investigação; não há ficha SINAN específica. CID-10: capítulo XVII (Q00–Q99).",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Botulismo",
+    "sinonimos": [
+      "botulismo alimentar",
+      "botulismo infantil"
+    ],
+    "cids": [
+      "A05.1"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Botulismo",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Botulismo/Botulismo_v5.pdf",
+    "ficha_pdf": "fichas/botulismo.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Câncer relacionado ao trabalho",
+    "sinonimos": [
+      "neoplasia ocupacional",
+      "câncer ocupacional"
+    ],
+    "cids": [
+      "C80"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Câncer relacionado ao trabalho",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/DRT/DRT_CANCER.pdf",
+    "ficha_pdf": "fichas/cancer_trabalho.pdf",
+    "observacao": "CID C80 conforme Portaria SES/RS 440/2024; o código deve refletir o sítio tumoral quando conhecido.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Cólera",
+    "sinonimos": [
+      "vibrio cholerae"
+    ],
+    "cids": [
+      "A00"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Cólera",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Colera/Colera_v5.pdf",
+    "ficha_pdf": "fichas/colera.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Coqueluche",
+    "sinonimos": [
+      "pertussis",
+      "tosse comprida"
+    ],
+    "cids": [
+      "A37"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Coqueluche",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Coqueluche/Coqueluche_v5.pdf",
+    "ficha_pdf": "fichas/coqueluche.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Dengue — casos",
+    "sinonimos": [
+      "dengue clássico",
+      "arbovirose"
+    ],
+    "cids": [
+      "A90"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Dengue/Chikungunya",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Dengue/Ficha_DENGCHIK_FINAL.pdf",
+    "ficha_pdf": "fichas/dengue_chikungunya.pdf",
+    "observacao": "Casos suspeitos/confirmados: notificação semanal. Óbitos têm ficha e prazo próprios (ver item seguinte).",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Dengue — óbitos",
+    "sinonimos": [
+      "óbito por dengue",
+      "dengue grave"
+    ],
+    "cids": [
+      "A90",
+      "A91"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Dengue/Chikungunya",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Dengue/Ficha_DENGCHIK_FINAL.pdf",
+    "ficha_pdf": "fichas/dengue_chikungunya.pdf",
+    "observacao": "Óbito suspeito/confirmado por dengue: notificação imediata (até 24h) a MS, SES e SMS.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Dermatoses ocupacionais",
+    "sinonimos": [
+      "dermatose do trabalho",
+      "dermatite ocupacional"
+    ],
+    "cids": [
+      "L98.9"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Dermatoses ocupacionais",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/DRT/DRT_DERMATOSES.pdf",
+    "ficha_pdf": "fichas/dermatoses_ocupacionais.pdf",
+    "observacao": "CID L98.9 conforme Portaria SES/RS 440/2024.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Difteria",
+    "sinonimos": [
+      "corynebacterium diphtheriae"
+    ],
+    "cids": [
+      "A36"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Difteria",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Difteria/Difteria_v5.pdf",
+    "ficha_pdf": "fichas/difteria.pdf",
+    "observacao": "Periodicidade alterada pela Portaria GM/MS 11.211/2026: imediata para MS, SES e SMS.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Distúrbio de voz relacionado ao trabalho",
+    "sinonimos": [
+      "disfonia ocupacional",
+      "rouquidão ocupacional"
+    ],
+    "cids": [
+      "R49"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação Individual (genérica)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/NINDIV/Notificacao_Individual_v5.pdf",
+    "ficha_pdf": "fichas/notificacao_individual.pdf",
+    "observacao": "Não há ficha específica publicada no Portal SINAN para este agravo na data de acesso; usar a Ficha de Notificação Individual (genérica). CID R49 é sugestivo, não exclusivo.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Doença de Chagas aguda",
+    "sinonimos": [
+      "tripanossomíase americana aguda",
+      "chagas agudo"
+    ],
+    "cids": [
+      "B57.0",
+      "B57.1"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Doença de Chagas",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Chagas/Chagas_v5.pdf",
+    "ficha_pdf": "fichas/chagas.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Doença de Chagas crônica",
+    "sinonimos": [
+      "chagas crônico",
+      "cardiopatia chagásica",
+      "megaesôfago chagásico"
+    ],
+    "cids": [
+      "B57.2",
+      "B57.3",
+      "B57.4",
+      "B57.5"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Doença de Chagas",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Chagas/Chagas_v5.pdf",
+    "ficha_pdf": "fichas/chagas.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Doença de Creutzfeldt-Jakob (DCJ)",
+    "sinonimos": [
+      "DCJ",
+      "encefalopatia espongiforme"
+    ],
+    "cids": [
+      "A81.0"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação Individual (genérica)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/NINDIV/Notificacao_Individual_v5.pdf",
+    "ficha_pdf": "fichas/notificacao_individual.pdf",
+    "observacao": "Não há ficha específica publicada no Portal SINAN para este agravo na data de acesso; usar a Ficha de Notificação Individual (genérica).",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Doença falciforme",
+    "sinonimos": [
+      "anemia falciforme",
+      "hemoglobinopatia S",
+      "traço falciforme"
+    ],
+    "cids": [
+      "D57"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação Individual (genérica)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/NINDIV/Notificacao_Individual_v5.pdf",
+    "ficha_pdf": "fichas/notificacao_individual.pdf",
+    "observacao": "Não há ficha específica publicada no Portal SINAN para este agravo na data de acesso; usar a Ficha de Notificação Individual (genérica).",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Doença invasiva por Haemophilus influenzae",
+    "sinonimos": [
+      "Hib",
+      "haemophilus influenzae invasivo"
+    ],
+    "cids": [
+      "A41.3",
+      "G00.0"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação Individual (genérica)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/NINDIV/Notificacao_Individual_v5.pdf",
+    "ficha_pdf": "fichas/notificacao_individual.pdf",
+    "observacao": "Não há ficha específica publicada no Portal SINAN para este agravo na data de acesso; usar a Ficha de Notificação Individual (genérica).",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Doença meningocócica e outras meningites",
+    "sinonimos": [
+      "meningite meningocócica",
+      "meningococcemia",
+      "meningite bacteriana",
+      "meningite viral"
+    ],
+    "cids": [
+      "A39",
+      "G00",
+      "G01",
+      "G02",
+      "G03",
+      "A87"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Meningites",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Meningite/Meningite_v5.pdf",
+    "ficha_pdf": "fichas/meningite.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Doenças com suspeita de disseminação intencional",
+    "sinonimos": [
+      "antraz pneumônico",
+      "tularemia",
+      "varíola",
+      "bioterrorismo"
+    ],
+    "cids": [
+      "A22",
+      "A21",
+      "B03"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação Individual (genérica)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/NINDIV/Notificacao_Individual_v5.pdf",
+    "ficha_pdf": "fichas/notificacao_individual.pdf",
+    "observacao": "Não há ficha específica publicada no Portal SINAN para este agravo na data de acesso; usar a Ficha de Notificação Individual (genérica). Inclui antraz pneumônico, tularemia e varíola; acionar CIEVS imediatamente.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Doenças febris hemorrágicas emergentes/reemergentes",
+    "sinonimos": [
+      "arenavírus",
+      "ebola",
+      "marburg",
+      "lassa",
+      "febre purpúrica brasileira"
+    ],
+    "cids": [
+      "A96.8",
+      "A98.4",
+      "A98.3",
+      "A96.2",
+      "A48.4"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação Individual (genérica)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/NINDIV/Notificacao_Individual_v5.pdf",
+    "ficha_pdf": "fichas/notificacao_individual.pdf",
+    "observacao": "Não há ficha específica publicada no Portal SINAN para este agravo na data de acesso; usar a Ficha de Notificação Individual (genérica). Acionar CIEVS imediatamente; investigação especial.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Doença aguda pelo vírus Zika",
+    "sinonimos": [
+      "zika",
+      "arbovirose zika"
+    ],
+    "cids": [
+      "A92.8"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação Individual (genérica)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/NINDIV/Notificacao_Individual_v5.pdf",
+    "ficha_pdf": "fichas/notificacao_individual.pdf",
+    "observacao": "Não há ficha específica publicada no Portal SINAN para este agravo na data de acesso; usar a Ficha de Notificação Individual (genérica). O Portal SINAN remete à Ficha de Notificação/Conclusão para Zika.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Doença aguda pelo vírus Zika em gestante",
+    "sinonimos": [
+      "zika na gravidez",
+      "zika gestacional"
+    ],
+    "cids": [
+      "A92.8",
+      "O98.5"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação Individual (genérica)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/NINDIV/Notificacao_Individual_v5.pdf",
+    "ficha_pdf": "fichas/notificacao_individual.pdf",
+    "observacao": "Não há ficha específica publicada no Portal SINAN para este agravo na data de acesso; usar a Ficha de Notificação Individual (genérica). Notificação imediata para SES/SMS; acompanhar recém-nascido.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Óbito com suspeita de doença pelo vírus Zika",
+    "sinonimos": [
+      "óbito por zika"
+    ],
+    "cids": [
+      "A92.8"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação Individual (genérica)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/NINDIV/Notificacao_Individual_v5.pdf",
+    "ficha_pdf": "fichas/notificacao_individual.pdf",
+    "observacao": "Não há ficha específica publicada no Portal SINAN para este agravo na data de acesso; usar a Ficha de Notificação Individual (genérica).",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Síndrome congênita associada à infecção pelo vírus Zika",
+    "sinonimos": [
+      "síndrome congênita do zika",
+      "microcefalia por zika"
+    ],
+    "cids": [
+      "P35.4"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação Individual (genérica)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/NINDIV/Notificacao_Individual_v5.pdf",
+    "ficha_pdf": "fichas/notificacao_individual.pdf",
+    "observacao": "Não há ficha específica publicada no Portal SINAN para este agravo na data de acesso; usar a Ficha de Notificação Individual (genérica). CID P35.4 (atualização da CID-10); notificar também no RESP/Registro de Eventos em Saúde Pública.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Esporotricose humana",
+    "sinonimos": [
+      "sporothrix",
+      "esporotricose linfocutânea",
+      "esporotricose cutânea"
+    ],
+    "cids": [
+      "B42"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação Individual (genérica)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/NINDIV/Notificacao_Individual_v5.pdf",
+    "ficha_pdf": "fichas/notificacao_individual.pdf",
+    "observacao": "Não há ficha específica publicada no Portal SINAN para este agravo na data de acesso; usar a Ficha de Notificação Individual (genérica). Incluída na lista nacional pela Portaria GM/MS 6.734/2025.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Esquistossomose",
+    "sinonimos": [
+      "bilharziose",
+      "schistosoma mansoni"
+    ],
+    "cids": [
+      "B65"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Esquistossomose",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Esquistossomose/Esquistossomose_v5.pdf",
+    "ficha_pdf": "fichas/esquistossomose.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Evento de Saúde Pública (ESP)",
+    "sinonimos": [
+      "surto",
+      "emergência de saúde pública",
+      "evento inusitado"
+    ],
+    "cids": [],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Investigação de Surto (SINAN)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Surto/Investigacao_surto_v5.pdf",
+    "ficha_pdf": "fichas/investigacao_surto.pdf",
+    "observacao": "Usar a ficha de investigação de surto; comunicar imediatamente ao CIEVS/SES e SMS.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Evento supostamente atribuível à vacinação ou imunização (ESAVI)",
+    "sinonimos": [
+      "evento adverso pós-vacinação",
+      "EAPV",
+      "reação adversa à vacina"
+    ],
+    "cids": [],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "e-SUS Notifica",
+    "ficha_nome": "e-SUS Notifica — módulo ESAVI",
+    "ficha_url": "https://www.gov.br/pt-br/servicos/acessar-sistema-e-sus-notifica",
+    "ficha_pdf": null,
+    "observacao": "Notificação em sistema eletrônico (e-SUS Notifica/ESAVI); não usar ficha SINAN.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Febre amarela",
+    "sinonimos": [
+      "febre amarela silvestre",
+      "febre amarela urbana"
+    ],
+    "cids": [
+      "A95"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Febre amarela",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Febre%20Amarela/Febre_Amarela_v5.pdf",
+    "ficha_pdf": "fichas/febre_amarela.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Febre de Chikungunya — casos",
+    "sinonimos": [
+      "chikungunya",
+      "chikungunha"
+    ],
+    "cids": [
+      "A92.0"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Dengue/Chikungunya",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Dengue/Ficha_DENGCHIK_FINAL.pdf",
+    "ficha_pdf": "fichas/dengue_chikungunya.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Febre de Chikungunya em áreas sem transmissão",
+    "sinonimos": [
+      "chikungunya importada",
+      "chikungunya em área indene"
+    ],
+    "cids": [
+      "A92.0"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Dengue/Chikungunya",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Dengue/Ficha_DENGCHIK_FINAL.pdf",
+    "ficha_pdf": "fichas/dengue_chikungunya.pdf",
+    "observacao": "Notificação imediata para MS, SES e SMS quando o caso ocorre em área sem transmissão.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Óbito com suspeita de Febre de Chikungunya",
+    "sinonimos": [
+      "óbito por chikungunya"
+    ],
+    "cids": [
+      "A92.0"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Dengue/Chikungunya",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Dengue/Ficha_DENGCHIK_FINAL.pdf",
+    "ficha_pdf": "fichas/dengue_chikungunya.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Febre do Nilo Ocidental e outras arboviroses de importância em saúde pública",
+    "sinonimos": [
+      "West Nile",
+      "febre do Nilo",
+      "arbovirose emergente"
+    ],
+    "cids": [
+      "A92.3"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Febre do Nilo Ocidental",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Febre_do_Nilo/FEBRE_DO_NILO.pdf",
+    "ficha_pdf": "fichas/febre_nilo.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Febre do Oropouche — casos",
+    "sinonimos": [
+      "oropouche",
+      "vírus oropouche",
+      "Oropouche"
+    ],
+    "cids": [],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação Individual (genérica)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/NINDIV/Notificacao_Individual_v5.pdf",
+    "ficha_pdf": "fichas/notificacao_individual.pdf",
+    "observacao": "Não há ficha específica publicada no Portal SINAN para este agravo na data de acesso; usar a Ficha de Notificação Individual (genérica). Incluída na lista nacional pela Portaria GM/MS 11.211/2026.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Febre do Oropouche — óbitos e óbitos fetais",
+    "sinonimos": [
+      "óbito por oropouche",
+      "óbito fetal por oropouche"
+    ],
+    "cids": [],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação Individual (genérica)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/NINDIV/Notificacao_Individual_v5.pdf",
+    "ficha_pdf": "fichas/notificacao_individual.pdf",
+    "observacao": "Não há ficha específica publicada no Portal SINAN para este agravo na data de acesso; usar a Ficha de Notificação Individual (genérica). Notificação imediata (até 24h) a MS, SES e SMS.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Febre do Oropouche em gestante",
+    "sinonimos": [
+      "oropouche na gravidez",
+      "oropouche gestacional"
+    ],
+    "cids": [],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação Individual (genérica)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/NINDIV/Notificacao_Individual_v5.pdf",
+    "ficha_pdf": "fichas/notificacao_individual.pdf",
+    "observacao": "Não há ficha específica publicada no Portal SINAN para este agravo na data de acesso; usar a Ficha de Notificação Individual (genérica). Notificação imediata; acompanhar desfecho gestacional e anomalias congênitas.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Febre do Oropouche — anomalias congênitas",
+    "sinonimos": [
+      "oropouche congênito",
+      "malformação por oropouche"
+    ],
+    "cids": [],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação Individual (genérica)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/NINDIV/Notificacao_Individual_v5.pdf",
+    "ficha_pdf": "fichas/notificacao_individual.pdf",
+    "observacao": "Não há ficha específica publicada no Portal SINAN para este agravo na data de acesso; usar a Ficha de Notificação Individual (genérica). Notificação imediata; avaliar nexo com infecção materna.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Febre Maculosa e outras Riquetisioses",
+    "sinonimos": [
+      "febre maculosa brasileira",
+      "carrapato",
+      "rickettsia",
+      "tifo"
+    ],
+    "cids": [
+      "A77.0"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Febre Maculosa",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Febre%20Maculosa/Febre_Maculosa_v5.pdf",
+    "ficha_pdf": "fichas/febre_maculosa.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Febre Tifoide",
+    "sinonimos": [
+      "febre tifóide",
+      "salmonella typhi"
+    ],
+    "cids": [
+      "A01.0"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Febre Tifoide",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Febre-Tifoide/Febre_Tifoide_v5.pdf",
+    "ficha_pdf": "fichas/febre_tifoide.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Hanseníase",
+    "sinonimos": [
+      "lepra",
+      "doença de Hansen"
+    ],
+    "cids": [
+      "A30"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Hanseníase",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Hanseniase/Hanseniase_v5.pdf",
+    "ficha_pdf": "fichas/hanseniase.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Hantavirose",
+    "sinonimos": [
+      "hantavírus",
+      "síndrome cardiopulmonar por hantavírus"
+    ],
+    "cids": [
+      "B33.4"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Hantavirose",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Hantavirose/Hantavirose_v5.pdf",
+    "ficha_pdf": "fichas/hantavirose.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Hepatites virais",
+    "sinonimos": [
+      "hepatite A",
+      "hepatite B",
+      "hepatite C",
+      "hepatite D",
+      "hepatite E"
+    ],
+    "cids": [
+      "B15",
+      "B16",
+      "B17",
+      "B18",
+      "B19"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Hepatites Virais",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Hepatites_Virais/Ficha_Hepatites_Virais.pdf",
+    "ficha_pdf": "fichas/hepatites_virais.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Infecção pelo vírus da hepatite B em gestante, parturiente ou puérpera e criança exposta",
+    "sinonimos": [
+      "hepatite B gestante",
+      "transmissão vertical hepatite B",
+      "HBsAg positivo na gestação"
+    ],
+    "cids": [
+      "B16",
+      "O98.4"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Hepatites Virais",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Hepatites_Virais/Ficha_Hepatites_Virais.pdf",
+    "ficha_pdf": "fichas/hepatites_virais.pdf",
+    "observacao": "Notificar a gestante/parturiente/puérpera e a criança exposta; usar campos específicos da ficha de hepatites.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "HIV/AIDS",
+    "sinonimos": [
+      "AIDS",
+      "infecção pelo HIV",
+      "HIV positivo",
+      "síndrome da imunodeficiência adquirida"
+    ],
+    "cids": [
+      "B20",
+      "B21",
+      "B22",
+      "B23",
+      "B24",
+      "Z21"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — AIDS (adulto)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/AidsAdulto/Aids_adulto_v5.pdf",
+    "ficha_pdf": "fichas/aids_adulto.pdf",
+    "observacao": "Para menores de 13 anos, usar fichas/aids_crianca.pdf (mesmo prazo).",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Infecção pelo HIV em gestante, parturiente ou puérpera e criança exposta",
+    "sinonimos": [
+      "HIV gestante",
+      "transmissão vertical do HIV",
+      "gestante HIV positivo"
+    ],
+    "cids": [
+      "B20",
+      "B24",
+      "Z21"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Gestante HIV",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/GestanteHIV/Gestante_HIV_v5.pdf",
+    "ficha_pdf": "fichas/hiv_gestante.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Infecção pelo vírus linfotrópico de células T humanas (HTLV)",
+    "sinonimos": [
+      "HTLV",
+      "HTLV-1",
+      "HTLV-2"
+    ],
+    "cids": [
+      "Z22.6"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação Individual (genérica)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/NINDIV/Notificacao_Individual_v5.pdf",
+    "ficha_pdf": "fichas/notificacao_individual.pdf",
+    "observacao": "Não há ficha específica publicada no Portal SINAN para este agravo na data de acesso; usar a Ficha de Notificação Individual (genérica). CID Z22.6 (portador de HTLV-1); para HTLV-2 pode ser necessário código adicional.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Infecção pelo HTLV em gestante, parturiente ou puérpera e criança exposta",
+    "sinonimos": [
+      "HTLV gestante",
+      "transmissão vertical do HTLV"
+    ],
+    "cids": [
+      "Z22.6"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação Individual (genérica)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/NINDIV/Notificacao_Individual_v5.pdf",
+    "ficha_pdf": "fichas/notificacao_individual.pdf",
+    "observacao": "Não há ficha específica publicada no Portal SINAN para este agravo na data de acesso; usar a Ficha de Notificação Individual (genérica).",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Influenza humana produzida por novo subtipo viral",
+    "sinonimos": [
+      "influenza novo subtipo",
+      "gripe aviária",
+      "novo subtipo de influenza"
+    ],
+    "cids": [
+      "J09"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Influenza humana produzida por novo subtipo viral",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Influenza/Influenza_v5.pdf",
+    "ficha_pdf": "fichas/influenza.pdf",
+    "observacao": "Casos de novo subtipo são de notificação imediata; a ficha de influenza do SINAN é usada na vigilância sentinela de SG.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Intoxicação exógena",
+    "sinonimos": [
+      "intoxicação por agrotóxico",
+      "intoxicação medicamentosa",
+      "envenenamento",
+      "exposição a substância química"
+    ],
+    "cids": [
+      "T36-T65"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Intoxicação exógena",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/iexog/Intoxicacao_Exogena_v5.pdf",
+    "ficha_pdf": "fichas/intoxicacao_exogena.pdf",
+    "observacao": "CID-10: faixa T36–T65, conforme o agente; a ficha permite especificar o produto.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Leishmaniose Tegumentar Americana",
+    "sinonimos": [
+      "LTA",
+      "leishmaniose cutânea",
+      "leishmaniose mucocutânea"
+    ],
+    "cids": [
+      "B55.1",
+      "B55.2"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Leishmaniose Tegumentar Americana",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Leishmaniose%20Tegumentar%20Americana/LTA_v5.pdf",
+    "ficha_pdf": "fichas/leishmaniose_tegumentar.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Leishmaniose Visceral",
+    "sinonimos": [
+      "calazar",
+      "LV",
+      "leishmaniose visceral"
+    ],
+    "cids": [
+      "B55.0"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Leishmaniose Visceral",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Leishmaniose%20Visceral/LV_v5.pdf",
+    "ficha_pdf": "fichas/leishmaniose_visceral.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Leptospirose",
+    "sinonimos": [
+      "leptospira",
+      "doença do rato"
+    ],
+    "cids": [
+      "A27"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Leptospirose",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Leptospirose/Ficha_Leptospirose.pdf",
+    "ficha_pdf": "fichas/leptospirose.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Lesões por Esforços Repetitivos/Distúrbios Osteomusculares Relacionados ao Trabalho (LER/DORT)",
+    "sinonimos": [
+      "LER",
+      "DORT",
+      "LTC",
+      "doença osteomuscular relacionada ao trabalho"
+    ],
+    "cids": [
+      "Z57.9"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Lesões por Esforços Repetitivos/Distúrbios Osteomusculares Relacionados ao Trabalho (LER/DORT)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/DRT/DRT_LERDORT.pdf",
+    "ficha_pdf": "fichas/ler_dort.pdf",
+    "observacao": "CID Z57.9 conforme Portaria SES/RS 440/2024; se houver diagnóstico específico, codificar também a doença.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Malária na região amazônica",
+    "sinonimos": [
+      "malária",
+      "paludismo",
+      "plasmodium"
+    ],
+    "cids": [
+      "B50",
+      "B51",
+      "B52",
+      "B53",
+      "B54"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Malária na região amazônica",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Malaria/Malaria_v5.pdf",
+    "ficha_pdf": "fichas/malaria.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Malária na região extra-Amazônica",
+    "sinonimos": [
+      "malária importada",
+      "malária fora da Amazônia"
+    ],
+    "cids": [
+      "B50",
+      "B51",
+      "B52",
+      "B53",
+      "B54"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Malária na região extra-Amazônica",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Malaria/Malaria_v5.pdf",
+    "ficha_pdf": "fichas/malaria.pdf",
+    "observacao": "Notificação imediata para MS, SES e SMS na região extra-Amazônica.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Monkeypox (mpox)",
+    "sinonimos": [
+      "varíola dos macacos",
+      "mpox",
+      "monkeypox"
+    ],
+    "cids": [
+      "B04"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "e-SUS Notifica",
+    "ficha_nome": "e-SUS Notifica — módulo mpox",
+    "ficha_url": "https://www.gov.br/pt-br/servicos/acessar-sistema-e-sus-notifica",
+    "ficha_pdf": null,
+    "observacao": "Notificação em sistema eletrônico; não usar ficha SINAN.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Óbito infantil",
+    "sinonimos": [
+      "morte infantil",
+      "óbito em menor de 1 ano"
+    ],
+    "cids": [],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SIM",
+    "ficha_nome": "SIM — Declaração de Óbito (DO)",
+    "ficha_url": "https://www.gov.br/saude/pt-br/composicao/svsa/sistemas-de-informacao/sim",
+    "ficha_pdf": null,
+    "observacao": "Notificação/investigação no SIM; não há ficha SINAN. Verificar fluxo de investigação de óbito infantil do município.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Óbito materno",
+    "sinonimos": [
+      "morte materna",
+      "óbito na gestação",
+      "óbito no puerpério"
+    ],
+    "cids": [],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SIM",
+    "ficha_nome": "SIM — Declaração de Óbito (DO)",
+    "ficha_url": "https://www.gov.br/saude/pt-br/composicao/svsa/sistemas-de-informacao/sim",
+    "ficha_pdf": null,
+    "observacao": "Notificação/investigação no SIM; não há ficha SINAN. Prazo e fluxo seguem a vigilância do óbito materno.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Perda Auditiva relacionada ao trabalho",
+    "sinonimos": [
+      "PAIR",
+      "perda auditiva ocupacional",
+      "ruído"
+    ],
+    "cids": [
+      "H83.3"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Perda Auditiva relacionada ao trabalho",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/DRT/DRT_PAIR.pdf",
+    "ficha_pdf": "fichas/pair.pdf",
+    "observacao": "CID H83.3 conforme Portaria SES/RS 440/2024.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Pneumoconioses relacionadas ao trabalho",
+    "sinonimos": [
+      "pneumoconiose",
+      "silicose",
+      "asbestose"
+    ],
+    "cids": [
+      "J64"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Pneumoconioses relacionadas ao trabalho",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/DRT/DRT_Pneumoconioses.pdf",
+    "ficha_pdf": "fichas/pneumoconioses.pdf",
+    "observacao": "CID J64 conforme Portaria SES/RS 440/2024.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Peste",
+    "sinonimos": [
+      "peste bubônica",
+      "yersinia pestis"
+    ],
+    "cids": [
+      "A20"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Peste",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Peste/Peste_v5.pdf",
+    "ficha_pdf": "fichas/peste.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Poliomielite/Paralisia Flácida Aguda (PFA)",
+    "sinonimos": [
+      "pólio",
+      "PFA",
+      "paralisia flácida"
+    ],
+    "cids": [
+      "A80"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Poliomielite/PFA",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/PFA-Poliomielite/PFA_v5.pdf",
+    "ficha_pdf": "fichas/pfa.pdf",
+    "observacao": "Notificar todo caso de PFA em menor de 15 anos ou com suspeita de pólio; CID A80 aplica-se à poliomielite.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Raiva humana",
+    "sinonimos": [
+      "raiva",
+      "hidrofobia",
+      "lyssavirus"
+    ],
+    "cids": [
+      "A82"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Raiva humana",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Raiva%20Humana/Raiva_v5.pdf",
+    "ficha_pdf": "fichas/raiva_humana.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Síndrome da Rubéola Congênita",
+    "sinonimos": [
+      "SRC",
+      "rubéola congênita"
+    ],
+    "cids": [
+      "P35.0"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Síndrome da Rubéola Congênita",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/SRC/SRC_v5.pdf",
+    "ficha_pdf": "fichas/src.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Sarampo",
+    "sinonimos": [
+      "sarampo",
+      "rubeola",
+      "doença exantemática"
+    ],
+    "cids": [
+      "B05"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Doenças Exantemáticas (sarampo/rubéola)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Exantematicas/Exantematica_v5.pdf",
+    "ficha_pdf": "fichas/exantematica.pdf",
+    "observacao": "Usar a ficha conjunta de doenças exantemáticas; notificação imediata e bloqueio vacinal.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Rubéola",
+    "sinonimos": [
+      "rubéola",
+      "sarampo",
+      "doença exantemática"
+    ],
+    "cids": [
+      "B06"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Doenças Exantemáticas (sarampo/rubéola)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Exantematicas/Exantematica_v5.pdf",
+    "ficha_pdf": "fichas/exantematica.pdf",
+    "observacao": "Usar a ficha conjunta de doenças exantemáticas; notificação imediata.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Sífilis adquirida",
+    "sinonimos": [
+      "sífilis",
+      "sífilis primária",
+      "sífilis secundária",
+      "sífilis latente"
+    ],
+    "cids": [
+      "A51",
+      "A52",
+      "A53"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação Individual (genérica)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/NINDIV/Notificacao_Individual_v5.pdf",
+    "ficha_pdf": "fichas/notificacao_individual.pdf",
+    "observacao": "Não há ficha específica publicada no Portal SINAN para este agravo na data de acesso; usar a Ficha de Notificação Individual (genérica). Notificar também parcerias sexuais quando indicado.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Sífilis congênita",
+    "sinonimos": [
+      "sífilis congênita",
+      "sífilis neonatal"
+    ],
+    "cids": [
+      "A50"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Sífilis congênita",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Sifilis-Con/Sifilis_Congenita.pdf",
+    "ficha_pdf": "fichas/sifilis_congenita.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Sífilis em gestante",
+    "sinonimos": [
+      "sífilis gestacional",
+      "sífilis na gravidez"
+    ],
+    "cids": [
+      "O98.1"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Sífilis em gestante",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Sifilis-Ges/Sifilis_Gestante.pdf",
+    "ficha_pdf": "fichas/sifilis_gestante.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Síndrome Inflamatória Multissistêmica em Adultos (SIM-A) associada à covid-19",
+    "sinonimos": [
+      "SIM-A",
+      "MIS-A",
+      "multissistêmica adulto"
+    ],
+    "cids": [],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "e-SUS Notifica",
+    "ficha_nome": "e-SUS Notifica — formulário eletrônico",
+    "ficha_url": "https://www.gov.br/pt-br/servicos/acessar-sistema-e-sus-notifica",
+    "ficha_pdf": null,
+    "observacao": "Notificação em sistema eletrônico; confirmar o módulo vigente no município/estado.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Síndrome Inflamatória Multissistêmica Pediátrica (SIM-P) associada à covid-19",
+    "sinonimos": [
+      "SIM-P",
+      "MIS-C",
+      "multissistêmica pediátrica",
+      "Kawasaki-like"
+    ],
+    "cids": [],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "e-SUS Notifica",
+    "ficha_nome": "e-SUS Notifica — formulário eletrônico",
+    "ficha_url": "https://www.gov.br/pt-br/servicos/acessar-sistema-e-sus-notifica",
+    "ficha_pdf": null,
+    "observacao": "Notificação em sistema eletrônico; confirmar o módulo vigente no município/estado.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Síndrome Respiratória Aguda Grave (SRAG) associada a coronavírus",
+    "sinonimos": [
+      "SRAG",
+      "SARS",
+      "SRAG por covid-19",
+      "SRAG hospitalizado"
+    ],
+    "cids": [
+      "U04",
+      "U07.1"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SIVEP-Gripe",
+    "ficha_nome": "SIVEP-Gripe — formulário eletrônico",
+    "ficha_url": "https://sivepgripe.saude.gov.br/sivepgripe/",
+    "ficha_pdf": null,
+    "observacao": "Notificação no SIVEP-Gripe (hospitalizado ou óbito por SRAG); não usar ficha SINAN.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Síndrome Gripal por covid-19 confirmada",
+    "sinonimos": [
+      "SG covid",
+      "síndrome gripal covid-19",
+      "gripe covid"
+    ],
+    "cids": [
+      "U07.1"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "e-SUS Notifica",
+    "ficha_nome": "e-SUS Notifica — formulário eletrônico",
+    "ficha_url": "https://www.gov.br/pt-br/servicos/acessar-sistema-e-sus-notifica",
+    "ficha_pdf": null,
+    "observacao": "Notificação em e-SUS Notifica; a covid-19 como agravo autônomo foi removida da lista pela Portaria 11.211/2026, permanecendo a SG confirmada e a SRAG.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Tétano acidental",
+    "sinonimos": [
+      "tétano",
+      "tetanus"
+    ],
+    "cids": [
+      "A35"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Tétano acidental",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/tetanoacidental/Tetano_Acidental_v5.pdf",
+    "ficha_pdf": "fichas/tetano_acidental.pdf",
+    "observacao": "Periodicidade alterada pela Portaria 11.211/2026: imediata para SES e SMS.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Tétano neonatal",
+    "sinonimos": [
+      "tétano do recém-nascido",
+      "tétano umbilical"
+    ],
+    "cids": [
+      "A33"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Tétano neonatal",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/tetanoneonatal/Tetano_NeoNatal_v5.pdf",
+    "ficha_pdf": "fichas/tetano_neonatal.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Toxoplasmose gestacional e congênita",
+    "sinonimos": [
+      "toxoplasmose na gravidez",
+      "toxoplasmose congênita",
+      "toxoplasma gondii"
+    ],
+    "cids": [
+      "B58",
+      "P37.1",
+      "O98.6"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação Individual (genérica)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/NINDIV/Notificacao_Individual_v5.pdf",
+    "ficha_pdf": "fichas/notificacao_individual.pdf",
+    "observacao": "Não há ficha específica publicada no Portal SINAN para este agravo na data de acesso; usar a Ficha de Notificação Individual (genérica).",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Transtornos mentais relacionados ao trabalho",
+    "sinonimos": [
+      "transtorno mental ocupacional",
+      "adoecimento mental no trabalho",
+      "burnout ocupacional"
+    ],
+    "cids": [
+      "F99"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Transtornos mentais relacionados ao trabalho",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/DRT/DRT_TranstornosMentais.pdf",
+    "ficha_pdf": "fichas/transtornos_mentais.pdf",
+    "observacao": "CID F99 conforme Portaria SES/RS 440/2024 (transtorno mental não especificado).",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Tuberculose",
+    "sinonimos": [
+      "TB",
+      "bacilo de Koch",
+      "tuberculose pulmonar",
+      "tuberculose extrapulmonar"
+    ],
+    "cids": [
+      "A15",
+      "A16",
+      "A17",
+      "A18",
+      "A19"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Tuberculose",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Tuberculose/Tuberculose_v5.pdf",
+    "ficha_pdf": "fichas/tuberculose.pdf",
+    "observacao": null,
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Varicela",
+    "sinonimos": [
+      "catapora",
+      "varicela grave",
+      "varicela em internado"
+    ],
+    "cids": [
+      "B01"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação Individual (genérica)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/NINDIV/Notificacao_Individual_v5.pdf",
+    "ficha_pdf": "fichas/notificacao_individual.pdf",
+    "observacao": "Não há ficha específica publicada no Portal SINAN para este agravo na data de acesso; usar a Ficha de Notificação Individual (genérica). A lista de 2026 voltou a incluir varicela, com notificação imediata para SES/SMS.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Violência doméstica e/ou outras violências",
+    "sinonimos": [
+      "violência intrafamiliar",
+      "violência física",
+      "violência psicológica",
+      "violência contra a mulher",
+      "violência contra a pessoa idosa"
+    ],
+    "cids": [
+      "X85-Y09"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação Individual – Violência Interpessoal/Autoprovocada (SINAN)",
+    "ficha_url": "https://portalsinan.saude.gov.br/violencia-interpessoal-autoprovocada",
+    "ficha_pdf": null,
+    "observacao": "Não há ficha específica publicada no Portal SINAN para este agravo na data de acesso; usar a Ficha de Notificação Individual (genérica). Preencher também a ficha específica de violência quando disponível no município; sigilo e fluxo intersetorial.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Violência sexual e tentativa de suicídio",
+    "sinonimos": [
+      "violência sexual",
+      "estupro",
+      "tentativa de suicídio",
+      "autoprovocação"
+    ],
+    "cids": [
+      "X85-Y09"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação Individual – Violência Interpessoal/Autoprovocada (SINAN)",
+    "ficha_url": "https://portalsinan.saude.gov.br/violencia-interpessoal-autoprovocada",
+    "ficha_pdf": null,
+    "observacao": "Não há ficha específica publicada no Portal SINAN para este agravo na data de acesso; usar a Ficha de Notificação Individual (genérica). Notificação imediata à SMS; garantir sigilo, profilaxias e rede de apoio.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Parotidite (Caxumba)",
+    "sinonimos": [
+      "caxumba",
+      "parotidite epidêmica",
+      "papeira"
+    ],
+    "cids": [
+      "B26"
+    ],
+    "periodicidade": "outra",
+    "prazo_texto": "CONFERIR: o texto da Portaria 11.211/2026 diz imediata (MS/SES/SMS); a tabela do anexo marca uma só coluna",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação Individual (genérica)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/NINDIV/Notificacao_Individual_v5.pdf",
+    "ficha_pdf": "fichas/notificacao_individual.pdf",
+    "observacao": "Não há ficha específica publicada no Portal SINAN para este agravo na data de acesso; usar a Ficha de Notificação Individual (genérica). Incluída na lista nacional pela Portaria GM/MS 11.211/2026. Confirme o prazo com a vigilância do município.",
+    "fonte": "Portaria GM/MS nº 11.211, de 13/05/2026, que altera o Anexo 1 do Anexo V da Portaria de Consolidação GM/MS nº 4/2017 — https://bvsms.saude.gov.br/bvs/saudelegis/gm/2026/prt11211_14_05_2026.html"
+  },
+  {
+    "agravo": "Hidatidose",
+    "sinonimos": [
+      "equinococose",
+      "cisto hidático",
+      "echinococcus"
+    ],
+    "cids": [
+      "B67"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação Individual (genérica)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/NINDIV/Notificacao_Individual_v5.pdf",
+    "ficha_pdf": "fichas/notificacao_individual.pdf",
+    "observacao": "Não há ficha específica publicada no Portal SINAN para este agravo na data de acesso; usar a Ficha de Notificação Individual (genérica). Agravo de interesse estadual no RS (Portaria SES/RS 440/2024), não incluído na lista nacional.",
+    "fonte": "Portaria SES/RS nº 440/2024 (lista estadual complementar) — https://www.cevs.rs.gov.br/upload/arquivos/202408/09144159-portaria-440-2024.pdf"
+  },
+  {
+    "agravo": "Síndrome mão-pé-boca (surto)",
+    "sinonimos": [
+      "doença mão-pé-boca",
+      "estomatite vesicular",
+      "enterovírus"
+    ],
+    "cids": [
+      "B08.4"
+    ],
+    "periodicidade": "semanal",
+    "prazo_texto": "semanal",
+    "esferas": [
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação Individual (genérica)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/NINDIV/Notificacao_Individual_v5.pdf",
+    "ficha_pdf": "fichas/notificacao_individual.pdf",
+    "observacao": "Não há ficha específica publicada no Portal SINAN para este agravo na data de acesso; usar a Ficha de Notificação Individual (genérica). Notificação de surto no RS (Anexo II da Portaria SES/RS 440/2024).",
+    "fonte": "Portaria SES/RS nº 440/2024 (lista estadual complementar) — https://www.cevs.rs.gov.br/upload/arquivos/202408/09144159-portaria-440-2024.pdf"
+  },
+  {
+    "agravo": "Toxoplasmose adquirida (surto)",
+    "sinonimos": [
+      "toxoplasmose",
+      "surto de toxoplasmose"
+    ],
+    "cids": [
+      "B58"
+    ],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação Individual (genérica)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/NINDIV/Notificacao_Individual_v5.pdf",
+    "ficha_pdf": "fichas/notificacao_individual.pdf",
+    "observacao": "Não há ficha específica publicada no Portal SINAN para este agravo na data de acesso; usar a Ficha de Notificação Individual (genérica). Surto de toxoplasmose adquirida: notificação imediata no RS (Anexo II da Portaria SES/RS 440/2024).",
+    "fonte": "Portaria SES/RS nº 440/2024 (lista estadual complementar) — https://www.cevs.rs.gov.br/upload/arquivos/202408/09144159-portaria-440-2024.pdf"
+  },
+  {
+    "agravo": "Ficha de Notificação Individual (genérica)",
+    "sinonimos": [
+      "NINDIV",
+      "ficha genérica",
+      "notificação individual"
+    ],
+    "cids": [],
+    "periodicidade": "outra",
+    "prazo_texto": "conforme norma",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação Individual (genérica)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/NINDIV/Notificacao_Individual_v5.pdf",
+    "ficha_pdf": "fichas/notificacao_individual.pdf",
+    "observacao": "Formulário universal do SINAN para agravos sem ficha específica; preencher os campos 1 a 39.",
+    "fonte": "Portal SINAN — https://portalsinan.saude.gov.br/doencas-e-agravos"
+  },
+  {
+    "agravo": "Ficha de Notificação/Conclusão (genérica)",
+    "sinonimos": [
+      "ficha de conclusão",
+      "encerramento de caso"
+    ],
+    "cids": [],
+    "periodicidade": "outra",
+    "prazo_texto": "conforme norma",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Conclusão (genérica)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/NINDIV/Ficha_conclusao_v5.pdf",
+    "ficha_pdf": "fichas/notificacao_conclusao.pdf",
+    "observacao": "Usada para conclusão/encerramento de casos notificados no SINAN.",
+    "fonte": "Portal SINAN — https://portalsinan.saude.gov.br/doencas-e-agravos"
+  },
+  {
+    "agravo": "Epizootia",
+    "sinonimos": [
+      "epizootia",
+      "morte de primatas",
+      "animal doente"
+    ],
+    "cids": [],
+    "periodicidade": "outra",
+    "prazo_texto": "conforme norma",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Epizootia",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Epizootia/EPIZOO_NET_v5.pdf",
+    "ficha_pdf": "fichas/epizootia.pdf",
+    "observacao": "Vigilância de epizootias (ex.: primatas não humanos para febre amarela); não é agravo humano individual da lista nacional.",
+    "fonte": "Portal SINAN — https://portalsinan.saude.gov.br/doencas-e-agravos"
+  },
+  {
+    "agravo": "Tracoma",
+    "sinonimos": [
+      "tracoma folicular",
+      "conjuntivite tracomatosa",
+      "chlamydia trachomatis"
+    ],
+    "cids": [
+      "A71"
+    ],
+    "periodicidade": "outra",
+    "prazo_texto": "conforme norma",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Tracoma",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/Tracoma/Tracoma_v5.pdf",
+    "ficha_pdf": "fichas/tracoma.pdf",
+    "observacao": "Agravo de vigilância com ficha SINAN (boletim de inquérito), não incluído na lista nacional de 2026.",
+    "fonte": "Portal SINAN — https://portalsinan.saude.gov.br/doencas-e-agravos"
+  },
+  {
+    "agravo": "Surto de doenças transmitidas por alimentos (DTA)",
+    "sinonimos": [
+      "surto de DTA",
+      "intoxicação alimentar coletiva",
+      "doença transmitida por alimento"
+    ],
+    "cids": [],
+    "periodicidade": "imediata",
+    "prazo_texto": "até 24h",
+    "esferas": [
+      "MS",
+      "SES",
+      "SMS"
+    ],
+    "sistema": "SINAN",
+    "ficha_nome": "Ficha de Notificação/Investigação — Surto de doenças transmitidas por alimentos (DTA)",
+    "ficha_url": "https://portalsinan.saude.gov.br/images/documentos/Agravos/DTA/Surto_DTA_v5.pdf",
+    "ficha_pdf": "fichas/surto_dta.pdf",
+    "observacao": "Investigação de surto de DTA; integra a vigilância de eventos de saúde pública.",
+    "fonte": "Portal SINAN — https://portalsinan.saude.gov.br/doencas-e-agravos"
+  }
+]
