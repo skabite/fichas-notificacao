@@ -1,0 +1,645 @@
+<title>Evoluções e Termos</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+/* Layout: uma coluna no celular (lista → modelo, barra de ação fixa embaixo); no computador o modelo A vira campos | prévia. */
+:root{
+  --bg:#eef2f3;          /* fundo, cinza frio puxado para o petróleo */
+  --surface:#ffffff;
+  --ink:#15232a;
+  --muted:#56676f;
+  --line:#d4dde0;
+  --accent:#1d5f78;      /* petróleo */
+  --accent-ink:#ffffff;
+  --accent-soft:#deebf0;
+  --blank:#fff0c9;       /* campo em branco: âmbar */
+  --blank-ink:#6e4500;
+  --blank-line:#d39a1c;
+  --ok:#2d6a3e;
+  --paper:#ffffff;       /* a folha impressa é sempre clara */
+  --paper-ink:#1b1b1b;
+  --paper-line:#9aa3a7;
+  --ui:"Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0e1519;--surface:#162127;--ink:#e2eaed;--muted:#94a6ad;--line:#2a3a42;
+  --accent:#74b6d0;--accent-ink:#0a1a20;--accent-soft:#1c3541;
+  --blank:#3b2d0b;--blank-ink:#ffd480;--blank-line:#b8861f;--ok:#7cc48f;
+  --paper:#f7f6f2;--paper-ink:#1b1b1b;--paper-line:#8d969a;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0e1519;--surface:#162127;--ink:#e2eaed;--muted:#94a6ad;--line:#2a3a42;
+  --accent:#74b6d0;--accent-ink:#0a1a20;--accent-soft:#1c3541;
+  --blank:#3b2d0b;--blank-ink:#ffd480;--blank-line:#b8861f;--ok:#7cc48f;
+  --paper:#f7f6f2;--paper-ink:#1b1b1b;--paper-line:#8d969a;color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--ink);font:16px/1.45 var(--ui);
+  padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px));padding-block:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1040px;margin:0 auto}
+
+/* barra do teste A/B */
+.ab{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px 8px;display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;border-bottom:1px solid var(--line)}
+.ab-l{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.seg{display:inline-flex;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:3px;gap:3px}
+.seg button{border:0;background:none;padding:6px 12px;border-radius:7px;font-size:14px;font-weight:700;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+.ab-d{font-size:13px;color:var(--muted);flex-basis:100%}
+
+/* início */
+.home{padding-block:22px 40px;display:flex;flex-direction:column;gap:20px}
+.home h1{font-size:28px;line-height:1.15;margin:0;text-wrap:balance}
+.home .lead{margin:4px 0 0;color:var(--muted)}
+.busca input{width:100%;height:52px;border-radius:12px;border:1px solid var(--line);background:var(--surface);padding:0 16px;font-size:17px}
+.busca input::placeholder{color:var(--muted)}
+.filtros{display:flex;gap:8px;flex-wrap:wrap}
+.grupo h2{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
+.lista{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.item{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px 16px;color:inherit;text-decoration:none;border-top:1px solid var(--line);min-height:64px}
+.item:first-child{border-top:0}
+.item:hover{background:var(--accent-soft)}
+.item b{display:block;font-size:17px}
+.item small{display:block;color:var(--muted);font-size:14px}
+.sigla{font:500 11px var(--mono);letter-spacing:.06em;padding:4px 6px;border-radius:4px;border:1px solid var(--line);color:var(--muted)}
+.sigla.imp{border-color:var(--accent);color:var(--accent)}
+.seta{color:var(--muted);font-size:22px}
+.vazio-busca{padding:16px;color:var(--muted)}
+
+/* cabeçalho do modelo */
+.topo{display:flex;gap:12px;align-items:flex-start;padding-block:16px 12px}
+.voltar{border:1px solid var(--line);background:var(--surface);border-radius:10px;height:44px;padding:0 14px;font-weight:700;white-space:nowrap}
+.topo h1{font-size:22px;line-height:1.2;margin:2px 0 0;text-wrap:balance}
+.topo small{color:var(--muted);font-size:14px}
+.tipo{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+
+/* controles */
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;min-height:40px;font-size:15px;text-align:left;line-height:1.25}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:700}
+.inp{display:flex;align-items:center;gap:8px}
+.inp input{flex:1;min-width:0;height:44px;border-radius:8px;border:1px solid var(--line);background:var(--surface);padding:0 12px;font-size:16px}
+.inp input.curto{flex:0 1 120px}
+.inp span{color:var(--muted)}
+.outro{margin-top:6px}
+.calc{font:500 16px var(--mono);color:var(--accent);padding-block:8px}
+
+/* versão A */
+.ed-a{display:grid;gap:20px;padding-bottom:16px}
+.form{display:flex;flex-direction:column;gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+.campo{display:flex;flex-direction:column;gap:6px;min-width:0}
+.rot{font-size:14px;font-weight:700}
+.rot em{font-style:normal;font-weight:400;color:var(--muted);font-size:12px;margin-left:8px}
+.ajuda{color:var(--muted);font-size:13px}
+.prev{min-width:0;display:flex;flex-direction:column;gap:8px}
+.prev-h{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+@media (min-width:900px){
+  .ed-a{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);align-items:start}
+  .prev{position:sticky;top:64px;max-height:calc(100vh - 150px);overflow:auto}
+}
+
+/* texto de evolução (prontuário) */
+.evo{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;font:14.5px/1.65 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere}
+.evo p{margin:0 0 6px}
+.val{color:var(--accent);font-weight:500}
+.falta{background:var(--blank);color:var(--blank-ink);border-bottom:2px dashed var(--blank-line);padding:0 3px;border-radius:3px;cursor:pointer}
+
+/* versão B */
+.ed-b{display:flex;flex-direction:column;gap:14px;padding-bottom:16px;max-width:760px}
+.dica{margin:0;color:var(--muted);font-size:14px}
+.ajustes{display:flex;flex-direction:column;gap:10px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+.ajustes .campo{flex-direction:row;flex-wrap:wrap;align-items:center;gap:6px 10px}
+.ajustes .rot{min-width:9em}
+.ajustes .chip{min-height:36px;padding:6px 12px;font-size:14px}
+.ajustes .inp input{height:40px}
+.evo-b{font-size:15px;line-height:1.9}
+.pill{display:inline;font:inherit;border:0;padding:1px 5px;border-radius:4px;background:var(--accent-soft);color:var(--ink);border-bottom:2px solid var(--accent);-webkit-box-decoration-break:clone;box-decoration-break:clone;text-align:left}
+.pill.falta{background:var(--blank);color:var(--blank-ink);border-bottom:2px dashed var(--blank-line);font-style:italic}
+.pill.calc-p{border-bottom-style:dotted;cursor:default}
+
+/* folha impressa */
+.papel{background:var(--paper);color:var(--paper-ink);border-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,.08),0 8px 28px rgba(20,40,50,.12);padding:clamp(18px,5vw,48px);font:14px/1.5 var(--serif);overflow-wrap:anywhere}
+.papel h1{font-size:19px;line-height:1.25;margin:0 0 6px;font-weight:600;text-wrap:balance}
+.papel h2{font-size:15px;margin:18px 0 6px;font-weight:600}
+.papel p{margin:0 0 6px}
+.papel .sub{color:#444}
+.papel ul,.papel ol{margin:0 0 8px;padding-left:1.3em}
+.papel table{width:100%;border-collapse:collapse;font-size:12.5px;margin:6px 0 10px}
+.papel th,.papel td{border:1px solid #c9cdd0;padding:4px 6px;text-align:left;vertical-align:top}
+.papel th{background:#f1f3f4}
+.papel .checks{display:flex;flex-wrap:wrap;gap:4px 20px}
+.papel .assin{margin-top:34px;border-top:1px solid #333;padding-top:3px;font-size:12.5px;max-width:420px}
+.papel .assin span{display:none}
+.papel .nota{margin-top:22px;font-size:12px;font-style:italic;color:#555}
+.papel .tabela{overflow-x:auto}
+.ln{display:inline-block;min-width:11em;border-bottom:1px solid var(--paper-line);height:1.1em;vertical-align:baseline}
+.pv{font-weight:600}
+.papel .inl{font:inherit;color:inherit;background:#fff6dc;border:0;border-bottom:1.5px dashed #c99a2e;padding:0 4px;border-radius:2px;max-width:100%;min-width:6ch}
+.papel .inl:not(:placeholder-shown){background:#e8f1f5;border-bottom:1.5px solid #1d5f78}
+.papel .inl[type="date"]{min-width:10ch}
+.chk{font:inherit;border:0;background:none;padding:0 2px;color:inherit;font-size:16px;line-height:1}
+.papel-b .chk{background:#fff6dc;border-radius:2px}
+
+/* barra de ação */
+.barra{position:sticky;bottom:0;z-index:4;background:var(--bg);border-top:1px solid var(--line);display:flex;flex-wrap:wrap;align-items:center;gap:8px 10px;padding-top:10px;padding-bottom:max(10px, env(safe-area-inset-bottom, 0px));margin-top:8px}
+.status{flex:1 1 100%;font-size:14px;color:var(--muted)}
+.barra .btn.prim{flex:1 1 auto}
+@media (min-width:700px){.status{flex-basis:200px}.barra .btn.prim{flex:0 0 auto}}
+.status.pend{color:var(--blank-ink)}
+.status.pend b{background:var(--blank);padding:1px 6px;border-radius:4px}
+.status.pronto{color:var(--ok);font-weight:700}
+.btn{height:48px;border-radius:10px;border:1px solid var(--line);background:var(--surface);padding:0 16px;font-weight:700;font-size:15px}
+.btn.prim{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);padding:0 22px}
+.aviso{font-size:13px;color:var(--muted);flex-basis:100%}
+
+/* folha de preenchimento (B) */
+.veu{position:fixed;inset:0;background:rgba(5,15,20,.35);z-index:20}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:21;margin:0 auto;max-width:600px;background:var(--surface);border:1px solid var(--line);border-radius:16px 16px 0 0;
+  padding:16px max(16px, env(safe-area-inset-right,0px)) max(16px, env(safe-area-inset-bottom,0px)) max(16px, env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:12px;box-shadow:0 -10px 40px rgba(0,0,0,.18);max-height:80vh;overflow:auto}
+.sh-h{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.sh-h b{font-size:18px}
+.sh-x{border:0;background:none;color:var(--muted);font-weight:700;height:40px}
+.sh-b{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
+.sheet .chip{min-height:46px;font-size:16px}
+
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(88px + env(safe-area-inset-bottom,0px));z-index:30;background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:10px;font-weight:700;font-size:15px;max-width:calc(100% - 32px);text-align:center}
+
+@media (prefers-reduced-motion:no-preference){.sheet{animation:sobe .18s ease-out}.toast{animation:sobe .18s ease-out}}
+@keyframes sobe{from{transform:translate(var(--tx,0),12px);opacity:.4}}
+.toast{--tx:-50%}
+
+@media print{
+  @page{size:A4;margin:16mm}
+  body{background:#fff;padding:0}
+  body::before,.ab,.topo,.barra,.form,.prev-h,.dica,.ajustes,.toast,.sheet,.veu{display:none!important}
+  .ed-a,.ed-b{display:block;padding:0;max-width:none}
+  .papel{box-shadow:none;padding:0;border-radius:0;font-size:12pt}
+  .papel .inl{background:none!important;border:0;border-bottom:1px solid #777;padding:0}
+  .papel .inl:not(:placeholder-shown){border-bottom:0}
+  .papel .inl::placeholder{color:transparent}
+  .papel-b .chk{background:none}
+}
+</style>
+
+<div class="wrap">
+  <div class="ab" role="group" aria-label="Teste A/B">
+    <span class="ab-l">Teste A/B</span>
+    <div class="seg">
+      <button type="button" id="ab-A" data-v="A">A · Formulário</button>
+      <button type="button" id="ab-B" data-v="B">B · Texto vivo</button>
+    </div>
+    <span class="ab-d" id="ab-d"></span>
+  </div>
+  <main id="app"></main>
+</div>
+<div class="veu" id="veu" hidden></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sh-t" hidden>
+  <div class="sh-h"><b id="sh-t"></b><button type="button" class="sh-x" id="sh-x">Fechar</button></div>
+  <div id="sh-c"></div>
+  <small class="ajuda" id="sh-a"></small>
+  <div class="sh-b"><button type="button" class="btn" id="sh-ok">Pronto</button><button type="button" class="btn prim" id="sh-prox">Próximo em branco →</button></div>
+</div>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script src="modelos.js"></script>
+<script>
+(function(){
+const MODELOS = window.MODELOS || [];
+const app = document.getElementById('app');
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
+const store = {
+  get(k, d){ try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch(e){ return d; } },
+  set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
+};
+const norm = s => String(s).normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
+const iso = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const br = s => { if (!s) return ''; const [y,m,d] = s.split('-'); return `${d}/${m}/${y}`; };
+let podeImprimir = false; try { podeImprimir = window.self === window.top; } catch(e){}
+
+let variante = store.get('mod.variante', 'A');
+let filtro = 'tudo', busca = '';
+const estado = {};          // valores por modelo, só nesta sessão
+let atualizar = () => {};   // redesenho da tela aberta
+
+/* ---------- dados ---------- */
+function iniciais(m){
+  const lemb = store.get('mod.lembrar.' + m.id, {});
+  const v = {};
+  m.campos.forEach(c => {
+    if (c.tipo === 'calc') return;
+    if (c.lembrar && lemb[c.id] != null && lemb[c.id] !== '') v[c.id] = lemb[c.id];
+    else if (c.padrao === 'hoje') v[c.id] = iso(new Date());
+    else v[c.id] = c.padrao != null ? c.padrao : '';
+  });
+  return v;
+}
+function salvarLembrados(m, v){
+  const o = {}; m.campos.forEach(c => { if (c.lembrar && !c.paciente) o[c.id] = v[c.id]; });
+  store.set('mod.lembrar.' + m.id, o);
+}
+function cond(expr, v){
+  if (!expr) return true;
+  const k = expr.match(/^(\w+)(!?=)(.*)$/);
+  if (!k) return !!v[expr];
+  const val = v[k[1]] || '';
+  return k[2] === '=' ? val === k[3] : val !== k[3];
+}
+const vazioDe = c => c.vazio || c.rotulo.toLowerCase();
+const campo = (m, id) => m.campos.find(c => c.id === id);
+function mostra(m, c, v){
+  if (c.tipo === 'calc'){
+    const base = v[c.de]; if (!base) return '';
+    const d = new Date(base + 'T12:00:00');
+    if (c.anos) d.setFullYear(d.getFullYear() + c.anos);
+    if (c.dias){ const n = parseInt(v[c.dias], 10); if (!n) return ''; d.setDate(d.getDate() + n); }
+    return br(iso(d));
+  }
+  const x = String(v[c.id] ?? '').trim();
+  if (!x) return '';
+  return c.tipo === 'data' ? br(x) : x;
+}
+function linhas(m, v){
+  return m.linhas.map(l => typeof l === 'string' ? {t:l} : l).filter(l => cond(l.se, v)).map(l => {
+    const out = []; const re = /\{(\w+)\}/g; let i = 0, k;
+    while ((k = re.exec(l.t))){ if (k.index > i) out.push({s:l.t.slice(i, k.index)}); out.push({id:k[1]}); i = re.lastIndex; }
+    if (i < l.t.length) out.push({s:l.t.slice(i)});
+    return out;
+  });
+}
+const textoPlano = (m, v) => linhas(m, v).map(l => l.map(p => p.s != null ? p.s : (mostra(m, campo(m, p.id), v) || '___')).join('')).join('\n');
+function pendentes(m, v){
+  if (m.tipo !== 'evolucao') return [];
+  const ids = [];
+  linhas(m, v).forEach(l => l.forEach(p => {
+    if (p.id && !ids.includes(p.id)){ const c = campo(m, p.id); if (c && c.tipo !== 'calc' && !mostra(m, c, v)) ids.push(p.id); }
+  }));
+  return ids;
+}
+// campos que mudam a estrutura do texto (ou não aparecem nele) — na versão B ficam no topo
+function chaves(m){
+  const usados = new Set(); const conds = new Set();
+  const marca = s => { const k = String(s||'').match(/^(\w+)/); if (k) conds.add(k[1]); };
+  m.linhas.forEach(l => { const t = typeof l === 'string' ? l : l.t; (t.match(/\{(\w+)\}/g)||[]).forEach(x => usados.add(x.slice(1,-1))); if (l.se) marca(l.se); });
+  m.campos.forEach(c => { if (c.se) marca(c.se); if (c.tipo === 'calc'){ usados.add(c.de); } });
+  return m.campos.filter(c => c.tipo !== 'calc' && (conds.has(c.id) || !usados.has(c.id) || m.campos.some(o => o.tipo === 'calc' && (o.de === c.id))));
+}
+
+/* ---------- controles ---------- */
+function controle(m, c, v, aoMudar){
+  const w = el('div', 'ctl');
+  const fid = 'f-' + m.id + '-' + c.id;
+  if (c.tipo === 'opcoes'){
+    const row = el('div', 'chips');
+    const outroInp = document.createElement('input');
+    const botoes = c.opcoes.map(o => {
+      const b = el('button', 'chip', o + (c.sufixo ? ' ' + c.sufixo : '')); b.type = 'button';
+      b.onclick = () => { aoMudar(o, 'escolha'); sync(); };
+      row.append(b); return [o, b];
+    });
+    let bOutro = null, boxOutro = null;
+    if (c.livre){
+      bOutro = el('button', 'chip', 'Outro…'); bOutro.type = 'button'; row.append(bOutro);
+      boxOutro = el('div', 'inp outro'); outroInp.id = fid + '-outro'; outroInp.placeholder = 'Escreva aqui';
+      outroInp.setAttribute('aria-label', c.rotulo + ': outro');
+      boxOutro.append(outroInp);
+      bOutro.onclick = () => { boxOutro.hidden = false; outroInp.focus(); if (c.opcoes.includes(v[c.id])) { aoMudar(outroInp.value, 'texto'); } sync(); };
+      outroInp.oninput = () => aoMudar(outroInp.value, 'texto');
+    }
+    function sync(){
+      const cur = v[c.id] || '';
+      botoes.forEach(([o, b]) => b.setAttribute('aria-pressed', cur === o));
+      if (bOutro){
+        const fora = !c.opcoes.includes(cur) && (cur !== '' || !boxOutro.hidden);
+        bOutro.setAttribute('aria-pressed', fora);
+        boxOutro.hidden = !fora;
+        if (fora && document.activeElement !== outroInp) outroInp.value = cur;
+      }
+    }
+    if (boxOutro) boxOutro.hidden = true;
+    w.append(row); if (boxOutro) w.append(boxOutro);
+    sync(); w._sync = sync;
+  } else if (c.tipo === 'calc'){
+    const d = el('div', 'calc'); w.append(d);
+    w._sync = () => { d.textContent = mostra(m, c, v) || '—'; }; w._sync();
+  } else {
+    const box = el('div', 'inp');
+    const inp = document.createElement('input'); inp.id = fid;
+    inp.type = c.tipo === 'data' ? 'date' : 'text';
+    if (c.tipo === 'numero'){ inp.inputMode = 'decimal'; inp.className = 'curto'; }
+    if (c.placeholder) inp.placeholder = c.placeholder;
+    inp.autocomplete = 'off';
+    inp.value = v[c.id] || '';
+    inp.addEventListener(c.tipo === 'data' ? 'change' : 'input', () => aoMudar(inp.value, 'texto'));
+    box.append(inp); if (c.sufixo) box.append(el('span', null, c.sufixo));
+    w.append(box); w._input = inp;
+    w._sync = () => { if (document.activeElement !== inp) inp.value = v[c.id] || ''; };
+  }
+  return w;
+}
+function rotulo(m, c, comEtiqueta){
+  const lab = el('label', 'rot');
+  if (c.tipo !== 'opcoes' && c.tipo !== 'calc') lab.htmlFor = 'f-' + m.id + '-' + c.id;
+  lab.textContent = c.rotulo;
+  if (comEtiqueta && (c.paciente || c.lembrar)) lab.append(el('em', null, c.paciente ? 'não é salvo' : 'fica salvo neste aparelho'));
+  return lab;
+}
+
+/* ---------- tela inicial ---------- */
+function renderInicio(){
+  atualizar = () => {};
+  app.innerHTML = '';
+  const h = el('div', 'home');
+  h.innerHTML = `<div><h1>Evoluções e Termos</h1><p class="lead">Escolha o modelo, preencha o que muda e copie para o prontuário ou imprima.</p></div>`;
+  const b = el('div', 'busca');
+  const q = document.createElement('input'); q.type = 'search'; q.id = 'q'; q.value = busca;
+  q.placeholder = 'Buscar: diu, implante, nevo, termo…'; q.setAttribute('aria-label', 'Buscar modelo');
+  b.append(q); h.append(b);
+  const f = el('div', 'filtros');
+  [['tudo','Tudo'],['evolucao','Evoluções'],['impresso','Impressos']].forEach(([k, t]) => {
+    const c = el('button', 'chip', t); c.type = 'button'; c.setAttribute('aria-pressed', filtro === k);
+    c.onclick = () => { filtro = k; renderInicio(); }; f.append(c);
+  });
+  h.append(f);
+  const res = el('div'); res.style.display = 'flex'; res.style.flexDirection = 'column'; res.style.gap = '20px';
+  h.append(res); app.append(h);
+  const desenhar = () => {
+    res.innerHTML = '';
+    const termo = norm(busca.trim());
+    const bate = m => !termo || norm([m.titulo, m.resumo, ...(m.sinonimos||[])].join(' ')).includes(termo);
+    const vis = MODELOS.filter(m => (filtro === 'tudo' || m.tipo === filtro) && bate(m));
+    if (!vis.length){ res.append(el('div', 'lista')).append(el('div', 'vazio-busca', `Nenhum modelo para “${busca}”. Me mande o texto que eu incluo.`)); return; }
+    const rec = store.get('mod.recentes', []).map(id => vis.find(m => m.id === id)).filter(Boolean);
+    if (rec.length && !termo) res.append(grupo('Usados por último', rec));
+    const ev = vis.filter(m => m.tipo === 'evolucao'), im = vis.filter(m => m.tipo === 'impresso');
+    if (ev.length) res.append(grupo('Evoluções · copiar e colar', ev));
+    if (im.length) res.append(grupo('Impressos · termos e orientações', im));
+  };
+  q.oninput = () => { busca = q.value; desenhar(); };
+  desenhar();
+}
+function grupo(titulo, lista){
+  const g = el('section', 'grupo'); g.append(el('h2', null, titulo));
+  const l = el('div', 'lista');
+  lista.forEach(m => {
+    const a = el('a', 'item'); a.href = '#m-' + m.id;
+    a.innerHTML = `<span class="sigla ${m.tipo === 'impresso' ? 'imp' : ''}">${m.tipo === 'impresso' ? 'IMP' : 'EVO'}</span><span><b>${esc(m.titulo)}</b><small>${esc(m.resumo || '')}</small></span><span class="seta" aria-hidden="true">›</span>`;
+    l.append(a);
+  });
+  g.append(l); return g;
+}
+
+/* ---------- tela do modelo ---------- */
+function topo(m){
+  const t = el('header', 'topo');
+  const b = el('button', 'voltar', '‹ Modelos'); b.type = 'button';
+  b.onclick = () => { location.hash = 'inicio'; };
+  const d = el('div');
+  d.innerHTML = `<span class="tipo">${m.tipo === 'impresso' ? 'Impresso' : 'Evolução'}</span><h1>${esc(m.titulo)}</h1><small>${esc(m.resumo || '')}</small>`;
+  t.append(b, d); return t;
+}
+function barra(m, v, comProximo){
+  const b = el('div', 'barra');
+  const st = el('span', 'status'); st.id = 'status'; st.setAttribute('aria-live', 'polite');
+  b.append(st);
+  const limpar = el('button', 'btn', m.tipo === 'impresso' ? 'Novo paciente' : 'Limpar'); limpar.type = 'button';
+  limpar.onclick = () => { estado[m.id] = iniciais(m); abrir(m.id); toast(m.tipo === 'impresso' ? 'Dados do paciente apagados' : 'Campos voltaram ao padrão'); };
+  b.append(limpar);
+  if (m.tipo === 'evolucao'){
+    if (comProximo){
+      const p = el('button', 'btn', 'Próximo em branco'); p.type = 'button'; p.id = 'b-prox';
+      p.onclick = () => { const pend = pendentes(m, v); if (pend.length) abrirSheet(m, v, campo(m, pend[0])); };
+      b.append(p);
+    }
+    const c = el('button', 'btn prim', 'Copiar evolução'); c.type = 'button';
+    c.onclick = () => {
+      const n = pendentes(m, v).length;
+      copiar(textoPlano(m, v)).then(ok => {
+        salvarLembrados(m, v);
+        toast(ok ? (n ? `Copiado com ${n} em branco (___). Cole no prontuário.` : 'Copiado. Cole no prontuário.') : 'Não consegui copiar. Selecione o texto da prévia e copie.');
+      });
+    };
+    b.append(c);
+  } else {
+    if (podeImprimir){
+      const p = el('button', 'btn prim', 'Imprimir'); p.type = 'button';
+      p.onclick = () => { salvarLembrados(m, v); window.print(); };
+      b.append(p);
+    } else {
+      b.append(el('span', 'aviso', 'Aqui dentro do Claude a impressão fica bloqueada. Abrindo o arquivo no navegador, o botão Imprimir aparece e sai em A4.'));
+    }
+  }
+  return b;
+}
+function status(m, v){
+  const st = document.getElementById('status'); if (!st) return;
+  if (m.tipo === 'impresso'){ st.className = 'status'; st.textContent = 'O que ficar em branco sai com linha para preencher à mão.'; return; }
+  const n = pendentes(m, v).length;
+  st.className = 'status ' + (n ? 'pend' : 'pronto');
+  st.innerHTML = n ? `<b>${n}</b> ${n === 1 ? 'campo em branco' : 'campos em branco'}` : 'Tudo preenchido';
+  const p = document.getElementById('b-prox'); if (p) p.hidden = !n;
+}
+
+function htmlEvo(m, v, modo){
+  return linhas(m, v).map(l => '<p>' + l.map(p => {
+    if (p.s != null) return esc(p.s);
+    const c = campo(m, p.id); if (!c) return '';
+    const x = mostra(m, c, v);
+    if (modo === 'B'){
+      if (c.tipo === 'calc') return `<span class="pill calc-p" title="calculado">${esc(x || c.rotulo)}</span>`;
+      return `<button type="button" class="pill ${x ? '' : 'falta'}" data-id="${c.id}" aria-label="${esc(c.rotulo)}: ${esc(x || 'em branco')}">${esc(x || vazioDe(c))}</button>`;
+    }
+    return x ? `<span class="val">${esc(x)}</span>` : `<span class="falta" data-id="${c.id}" title="Preencher ${esc(c.rotulo)}">${esc(vazioDe(c))}</span>`;
+  }).join('') + '</p>').join('');
+}
+function htmlPapel(m, v, modo){
+  let h = m.corpo.replace(/\{(\w+)=([^}]+)\}/g, (_, id, val) => {
+    const on = (v[id] || '') === val;
+    if (modo === 'B') return `<button type="button" class="chk" data-id="${id}" data-val="${esc(val)}" aria-pressed="${on}">${on ? '☒' : '☐'}</button>`;
+    return on ? '☒' : '☐';
+  });
+  h = h.replace(/\{(\w+)\}/g, (_, id) => {
+    const c = campo(m, id); if (!c) return '';
+    if (modo === 'B'){
+      const t = c.tipo === 'data' ? 'date' : 'text';
+      return `<input class="inl" type="${t}" data-id="${id}" value="${esc(v[id] || '')}" placeholder="${esc(c.rotulo.toLowerCase())}" aria-label="${esc(c.rotulo)}" autocomplete="off">`;
+    }
+    const x = mostra(m, c, v);
+    return x ? `<span class="pv">${esc(x)}</span>` : '<span class="ln"></span>';
+  });
+  return h.replace(/<table>/g, '<div class="tabela"><table>').replace(/<\/table>/g, '</table></div>');
+}
+
+/* ---- versão A: formulário + prévia ---- */
+function renderA(m, v){
+  app.innerHTML = ''; app.append(topo(m));
+  const ed = el('div', 'ed-a');
+  const form = el('section', 'form'); form.setAttribute('aria-label', 'Campos');
+  const ctrls = [];
+  m.campos.forEach(c => {
+    const f = el('div', 'campo'); f.dataset.id = c.id;
+    const ctl = controle(m, c, v, val => { v[c.id] = val; mudou(m, v); });
+    f.append(rotulo(m, c, true), ctl);
+    if (c.ajuda) f.append(el('small', 'ajuda', c.ajuda));
+    form.append(f); ctrls.push([c, f, ctl]);
+  });
+  const prev = el('section', 'prev');
+  prev.append(el('div', 'prev-h', m.tipo === 'evolucao' ? 'Prévia · o que vai para o prontuário' : 'Prévia da folha'));
+  const alvo = el('div', m.tipo === 'evolucao' ? 'evo' : 'papel');
+  prev.append(alvo);
+  ed.append(form, prev); app.append(ed); app.append(barra(m, v, false));
+  alvo.onclick = e => {
+    const s = e.target.closest('[data-id]'); if (!s) return;
+    const f = form.querySelector(`.campo[data-id="${s.dataset.id}"]`); if (!f) return;
+    f.scrollIntoView({block:'center', behavior:'smooth'});
+    const i = f.querySelector('input:not([hidden]), button.chip'); if (i) i.focus({preventScroll:true});
+  };
+  atualizar = () => {
+    ctrls.forEach(([c, f, ctl]) => { f.hidden = !cond(c.se, v); ctl._sync && ctl._sync(); });
+    alvo.innerHTML = m.tipo === 'evolucao' ? htmlEvo(m, v, 'A') : htmlPapel(m, v, 'A');
+    status(m, v);
+  };
+  atualizar();
+}
+
+/* ---- versão B: texto vivo ---- */
+function renderB(m, v){
+  app.innerHTML = ''; app.append(topo(m));
+  const ed = el('div', 'ed-b');
+  const ctrls = [];
+  if (m.tipo === 'evolucao'){
+    ed.append(el('p', 'dica', 'Toque nos trechos destacados para preencher. Em âmbar está o que falta.'));
+    const ks = chaves(m);
+    if (ks.length){
+      const aj = el('div', 'ajustes'); aj.setAttribute('aria-label', 'Ajustes do procedimento');
+      ks.forEach(c => {
+        const f = el('div', 'campo');
+        const ctl = controle(m, c, v, val => { v[c.id] = val; mudou(m, v); });
+        f.append(rotulo(m, c, false), ctl); aj.append(f); ctrls.push([c, f, ctl]);
+      });
+      ed.append(aj);
+    }
+    const folha = el('article', 'evo evo-b'); ed.append(folha);
+    folha.onclick = e => { const b = e.target.closest('button.pill'); if (b) abrirSheet(m, v, campo(m, b.dataset.id)); };
+    app.append(ed); app.append(barra(m, v, true));
+    atualizar = () => {
+      ctrls.forEach(([c, f, ctl]) => { f.hidden = !cond(c.se, v); ctl._sync && ctl._sync(); });
+      folha.innerHTML = htmlEvo(m, v, 'B');
+      status(m, v);
+    };
+  } else {
+    ed.append(el('p', 'dica', 'Escreva direto na folha. O que ficar em branco sai com linha para preencher à mão.'));
+    const folha = el('article', 'papel papel-b'); ed.append(folha);
+    folha.innerHTML = htmlPapel(m, v, 'B');
+    const ajusta = i => { i.style.width = Math.max(i.value.length, i.placeholder.length, 6) + 3 + 'ch'; };
+    folha.querySelectorAll('input.inl').forEach(i => {
+      if (i.type !== 'date') ajusta(i);
+      i.addEventListener(i.type === 'date' ? 'change' : 'input', () => {
+        v[i.dataset.id] = i.value; if (i.type !== 'date') ajusta(i);
+        folha.querySelectorAll(`input.inl[data-id="${i.dataset.id}"]`).forEach(o => { if (o !== i){ o.value = i.value; if (o.type !== 'date') ajusta(o); } });
+        salvarLembrados(m, v);
+      });
+    });
+    folha.onclick = e => {
+      const b = e.target.closest('button.chk'); if (!b) return;
+      v[b.dataset.id] = b.dataset.val; salvarLembrados(m, v);
+      folha.querySelectorAll(`button.chk[data-id="${b.dataset.id}"]`).forEach(o => { const on = o.dataset.val === v[b.dataset.id]; o.textContent = on ? '☒' : '☐'; o.setAttribute('aria-pressed', on); });
+    };
+    app.append(ed); app.append(barra(m, v, false));
+    atualizar = () => status(m, v);
+  }
+  atualizar();
+}
+
+function mudou(m, v){ salvarLembrados(m, v); atualizar(); }
+
+/* ---- folha de preenchimento (B) ---- */
+const sheet = document.getElementById('sheet'), veu = document.getElementById('veu');
+let sheetCtx = null;
+function abrirSheet(m, v, c){
+  if (!c) return;
+  sheetCtx = {m, v, c};
+  document.getElementById('sh-t').textContent = c.rotulo + (c.sufixo && c.tipo !== 'opcoes' ? ` (${c.sufixo})` : '');
+  document.getElementById('sh-a').textContent = c.ajuda || (c.lembrar ? 'Fica salvo neste aparelho para a próxima vez.' : '');
+  const box = document.getElementById('sh-c'); box.innerHTML = '';
+  const ctl = controle(m, c, v, (val, como) => {
+    v[c.id] = val; mudou(m, v); atualizaProx();
+    if (como === 'escolha') setTimeout(proximo, 120);
+  });
+  box.append(ctl);
+  if (ctl._input) ctl._input.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); proximo(); } });
+  veu.hidden = false; sheet.hidden = false;
+  atualizaProx();
+  const foco = ctl._input || box.querySelector('.chip[aria-pressed="true"]') || box.querySelector('.chip');
+  if (foco) foco.focus();
+}
+function atualizaProx(){
+  if (!sheetCtx) return;
+  const {m, v, c} = sheetCtx;
+  document.getElementById('sh-prox').hidden = !pendentes(m, v).some(id => id !== c.id);
+}
+function proximo(){
+  if (!sheetCtx) return;
+  const {m, v, c} = sheetCtx;
+  const pend = pendentes(m, v).filter(id => id !== c.id);
+  if (pend.length) abrirSheet(m, v, campo(m, pend[0]));
+  else { fecharSheet(); if (m.tipo === 'evolucao') toast('Tudo preenchido. É só copiar.'); }
+}
+function fecharSheet(){ sheet.hidden = true; veu.hidden = true; sheetCtx = null; }
+document.getElementById('sh-x').onclick = fecharSheet;
+document.getElementById('sh-ok').onclick = fecharSheet;
+document.getElementById('sh-prox').onclick = proximo;
+veu.onclick = fecharSheet;
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !sheet.hidden) fecharSheet(); });
+
+/* ---------- utilidades ---------- */
+function copiar(txt){
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(txt).then(() => true, () => copiaAntiga(txt));
+  } catch(e){}
+  return Promise.resolve(copiaAntiga(txt));
+}
+function copiaAntiga(txt){
+  const ta = document.createElement('textarea'); ta.value = txt; ta.setAttribute('readonly', '');
+  ta.style.position = 'fixed'; ta.style.top = '0'; ta.style.opacity = '0'; document.body.append(ta); ta.select();
+  let ok = false; try { ok = document.execCommand('copy'); } catch(e){}
+  ta.remove(); return ok;
+}
+let tt;
+function toast(msg){ const t = document.getElementById('toast'); t.textContent = msg; t.hidden = false; clearTimeout(tt); tt = setTimeout(() => { t.hidden = true; }, 2600); }
+
+/* ---------- navegação e A/B ---------- */
+const DESC = {
+  A: 'A: os campos ficam em cima e o texto pronto aparece embaixo.',
+  B: 'B: você toca nos espaços em branco e preenche direto no texto.'
+};
+function marcaAB(){
+  ['A','B'].forEach(k => document.getElementById('ab-' + k).setAttribute('aria-pressed', variante === k));
+  document.getElementById('ab-d').textContent = DESC[variante];
+}
+document.querySelectorAll('.seg button').forEach(b => b.onclick = () => {
+  variante = b.dataset.v; store.set('mod.variante', variante); marcaAB(); rota();
+});
+function abrir(id){
+  const m = MODELOS.find(x => x.id === id); if (!m){ renderInicio(); return; }
+  if (!estado[id]) estado[id] = iniciais(m);
+  const rec = store.get('mod.recentes', []).filter(x => x !== id); rec.unshift(id); store.set('mod.recentes', rec.slice(0, 3));
+  fecharSheet();
+  (variante === 'B' ? renderB : renderA)(m, estado[id]);
+  window.scrollTo(0, 0);
+}
+function rota(){
+  const h = location.hash.replace('#', '');
+  if (h.startsWith('m-')) abrir(h.slice(2)); else { fecharSheet(); renderInicio(); }
+}
+window.addEventListener('hashchange', rota);
+marcaAB(); rota();
+})();
+</script>
