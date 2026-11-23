@@ -29,7 +29,7 @@
  *   copia: "X"     → o que vai no texto copiado quando o campo opcional está vazio (padrão: nada).
  *   livre: true    → em "opcoes", permite escrever outra resposta.
  *   vazio: "..."   → como o campo aparece quando está em branco (padrão: o rótulo).
- *   formato: "extenso" → data por extenso (4 de novembro de 2026).
+ *   data: sempre dd/mm/aaaa; digitando só os números, as barras entram sozinhas.
  *   calc: { idade: "campo_nascimento" }
  *       | { de: "campo_data", anos: 3 }
  *       | { de: "campo_data", anosPor: { campo: "tipo_diu", Mirena: 8, Kyleena: 5 } }
@@ -82,13 +82,13 @@ const EXPLIQUEI = (quem) => `
 <p class="local">{cidade}, {data}</p>`;
 const CAMPOS_TERMO = [
   { id: "nome", rotulo: "Nome", tipo: "texto", paciente: true },
-  { id: "nasc", rotulo: "Data de nascimento", tipo: "texto", placeholder: "dd/mm/aaaa", vazio: "dd/mm/aaaa", paciente: true },
+  { id: "nasc", rotulo: "Data de nascimento", tipo: "data", vazio: "dd/mm/aaaa", paciente: true },
   { id: "idade", rotulo: "Idade", tipo: "calc", idade: "nasc" },
   { id: "cpf", rotulo: "CPF", tipo: "texto", paciente: true },
   { id: "medico", rotulo: "Médico(a)", tipo: "texto", lembrar: true, perfil: true },
   { id: "crm", rotulo: "CRM", tipo: "texto", lembrar: true, perfil: true },
   { id: "cidade", rotulo: "Cidade", tipo: "texto", padrao: "Santa Maria – RS", lembrar: true, perfil: true },
-  { id: "data", rotulo: "Data", tipo: "data", padrao: "hoje", formato: "extenso" }
+  { id: "data", rotulo: "Data", tipo: "data", padrao: "hoje" }
 ];
 const EU_CONSINTO = (proc) => `<p>Eu {nome} data de nascimento {nasc} CPF {cpf} com {idade} anos de idade, consinto que o médico(a) {medico} CRM {crm} realize em mim o procedimento de ${proc}.</p>`;
 
@@ -111,7 +111,7 @@ window.MODELOS = [
   campos: [
     ...CAB_CAMPOS,
     { id: "bhcg", rotulo: "β-HCG de laboratório", tipo: "opcoes", opcoes: SIM_NAO, padrao: "sim" },
-    { id: "bhcg_data", rotulo: "Data do β-HCG", vazio: "XX/XX/XXXX", tipo: "texto", placeholder: "dd/mm/aaaa" },
+    { id: "bhcg_data", rotulo: "Data do β-HCG", vazio: "XX/XX/XXXX", tipo: "data" },
     { id: "trg", rotulo: "Teste rápido hoje", tipo: "opcoes", opcoes: SIM_NAO, padrao: "sim" },
     { id: "colo", rotulo: "Colo uterino", tipo: "opcoes", livre: true, opcoes: ["dentro da normalidade"], padrao: "dentro da normalidade" },
     { id: "antisseptico", rotulo: "Antisséptico", tipo: "opcoes", livre: true, lembrar: true, opcoes: ["Clorexidina 2% solução aquosa", "PVPI solução aquosa"], padrao: "Clorexidina 2% solução aquosa" },
@@ -186,7 +186,7 @@ window.MODELOS = [
   campos: [
     ...CAB_CAMPOS,
     { id: "bhcg", rotulo: "β-HCG de laboratório", tipo: "opcoes", opcoes: SIM_NAO, padrao: "sim" },
-    { id: "bhcg_data", rotulo: "Data do β-HCG", vazio: "XX/XX/XXXX", tipo: "texto", placeholder: "dd/mm/aaaa" },
+    { id: "bhcg_data", rotulo: "Data do β-HCG", vazio: "XX/XX/XXXX", tipo: "data" },
     { id: "trg", rotulo: "Teste rápido hoje", tipo: "opcoes", opcoes: SIM_NAO, padrao: "sim" },
     ANTISS_PELE,
     { id: "braco", rotulo: "Braço", tipo: "opcoes", opcoes: ["MSE", "MSD"], padrao: "MSE" },
@@ -286,7 +286,7 @@ ${EXPLIQUEI("colocou o DIU")}
   sinonimos: ["tcle", "termo", "consentimento", "diu", "curto"],
   campos: [
     { id: "nome", rotulo: "Nome", tipo: "texto", paciente: true },
-    { id: "nasc", rotulo: "Data de nascimento", tipo: "texto", placeholder: "dd/mm/aaaa", paciente: true },
+    { id: "nasc", rotulo: "Data de nascimento", tipo: "data", paciente: true },
     { id: "idade", rotulo: "Idade", tipo: "calc", idade: "nasc" },
     { id: "nacionalidade", rotulo: "Nacionalidade", tipo: "texto", paciente: true },
     { id: "estado_civil", rotulo: "Estado civil", tipo: "texto", paciente: true },
@@ -297,7 +297,7 @@ ${EXPLIQUEI("colocou o DIU")}
     { id: "rg", rotulo: "RG", tipo: "texto", paciente: true },
     { id: "cpf", rotulo: "CPF", tipo: "texto", paciente: true },
     { id: "cidade", rotulo: "Cidade", tipo: "texto", padrao: "Santa Maria – RS", lembrar: true, perfil: true },
-    { id: "data", rotulo: "Data", tipo: "data", padrao: "hoje", formato: "extenso" }
+    { id: "data", rotulo: "Data", tipo: "data", padrao: "hoje" }
   ],
   corpo: `
 <h1>Termo de consentimento informado para colocação de dispositivo intrauterino (DIU)</h1>
@@ -331,7 +331,7 @@ ${EXPLIQUEI("colocou o DIU")}
   sinonimos: ["tcle", "termo", "consentimento", "diu", "bloqueio", "paracervical", "anestesia", "interno"],
   campos: [
     { id: "nome", rotulo: "Nome da paciente", tipo: "texto", paciente: true },
-    { id: "nasc", rotulo: "Data de nascimento", tipo: "texto", placeholder: "dd/mm/aaaa", paciente: true },
+    { id: "nasc", rotulo: "Data de nascimento", tipo: "data", paciente: true },
     { id: "cns", rotulo: "CNS / prontuário", tipo: "texto", paciente: true },
     { id: "tipo_diu", rotulo: "Tipo de DIU", tipo: "opcoes", opcoes: ["cobre", "hormonal"], padrao: "cobre" },
     { id: "unidade", rotulo: "Unidade", tipo: "texto", lembrar: true, perfil: true },
@@ -782,7 +782,7 @@ ${EXPLIQUEI("inseriu o implante")}
   sinonimos: ["tcle", "termo", "consentimento", "cirurgia", "ambulatorial", "procedimento", "exérese", "cantoplastia", "biópsia"],
   campos: [
     { id: "nome", rotulo: "Nome", tipo: "texto", paciente: true },
-    { id: "nasc", rotulo: "Data de nascimento", tipo: "texto", placeholder: "dd/mm/aaaa", paciente: true },
+    { id: "nasc", rotulo: "Data de nascimento", tipo: "data", paciente: true },
     { id: "idade", rotulo: "Idade", tipo: "calc", idade: "nasc" },
     { id: "endereco", rotulo: "Endereço", tipo: "texto", paciente: true },
     { id: "telefone", rotulo: "Telefone", tipo: "texto", paciente: true },
@@ -790,7 +790,7 @@ ${EXPLIQUEI("inseriu o implante")}
     { id: "procedimento", rotulo: "Procedimento", tipo: "texto", placeholder: "ex.: exérese de lesão de pele em dorso" },
     { id: "quem", rotulo: "Quem assina", tipo: "opcoes", opcoes: ["paciente", "responsavel"], padrao: "paciente" },
     { id: "cidade", rotulo: "Cidade", tipo: "texto", padrao: "Santa Maria - RS", lembrar: true, perfil: true },
-    { id: "data", rotulo: "Data", tipo: "data", padrao: "hoje", formato: "extenso" }
+    { id: "data", rotulo: "Data", tipo: "data", padrao: "hoje" }
   ],
   corpo: `
 <h1>Termo de consentimento livre e esclarecido (TCLE)<br>Cirurgia ambulatorial</h1>
@@ -942,7 +942,7 @@ ${EXPLIQUEI("inseriu o implante")}
     { id: "cid2", rotulo: "CID 2", tipo: "texto", opcional: true, pos: { x: 57.3, y: 52.5, w: 28.5 } },
     { id: "exame3", rotulo: "Exame 3", tipo: "texto", opcional: true, pos: { x: 13.9, y: 55.6, w: 39.5 } },
     { id: "cid3", rotulo: "CID 3", tipo: "texto", opcional: true, pos: { x: 57.3, y: 55.6, w: 28.5 } },
-    { id: "data", rotulo: "Data", tipo: "texto", padrao: "hoje", pos: { x: 66.2, y: 68.4, w: 13.5 } }
+    { id: "data", rotulo: "Data", tipo: "data", padrao: "hoje", pos: { x: 66.2, y: 68.4, w: 13.5 } }
   ]
 },
 
@@ -980,7 +980,7 @@ ${EXPLIQUEI("inseriu o implante")}
   sinonimos: ["tcle", "termo", "consentimento", "infiltração", "infiltracao", "articulação", "joelho", "ombro", "corticoide", "dexametasona"],
   campos: [
     { id: "nome", rotulo: "Nome", tipo: "texto", paciente: true },
-    { id: "nasc", rotulo: "Data de nascimento", tipo: "texto", placeholder: "dd/mm/aaaa", paciente: true },
+    { id: "nasc", rotulo: "Data de nascimento", tipo: "data", paciente: true },
     { id: "cns", rotulo: "CNS / prontuário", tipo: "texto", paciente: true },
     { id: "articulacao", rotulo: "Articulação", tipo: "texto", placeholder: "ex.: joelho direito" },
     { id: "unidade", rotulo: "Unidade", tipo: "texto", lembrar: true, perfil: true },

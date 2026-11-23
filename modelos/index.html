@@ -149,7 +149,6 @@ button{cursor:pointer}
 .ln.longa{min-width:18em}
 .inl{font:inherit;color:inherit;background:var(--paper-blank);border:0;border-bottom:1.5px dashed var(--paper-blank-line);padding:0 4px;border-radius:2px;max-width:100%;min-width:6ch}
 .inl:not(:placeholder-shown){background:var(--paper-fill);border-bottom:1.5px solid var(--paper-fill-line)}
-.inl[type="date"]{min-width:10ch}
 textarea.inl{display:block;width:100%;min-height:3.2em;resize:vertical;margin-top:4px}
 .calc-inl{font-weight:600;border-bottom:1px dotted var(--paper-mark);padding:0 2px}
 .calc-inl:empty{display:inline-block;min-width:3em;border-bottom:1px solid var(--paper-line)}
@@ -255,10 +254,22 @@ const store = {
   set(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); } catch(e){} }
 };
 const norm = s => String(s).normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase();
-const iso = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
-const br = s => { if (!s) return ''; const [y,m,d] = s.split('-'); return `${d}/${m}/${y}`; };
-const MESES = ['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
-const extenso = s => { if (!s) return ''; const [y,m,d] = s.split('-').map(Number); return `${d} de ${MESES[m-1]} de ${y}`; };
+// datas sempre em dd/mm/aaaa, guardadas como texto
+const fmt = d => `${String(d.getDate()).padStart(2,'0')}/${String(d.getMonth()+1).padStart(2,'0')}/${d.getFullYear()}`;
+function dataDe(s){
+  const k = String(s || '').match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/); if (!k) return null;
+  const d = new Date(+k[3], +k[2] - 1, +k[1], 12);
+  return d.getDate() === +k[1] && d.getMonth() === +k[2] - 1 ? d : null;
+}
+// enquanto digita: 23112026 → 23/11/2026; 3/11/2026 → 03/11/2026
+function mascaraData(s){
+  let t = String(s).trim();
+  const k = t.match(/^(\d{4})-(\d{2})-(\d{2})$/); if (k) return `${k[3]}/${k[2]}/${k[1]}`;
+  const um = /(^|\/)(\d)\//g, pad = (_, a, b) => a + '0' + b + '/';
+  t = t.replace(um, pad).replace(um, pad);
+  const d = t.replace(/\D/g, '').slice(0, 8);
+  return d.length <= 2 ? d : d.length <= 4 ? d.slice(0, 2) + '/' + d.slice(2) : d.slice(0, 2) + '/' + d.slice(2, 4) + '/' + d.slice(4);
+}
 const cheio = x => String(x ?? '').trim() !== '';
 let reduz = false; try { reduz = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){}
 let podeImprimir = false; try { podeImprimir = window.self === window.top; } catch(e){}
@@ -304,7 +315,7 @@ function iniciais(m){
     if (c.paciente && (c.id in pac)) v[c.id] = pac[c.id];
     else if (c.perfil && (c.id in p)) v[c.id] = p[c.id];
     else if (c.lembrar && cheio(lemb[c.id])) v[c.id] = lemb[c.id];
-    else if (c.padrao === 'hoje') v[c.id] = c.tipo === 'data' ? iso(new Date()) : br(iso(new Date()));
+    else if (c.padrao === 'hoje') v[c.id] = fmt(new Date());
     else v[c.id] = c.padrao != null ? c.padrao : '';
   });
   return v;
@@ -340,17 +351,16 @@ function cond(expr, v){
   return k[2] === '=' ? val === k[3] : val !== k[3];
 }
 function idadeDe(s){
-  const k = String(s || '').match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/); if (!k) return '';
-  const hoje = new Date(); let a = hoje.getFullYear() - +k[3];
-  if (hoje.getMonth() + 1 < +k[2] || (hoje.getMonth() + 1 === +k[2] && hoje.getDate() < +k[1])) a--;
+  const d = dataDe(s); if (!d) return '';
+  const hoje = new Date(); let a = hoje.getFullYear() - d.getFullYear();
+  if (hoje.getMonth() < d.getMonth() || (hoje.getMonth() === d.getMonth() && hoje.getDate() < d.getDate())) a--;
   return a >= 0 && a < 130 ? String(a) : '';
 }
-const somaDias = (d0, n) => { const d = new Date(d0); d.setDate(d.getDate() + n); return br(iso(d)); };
+const somaDias = (d0, n) => { const d = new Date(d0); d.setDate(d.getDate() + n); return fmt(d); };
 function mostra(m, c, v){
   if (c.tipo === 'calc'){
     if (c.idade) return idadeDe(v[c.idade]);
-    const base = v[c.de]; if (!base) return '';
-    const d0 = new Date(base + 'T12:00:00'); if (isNaN(d0)) return '';
+    const d0 = dataDe(v[c.de]); if (!d0) return '';
     if (c.dias != null || c.diasDe){
       const dias = c.dias != null ? String(c.dias) : String(v[c.diasDe] || '');
       const r = dias.match(/(\d+)\s*(?:-|–|a|até)\s*(\d+)/);
@@ -365,11 +375,9 @@ function mostra(m, c, v){
       anos = c.anosPor[k];
     }
     d0.setFullYear(d0.getFullYear() + anos);
-    return br(iso(d0));
+    return fmt(d0);
   }
   const x = String(v[c.id] ?? '').trim();
-  if (!x) return '';
-  if (c.tipo === 'data') return c.formato === 'extenso' ? extenso(x) : br(x);
   return x;
 }
 function linhas(m, v){
@@ -528,12 +536,16 @@ function controle(m, c, v, aoMudar){
     const box = el('div', 'inp');
     const longo = c.tipo === 'textolongo';
     const inp = document.createElement(longo ? 'textarea' : 'input'); inp.id = fid;
-    if (!longo) inp.type = c.tipo === 'data' ? 'date' : 'text';
+    if (!longo) inp.type = 'text';
     if (c.tipo === 'numero'){ inp.inputMode = 'decimal'; inp.className = 'curto'; }
     if (c.placeholder) inp.placeholder = c.placeholder;
+    if (c.tipo === 'data'){ inp.inputMode = 'numeric'; inp.maxLength = 10; inp.placeholder = 'dd/mm/aaaa'; inp.className = 'curto'; }
     inp.autocomplete = 'off';
     inp.value = v[c.id] || '';
-    inp.addEventListener(c.tipo === 'data' ? 'change' : 'input', () => aoMudar(inp.value, 'texto'));
+    inp.addEventListener('input', () => {
+      if (c.tipo === 'data'){ const mv = mascaraData(inp.value); if (mv !== inp.value) inp.value = mv; }
+      aoMudar(inp.value, 'texto');
+    });
     box.append(inp); if (c.sufixo) box.append(el('span', null, c.sufixo));
     w.append(box); w._input = inp; w._longo = longo;
     w._sync = () => { if (document.activeElement !== inp) inp.value = v[c.id] || ''; };
@@ -727,7 +739,7 @@ function htmlPapel(m, v){
     const ph = esc(c.placeholder || c.rotulo.toLowerCase());
     if (c.tipo === 'calc') return `<span class="calc-inl" data-calc="${id}">${esc(mostra(m, c, v))}</span>`;
     if (c.tipo === 'textolongo') return `<textarea class="inl" data-id="${id}" placeholder="${ph}" aria-label="${esc(c.rotulo)}">${esc(v[id] || '')}</textarea>`;
-    if (c.tipo === 'data') return `<input class="inl" type="date" data-id="${id}" value="${esc(v[id] || '')}" aria-label="${esc(c.rotulo)}">`;
+    if (c.tipo === 'data') return `<input class="inl" type="text" inputmode="numeric" maxlength="10" data-id="${id}" data-tipo="data" value="${esc(v[id] || '')}" placeholder="dd/mm/aaaa" aria-label="${esc(c.rotulo)}" autocomplete="off">`;
     return `<input class="inl" type="text" data-id="${id}" value="${esc(v[id] || '')}" placeholder="${ph}" aria-label="${esc(c.rotulo)}" autocomplete="off">`;
   });
   return tabelas(h);
@@ -809,7 +821,8 @@ function conteudo(m, v, ed, p){
     };
     folha.querySelectorAll('.inl').forEach(i => {
       ajusta(i);
-      i.addEventListener(i.type === 'date' ? 'change' : 'input', () => {
+      i.addEventListener('input', () => {
+        if (i.dataset.tipo === 'data'){ const mv = mascaraData(i.value); if (mv !== i.value) i.value = mv; }
         v[i.dataset.id] = i.value; ajusta(i);
         folha.querySelectorAll(`.inl[data-id="${i.dataset.id}"]`).forEach(o => { if (o !== i){ o.value = i.value; ajusta(o); } });
         refresca(); registrar(m, v); status(m, v);
