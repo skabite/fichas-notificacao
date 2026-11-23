@@ -5,20 +5,34 @@
  * Cada modelo:
  *   id, tipo ("evolucao" | "impresso" | "consulta"), grupo (seção da tela inicial),
  *   titulo, resumo, sinonimos (para a busca), campos, e:
+ *   sub    — (impresso) "termo" | "cuidados" | "formulario": separa os filtros da tela inicial.
+ *   curto  — nome curto nos atalhos "Do mesmo procedimento".
+ *   rascunho: true → texto escrito pelo Claude, ainda não revisado pelo serviço (aviso na tela, não sai na impressão).
+ *   leva   — { idModeloDestino: { campo: "texto com {campo_daqui}|alternativa" } }: ao ir deste modelo
+ *            para o destino pelos atalhos, preenche esses campos. Campos de mesmo nome já vão sozinhos.
  *   linhas — (evolução) uma linha por item. {campo} vira o valor.
  *            {#} numera o passo (1, 2, 3…) e {#.} repete o número do passo anterior (para "1.1.").
  *            Uma linha pode ser { t: "...", se: "campo=valor" | "campo!=valor" | "campo" (preenchido) }.
- *   corpo  — (impresso/consulta) HTML. {campo} vira o valor e {campo=valor} vira ☐/☒.
+ *   corpo  — (impresso/consulta) HTML. {campo} vira campo na folha, {campo=valor} vira ☐/☒
+ *            e {=campo} só mostra o valor (o campo muda em "Ajustes").
+ *            Qualquer elemento com data-se="campo=valor" aparece só quando a condição vale.
  *   fundo  — (impresso) imagem do formulário oficial; os campos têm pos: {x, y, w} em % da folha.
  *
  * Campos: tipo texto | textolongo | numero | opcoes | data | calc
- *   padrao: "hoje" → data de hoje.        lembrar: true  → fica salvo neste aparelho (lote, CRM…).
- *   paciente: true → nunca é salvo.       opcional: true → pode ficar vazio sem contar como pendente.
+ *   padrao: "hoje" → data de hoje.        lembrar: true  → fica salvo neste aparelho (lote, fio…).
+ *   perfil: true   → do profissional (médico, CRM, cidade, unidade): salvo uma vez, vale para todos os modelos.
+ *   paciente: true → nunca é salvo; vale para todos os modelos enquanto a página estiver aberta.
+ *   opcional: true → pode ficar vazio sem contar como pendente.
  *   copia: "X"     → o que vai no texto copiado quando o campo opcional está vazio (padrão: nada).
  *   livre: true    → em "opcoes", permite escrever outra resposta.
  *   vazio: "..."   → como o campo aparece quando está em branco (padrão: o rótulo).
  *   formato: "extenso" → data por extenso (4 de novembro de 2026).
- *   calc: { de: "campo_data", anos: 3 } | { idade: "campo_nascimento" }
+ *   calc: { idade: "campo_nascimento" }
+ *       | { de: "campo_data", anos: 3 }
+ *       | { de: "campo_data", anosPor: { campo: "tipo_diu", Mirena: 8, Kyleena: 5 } }
+ *       | { de: "campo_data", dias: "20-30" } | { de: "campo_data", diasDe: "campo_com_dias" }  → "dd/mm/aaaa a dd/mm/aaaa"
+ *
+ * KITS (no fim do arquivo): modelos do mesmo procedimento, na ordem do atendimento.
  */
 (function(){
 
@@ -70,19 +84,28 @@ const CAMPOS_TERMO = [
   { id: "nasc", rotulo: "Data de nascimento", tipo: "texto", placeholder: "dd/mm/aaaa", vazio: "dd/mm/aaaa", paciente: true },
   { id: "idade", rotulo: "Idade", tipo: "calc", idade: "nasc" },
   { id: "cpf", rotulo: "CPF", tipo: "texto", paciente: true },
-  { id: "medico", rotulo: "Médico(a)", tipo: "texto", lembrar: true },
-  { id: "crm", rotulo: "CRM", tipo: "texto", lembrar: true },
-  { id: "cidade", rotulo: "Cidade", tipo: "texto", padrao: "Santa Maria – RS", lembrar: true },
+  { id: "medico", rotulo: "Médico(a)", tipo: "texto", lembrar: true, perfil: true },
+  { id: "crm", rotulo: "CRM", tipo: "texto", lembrar: true, perfil: true },
+  { id: "cidade", rotulo: "Cidade", tipo: "texto", padrao: "Santa Maria – RS", lembrar: true, perfil: true },
   { id: "data", rotulo: "Data", tipo: "data", padrao: "hoje", formato: "extenso" }
 ];
 const EU_CONSINTO = (proc) => `<p>Eu {nome} data de nascimento {nasc} CPF {cpf} com {idade} anos de idade, consinto que o médico(a) {medico} CRM {crm} realize em mim o procedimento de ${proc}.</p>`;
+
+/* participação de interno: mesmo texto do TCLE de DIU com bloqueio */
+const INTERNO = `
+<p><b>Participação de interno.</b> Esta unidade recebe estudantes de Medicina (internos). Com sua autorização, um interno poderá realizar partes do procedimento, sempre com o médico preceptor presente na sala, supervisionando e assumindo quando necessário. Recusar não muda em nada seu atendimento.</p>
+<p class="checks"><span>☐ Autorizo a participação do interno, com supervisão do preceptor.</span><span>☐ Não autorizo. Quero que o procedimento seja feito apenas pelo médico.</span></p>`;
+
+/* quadro do topo das folhas de cuidados: nome e datas; dá para tirar em "Ajustes" */
+const QUADRO = (rotulo) => ({ id: "cabecalho", rotulo: rotulo || "Quadro com nome e datas", tipo: "opcoes", opcoes: SIM_NAO, padrao: "sim" });
+const NOME_PAC = { id: "nome", rotulo: "Nome", tipo: "texto", paciente: true };
 
 window.MODELOS = [
 
 /* ===================== CONTRACEPÇÃO ===================== */
 {
   id: "diu", tipo: "evolucao", grupo: "Contracepção",
-  titulo: "DIU · inserção",
+  titulo: "DIU · inserção", curto: "DIU · inserção",
   resumo: "Cobre ou hormonal, com cabeçalho da paciente e passos numerados",
   sinonimos: ["diu", "dispositivo intrauterino", "cobre", "mirena", "kyleena", "inserção", "colocação", "contracepção"],
   campos: [
@@ -159,7 +182,7 @@ window.MODELOS = [
 },
 {
   id: "implanon", tipo: "evolucao", grupo: "Contracepção",
-  titulo: "Implanon · inserção",
+  titulo: "Implanon · inserção", curto: "Implanon · inserção",
   resumo: "Braço, sutura, curativo e data prevista de remoção",
   sinonimos: ["implanon", "implante", "etonogestrel", "chip", "nxt", "inserção", "contracepção"],
   campos: [
@@ -239,8 +262,8 @@ window.MODELOS = [
   ]
 },
 {
-  id: "tcle-diu", tipo: "impresso", grupo: "Contracepção",
-  titulo: "TCLE · DIU (cobre e hormonais)",
+  id: "tcle-diu", tipo: "impresso", sub: "termo", grupo: "Contracepção",
+  titulo: "TCLE · DIU (cobre e hormonais)", curto: "DIU (cobre e hormonais)",
   resumo: "Termo completo, com nome, idade, médico e CRM preenchidos",
   sinonimos: ["tcle", "termo", "consentimento", "diu", "cobre", "hormonal", "mirena", "kyleena"],
   campos: CAMPOS_TERMO,
@@ -262,8 +285,8 @@ ${EXPLIQUEI("colocou o DIU")}
 `
 },
 {
-  id: "tcle-diu-curto", tipo: "impresso", grupo: "Contracepção",
-  titulo: "TCLE · DIU (versão curta, 8 itens)",
+  id: "tcle-diu-curto", tipo: "impresso", sub: "termo", grupo: "Contracepção",
+  titulo: "TCLE · DIU (versão curta, 8 itens)", curto: "DIU, versão curta",
   resumo: "Com dados de identificação completos da paciente",
   sinonimos: ["tcle", "termo", "consentimento", "diu", "curto"],
   campos: [
@@ -278,7 +301,7 @@ ${EXPLIQUEI("colocou o DIU")}
     { id: "telefone", rotulo: "Telefone", tipo: "texto", paciente: true },
     { id: "rg", rotulo: "RG", tipo: "texto", paciente: true },
     { id: "cpf", rotulo: "CPF", tipo: "texto", paciente: true },
-    { id: "cidade", rotulo: "Cidade", tipo: "texto", padrao: "Santa Maria – RS", lembrar: true },
+    { id: "cidade", rotulo: "Cidade", tipo: "texto", padrao: "Santa Maria – RS", lembrar: true, perfil: true },
     { id: "data", rotulo: "Data", tipo: "data", padrao: "hoje", formato: "extenso" }
   ],
   corpo: `
@@ -308,8 +331,8 @@ ${EXPLIQUEI("colocou o DIU")}
 `
 },
 {
-  id: "tcle-diu-bloqueio", tipo: "impresso", grupo: "Contracepção",
-  titulo: "TCLE · DIU com bloqueio anestésico",
+  id: "tcle-diu-bloqueio", tipo: "impresso", sub: "termo", grupo: "Contracepção",
+  titulo: "TCLE · DIU com bloqueio anestésico", curto: "DIU com bloqueio",
   resumo: "O seu rascunho em linguagem simples, com tabela de riscos",
   sinonimos: ["tcle", "termo", "consentimento", "diu", "bloqueio", "paracervical", "anestesia", "interno"],
   campos: [
@@ -317,10 +340,10 @@ ${EXPLIQUEI("colocou o DIU")}
     { id: "nasc", rotulo: "Data de nascimento", tipo: "texto", placeholder: "dd/mm/aaaa", paciente: true },
     { id: "cns", rotulo: "CNS / prontuário", tipo: "texto", paciente: true },
     { id: "tipo_diu", rotulo: "Tipo de DIU", tipo: "opcoes", opcoes: ["cobre", "hormonal"], padrao: "cobre" },
-    { id: "unidade", rotulo: "Unidade", tipo: "texto", lembrar: true },
+    { id: "unidade", rotulo: "Unidade", tipo: "texto", lembrar: true, perfil: true },
     { id: "data", rotulo: "Data do procedimento", tipo: "data", padrao: "hoje" },
-    { id: "medico", rotulo: "Médico(a)", tipo: "texto", lembrar: true },
-    { id: "crm", rotulo: "CRM", tipo: "texto", lembrar: true }
+    { id: "medico", rotulo: "Médico(a)", tipo: "texto", lembrar: true, perfil: true },
+    { id: "crm", rotulo: "CRM", tipo: "texto", lembrar: true, perfil: true }
   ],
   corpo: `
 <h1>TCLE – Inserção de DIU com bloqueio anestésico</h1>
@@ -364,8 +387,7 @@ ${EXPLIQUEI("colocou o DIU")}
 <li>Ter um acompanhante de sua escolha na sala.</li>
 <li>Pedir a retirada do DIU quando quiser.</li>
 </ul>
-<p><b>Participação de interno.</b> Esta unidade recebe estudantes de Medicina (internos). Com sua autorização, um interno poderá realizar partes do procedimento, sempre com o médico preceptor presente na sala, supervisionando e assumindo quando necessário. Recusar não muda em nada seu atendimento.</p>
-<p class="checks"><span>☐ Autorizo a participação do interno, com supervisão do preceptor.</span><span>☐ Não autorizo. Quero que o procedimento seja feito apenas pelo médico.</span></p>
+${INTERNO}
 <h2>5. Depois da colocação</h2>
 <p>Você fica em observação na unidade por 15 a 30 minutos antes de ir para casa. Siga as orientações da equipe sobre analgésico, relações sexuais e uso de outro método nos primeiros dias. O DIU não protege contra infecções sexualmente transmissíveis: continue usando preservativo.</p>
 <p>Retorno marcado para: ____ / ____ / ________</p>
@@ -390,8 +412,8 @@ ${EXPLIQUEI("colocou o DIU")}
 `
 },
 {
-  id: "tcle-implanon", tipo: "impresso", grupo: "Contracepção",
-  titulo: "TCLE · Implanon",
+  id: "tcle-implanon", tipo: "impresso", sub: "termo", grupo: "Contracepção",
+  titulo: "TCLE · Implanon", curto: "Implanon",
   resumo: "Termo do implante de etonogestrel",
   sinonimos: ["tcle", "termo", "consentimento", "implanon", "implante", "etonogestrel", "chip"],
   campos: CAMPOS_TERMO,
@@ -425,13 +447,22 @@ ${EXPLIQUEI("inseriu o implante")}
 `
 },
 {
-  id: "orient-implanon", tipo: "impresso", grupo: "Contracepção",
-  titulo: "Orientações pós-inserção · Implanon",
-  resumo: "Folha para entregar à paciente",
-  sinonimos: ["orientações", "orientacao", "implanon", "implante", "pós", "cuidados", "folheto", "paciente"],
-  campos: [],
+  id: "orient-implanon", tipo: "impresso", sub: "cuidados", grupo: "Contracepção",
+  titulo: "Orientações pós-inserção · Implanon", curto: "Implanon",
+  resumo: "Folha para entregar à paciente, com a data de remoção",
+  sinonimos: ["orientações", "orientacao", "implanon", "implante", "pós", "cuidados", "folheto", "paciente", "remoção"],
+  campos: [
+    QUADRO(),
+    NOME_PAC,
+    { id: "data_proc", rotulo: "Data da inserção", tipo: "data", padrao: "hoje" },
+    { id: "remocao", rotulo: "Remoção prevista", tipo: "calc", de: "data_proc", anos: 3 }
+  ],
   corpo: `
 <h1>Orientações pós-inserção de Implanon</h1>
+<div class="caixa" data-se="cabecalho=sim">
+<p>Nome: {nome}</p>
+<p>Data da inserção: {data_proc} &nbsp;&nbsp; Retirar ou trocar até: <b>{remocao}</b></p>
+</div>
 <ul class="folheto">
 <li>Protege contra a gravidez por até 03 (três) anos.</li>
 <li>Não protege contra infecções sexualmente transmissíveis.</li>
@@ -444,13 +475,24 @@ ${EXPLIQUEI("inseriu o implante")}
 `
 },
 {
-  id: "cuidados-diu", tipo: "impresso", grupo: "Contracepção",
-  titulo: "Cuidados pós-inserção · DIU de cobre",
-  resumo: "Linha do tempo do dia da inserção até 10 anos",
+  id: "cuidados-diu", tipo: "impresso", sub: "cuidados", grupo: "Contracepção",
+  titulo: "Cuidados pós-inserção · DIU de cobre", curto: "DIU de cobre",
+  resumo: "Linha do tempo do dia da inserção até 10 anos, com as datas calculadas",
   sinonimos: ["cuidados", "orientações", "diu", "cobre", "pós", "folheto", "paciente", "ultrassom"],
-  campos: [],
+  campos: [
+    QUADRO(),
+    NOME_PAC,
+    { id: "data_proc", rotulo: "Data da inserção", tipo: "data", padrao: "hoje" },
+    { id: "us", rotulo: "Ultrassom entre", tipo: "calc", de: "data_proc", dias: "20-30" },
+    { id: "troca", rotulo: "Trocar até", tipo: "calc", de: "data_proc", anos: 10 }
+  ],
   corpo: `
 <h1>Cuidados pós-inserção de DIU de cobre</h1>
+<div class="caixa" data-se="cabecalho=sim">
+<p>Nome: {nome}</p>
+<p>Data da inserção: {data_proc}</p>
+<p>Ultrassom transvaginal entre: <b>{us}</b> &nbsp;&nbsp; Trocar o DIU até: <b>{troca}</b></p>
+</div>
 <h2>No dia da inserção</h2>
 <ul>
 <li>Dê ao seu corpo um tempo para descansar e se recuperar.</li>
@@ -492,8 +534,71 @@ ${EXPLIQUEI("inseriu o implante")}
 `
 },
 {
+  id: "cuidados-diu-hormonal", tipo: "impresso", sub: "cuidados", grupo: "Contracepção", rascunho: true,
+  titulo: "Cuidados pós-inserção · DIU hormonal", curto: "DIU hormonal",
+  resumo: "Mirena e Kyleena, no mesmo formato da folha do DIU de cobre",
+  sinonimos: ["cuidados", "orientações", "diu", "hormonal", "mirena", "kyleena", "levonorgestrel", "pós", "folheto", "paciente", "ultrassom"],
+  campos: [
+    QUADRO(),
+    NOME_PAC,
+    { id: "tipo_diu", rotulo: "DIU", tipo: "opcoes", opcoes: ["hormonal (Mirena)", "hormonal (Kyleena)"], padrao: "hormonal (Mirena)" },
+    { id: "data_proc", rotulo: "Data da inserção", tipo: "data", padrao: "hoje" },
+    { id: "us", rotulo: "Ultrassom entre", tipo: "calc", de: "data_proc", dias: "20-30" },
+    { id: "troca", rotulo: "Trocar até", tipo: "calc", de: "data_proc", anosPor: { campo: "tipo_diu", Mirena: 8, Kyleena: 5 } }
+  ],
+  corpo: `
+<h1>Cuidados pós-inserção de DIU hormonal</h1>
+<div class="caixa" data-se="cabecalho=sim">
+<p>Nome: {nome}</p>
+<p>DIU {=tipo_diu} &nbsp;&nbsp; Data da inserção: {data_proc}</p>
+<p>Ultrassom transvaginal entre: <b>{us}</b> &nbsp;&nbsp; Trocar o DIU até: <b>{troca}</b></p>
+</div>
+<h2>No dia da inserção</h2>
+<ul>
+<li>Dê ao seu corpo um tempo para descansar e se recuperar.</li>
+<li>Pode haver desconforto como cólicas e/ou sangramento vaginal de leve a moderado.</li>
+<li>É possível fazer uso de bolsa de água morna posicionada abaixo do umbigo para alívio, além das medicações prescritas.</li>
+</ul>
+<h2>Até 7 dias após</h2>
+<ul>
+<li>Não ter relação sexual de nenhum tipo.</li>
+<li>Não praticar exercícios físicos de nenhum tipo.</li>
+<li>Não levantar peso maior do que 5kg.</li>
+<li>Observar se sintomas estão aliviando dia após dia.</li>
+</ul>
+<h2>Até 20-30 dias após</h2>
+<ul>
+<li>Período ideal para realização do ultrassom transvaginal solicitado.</li>
+<li>O profissional que realizará o exame já irá informar se o DIU está bem-posicionado.</li>
+<li><b>Importante:</b> manter algum outro método contraceptivo (método anteriormente utilizado e/ou preservativo) até essa avaliação durante o exame.</li>
+<li>Quando o resultado ficar pronto, agende uma consulta e traga seu ultrassom para ser avaliado, registrado e para que o(a) médico(a) verifique como está sendo sua adaptação.</li>
+</ul>
+<h2>Nos primeiros 3 a 6 meses</h2>
+<ul>
+<li>É comum ter sangramento irregular: escapes, manchas de sangue ou sangramento fora da época esperada. Costuma ser em pouca quantidade e diminui com o tempo.</li>
+<li>Com o passar dos meses, a menstruação tende a ficar mais curta e mais fraca, e algumas mulheres param de menstruar. Isso é efeito do hormônio dentro do útero: não faz mal e não quer dizer que o sangue fica retido no corpo.</li>
+<li>As cólicas costumam diminuir.</li>
+<li>Podem aparecer espinhas, sensibilidade nas mamas, dor de cabeça ou mudança de humor. Costumam melhorar com o tempo. Se incomodar, converse com a equipe.</li>
+</ul>
+<h2>Ao longo dos anos</h2>
+<ul>
+<li>No seu serviço de saúde de referência, você pode solicitar realização de ultrassom transvaginal anualmente para reavaliar posicionamento.</li>
+<li>Seguir fazendo a rotina de exame citopatológico preventivo conforme orientado onde você consulta.</li>
+</ul>
+<h2>Prazo do DIU</h2>
+<ul>
+<li>Mirena: até 8 anos. Kyleena: até 5 anos.</li>
+<li>Para retirá-lo ou trocá-lo, solicite procedimento ou encaminhamento em seu posto de saúde de referência.</li>
+</ul>
+<h2>Atenção</h2>
+<p><b>Sinais de alarme:</b> febre ou calafrios, dor abdominal que não melhora com medicação, inchaço abdominal, corrimento vaginal fétido, sangramento abundante, mal-estar e demais sintomas de alarme. Nesses casos, procurar pronto-atendimento imediatamente.</p>
+<p><b>Sinais de deslocamento do DIU:</b> dor em baixo ventre, dor na relação sexual, não sentir mais os fios ou sentir a parte dura do DIU, mudança do padrão de sangramento que já estava estabelecido. Nesses casos, agendar consulta para avaliação e solicitação de ultrassom transvaginal extra.</p>
+<p><b>Suspeita de gravidez:</b> enjoo, mamas doloridas ou outros sinais de gravidez. Faça um teste de gravidez e procure a unidade. Se tiver dor forte no pé da barriga, procure pronto-atendimento imediatamente.</p>
+`
+},
+{
   id: "diu-contraindicacoes", tipo: "consulta", grupo: "Contracepção",
-  titulo: "DIU · contraindicações e cuidados",
+  titulo: "DIU · contraindicações e cuidados", curto: "Contraindicações do DIU",
   resumo: "Cobre e hormonal, e quando pedir ultrassom",
   sinonimos: ["diu", "contraindicação", "contraindicacoes", "cuidados", "mirena", "cobre", "wilson", "dip", "ultrassom"],
   campos: [],
@@ -551,8 +656,12 @@ ${EXPLIQUEI("inseriu o implante")}
 /* ===================== PEQUENAS CIRURGIAS ===================== */
 {
   id: "exerese", tipo: "evolucao", grupo: "Pequenas cirurgias",
-  titulo: "Exérese de lesão de pele",
+  titulo: "Exérese de lesão de pele", curto: "Exérese de lesão",
   resumo: "Incisão elipsoide, sutura, retirada de pontos e biópsia",
+  leva: {
+    "tcle-cirurgia": { procedimento: "Exérese de {lesao}|Exérese de lesão de pele" },
+    "requisicao-ap": { dados: "Exérese de {lesao}." }
+  },
   sinonimos: ["exérese", "exerese", "retirada de lesão", "lesão de pele", "nevo", "pinta", "cisto", "lipoma", "biópsia", "biopsia", "pequena cirurgia"],
   campos: [
     { id: "lesao", rotulo: "Lesão", tipo: "texto", vazio: "lesão X", placeholder: "ex.: nevo em dorso, região escapular E" },
@@ -567,7 +676,7 @@ ${EXPLIQUEI("inseriu o implante")}
     { id: "dias_pontos", rotulo: "Retirada de pontos em", tipo: "opcoes", livre: true, opcoes: ["5-7", "7-10", "10-14"], padrao: "10-14", ajuda: "face 5-7 · couro cabeludo 7-10 · tronco e membros 10-14" },
     { id: "analgesia", rotulo: "Analgesia", tipo: "opcoes", livre: true, opcoes: ["Paracetamol", "Dipirona", "Paracetamol e/ou Ibuprofeno"], padrao: "Paracetamol" },
     { id: "ap", rotulo: "Anatomopatológico", tipo: "opcoes", opcoes: SIM_NAO, padrao: "sim" },
-    { id: "laboratorio", rotulo: "Laboratório", tipo: "texto", padrao: "Diagnóstika", lembrar: true }
+    { id: "laboratorio", rotulo: "Laboratório", tipo: "texto", padrao: "Diagnóstika", lembrar: true, perfil: true }
   ],
   linhas: [
     "PROCEDIMENTO DE EXÉRESE DE LESÃO DE PELE:",
@@ -591,8 +700,11 @@ ${EXPLIQUEI("inseriu o implante")}
 },
 {
   id: "cantoplastia", tipo: "evolucao", grupo: "Pequenas cirurgias",
-  titulo: "Cantoplastia",
+  titulo: "Cantoplastia", curto: "Cantoplastia",
   resumo: "Unha encravada, com anestesia troncular",
+  leva: {
+    "tcle-cirurgia": { procedimento: "Cantoplastia (unha encravada) – {local}|Cantoplastia (unha encravada)" }
+  },
   sinonimos: ["cantoplastia", "unha encravada", "onicocriptose", "unha", "canto", "hálux", "halux"],
   campos: [
     { id: "local", rotulo: "Local (opcional)", tipo: "texto", opcional: true, placeholder: "ex.: canto lateral do hálux direito" },
@@ -622,7 +734,7 @@ ${EXPLIQUEI("inseriu o implante")}
 },
 {
   id: "pre-op", tipo: "evolucao", grupo: "Pequenas cirurgias",
-  titulo: "Avaliação pré-operatória",
+  titulo: "Avaliação pré-operatória", curto: "Avaliação pré-operatória",
   resumo: "Cirurgia ambulatorial: identificação, anamnese, antecedentes e plano",
   sinonimos: ["pré-operatório", "pre operatorio", "avaliação", "pré-op", "preop", "cirurgia ambulatorial", "antecedentes"],
   campos: [
@@ -679,8 +791,8 @@ ${EXPLIQUEI("inseriu o implante")}
   ]
 },
 {
-  id: "tcle-cirurgia", tipo: "impresso", grupo: "Pequenas cirurgias",
-  titulo: "TCLE · cirurgia ambulatorial",
+  id: "tcle-cirurgia", tipo: "impresso", sub: "termo", grupo: "Pequenas cirurgias",
+  titulo: "TCLE · cirurgia ambulatorial", curto: "Cirurgia ambulatorial",
   resumo: "Termo geral para qualquer procedimento, com campo do procedimento",
   sinonimos: ["tcle", "termo", "consentimento", "cirurgia", "ambulatorial", "procedimento", "exérese", "cantoplastia", "biópsia"],
   campos: [
@@ -692,7 +804,7 @@ ${EXPLIQUEI("inseriu o implante")}
     { id: "cpf", rotulo: "CPF", tipo: "texto", paciente: true },
     { id: "procedimento", rotulo: "Procedimento", tipo: "texto", placeholder: "ex.: exérese de lesão de pele em dorso" },
     { id: "quem", rotulo: "Quem assina", tipo: "opcoes", opcoes: ["paciente", "responsavel"], padrao: "paciente" },
-    { id: "cidade", rotulo: "Cidade", tipo: "texto", padrao: "Santa Maria - RS", lembrar: true },
+    { id: "cidade", rotulo: "Cidade", tipo: "texto", padrao: "Santa Maria - RS", lembrar: true, perfil: true },
     { id: "data", rotulo: "Data", tipo: "data", padrao: "hoje", formato: "extenso" }
   ],
   corpo: `
@@ -723,8 +835,129 @@ ${EXPLIQUEI("inseriu o implante")}
 `
 },
 {
-  id: "requisicao-ap", tipo: "impresso", grupo: "Pequenas cirurgias",
-  titulo: "Requisição de anatomopatológico",
+  id: "cuidados-ferida", tipo: "impresso", sub: "cuidados", grupo: "Pequenas cirurgias", rascunho: true,
+  titulo: "Cuidados pós · ferida com pontos", curto: "Ferida com pontos",
+  resumo: "Exérese e biópsia: curativo, retirada de pontos com data, frasco da biópsia e sinais de alerta",
+  sinonimos: ["cuidados", "orientações", "pós", "ferida", "ferida operatória", "curativo", "pontos", "sutura", "exérese", "exerese", "biópsia", "biopsia", "nevo", "cisto", "lipoma", "folheto", "paciente"],
+  campos: [
+    QUADRO(),
+    NOME_PAC,
+    { id: "data_proc", rotulo: "Data do procedimento", tipo: "data", padrao: "hoje" },
+    { id: "sutura", rotulo: "Sutura", tipo: "opcoes", opcoes: SIM_NAO, padrao: "sim" },
+    { id: "dias_pontos", rotulo: "Retirada de pontos em (dias)", tipo: "opcoes", livre: true, opcoes: ["5-7", "7-10", "10-14"], padrao: "10-14", ajuda: "face 5-7 · couro cabeludo 7-10 · tronco e membros 10-14" },
+    { id: "data_pontos", rotulo: "Tirar os pontos entre", tipo: "calc", de: "data_proc", diasDe: "dias_pontos" },
+    { id: "analgesia", rotulo: "Analgésico", tipo: "texto", padrao: "Paracetamol" },
+    { id: "ap", rotulo: "Biópsia (anatomopatológico)", tipo: "opcoes", opcoes: SIM_NAO, padrao: "sim" },
+    { id: "laboratorio", rotulo: "Laboratório", tipo: "texto", padrao: "Diagnóstika", lembrar: true, perfil: true }
+  ],
+  corpo: `
+<h1>Cuidados com a ferida da cirurgia</h1>
+<div class="caixa" data-se="cabecalho=sim">
+<p>Nome: {nome}</p>
+<p>Data do procedimento: {data_proc}<span data-se="sutura=sim"> &nbsp;&nbsp; Tirar os pontos entre: <b>{data_pontos}</b></span></p>
+</div>
+<h2>Nas primeiras 24 horas</h2>
+<ul>
+<li>Deixe o curativo fechado, limpo e seco.</li>
+<li>Quando a anestesia passar, o local pode doer. Se precisar, tome {analgesia}, conforme a receita.</li>
+<li>Um pouco de sangue no curativo é normal. Se sangrar mais, aperte o curativo com firmeza por 10 minutos, sem soltar.</li>
+<li>Evite esforço e movimentos que puxem o local.</li>
+</ul>
+<h2>Do segundo dia até a ferida fechar</h2>
+<ul>
+<li>Tire o curativo na hora do banho. Lave a ferida com água corrente e sabão neutro, sem esfregar.</li>
+<li>Seque com uma toalha limpa, dando leves batidinhas.</li>
+<li>Cubra com gaze limpa e micropore. Troque uma vez por dia, ou antes se molhar ou sujar.</li>
+<li>Não passe pomada, álcool, água oxigenada nem receitas caseiras, a não ser que a equipe tenha orientado.</li>
+<li>Evite piscina, mar, banheira e exercícios que forcem o local até a ferida fechar.</li>
+</ul>
+<div data-se="sutura=sim">
+<h2>Retirada dos pontos</h2>
+<ul>
+<li>Marque na sua UBS a retirada dos pontos entre <b>{data_pontos}</b> ({=dias_pontos} dias depois do procedimento).</li>
+<li>Não tire os pontos em casa.</li>
+</ul>
+</div>
+<div data-se="ap=sim">
+<h2>Biópsia (exame do material retirado)</h2>
+<ul>
+<li>O material retirado vai num frasco com líquido conservante. Não abra o frasco e não jogue fora o líquido.</li>
+<li>Guarde o frasco bem fechado, em pé, longe do sol e do calor. Não precisa ir à geladeira.</li>
+<li>Leve o frasco e o pedido ao laboratório {laboratorio} o quanto antes. Guarde o comprovante.</li>
+<li>Quando o resultado ficar pronto, marque consulta e traga o resultado.</li>
+</ul>
+</div>
+<h2>Cicatriz</h2>
+<ul>
+<li>A cicatriz fica avermelhada no começo e vai clareando ao longo dos meses.</li>
+<li>Proteja a cicatriz do sol por 6 meses, com roupa ou protetor solar. Isso ajuda a não escurecer.</li>
+</ul>
+<h2>Procure a UBS ou um pronto-atendimento se tiver</h2>
+<ul>
+<li>Vermelhidão que aumenta em volta da ferida, calor ou inchaço.</li>
+<li>Pus ou mau cheiro.</li>
+<li>Febre.</li>
+<li>Dor que piora em vez de melhorar.</li>
+<li>Pontos abrindo.</li>
+<li>Sangramento que não para depois de 10 minutos apertando.</li>
+</ul>
+`
+},
+{
+  id: "cuidados-cantoplastia", tipo: "impresso", sub: "cuidados", grupo: "Pequenas cirurgias", rascunho: true,
+  titulo: "Cuidados pós · cantoplastia", curto: "Cantoplastia",
+  resumo: "Unha encravada: pé elevado, curativo, calçado e como cortar a unha",
+  sinonimos: ["cuidados", "orientações", "pós", "cantoplastia", "unha encravada", "onicocriptose", "unha", "curativo", "folheto", "paciente"],
+  campos: [
+    QUADRO("Quadro com nome e reavaliação"),
+    NOME_PAC,
+    { id: "data_proc", rotulo: "Data do procedimento", tipo: "data", padrao: "hoje" },
+    { id: "retorno", rotulo: "Reavaliação", tipo: "texto", opcional: true, placeholder: "ex.: em 7 dias, na UBS" },
+    { id: "analgesia", rotulo: "Analgésico", tipo: "texto", padrao: "Paracetamol" }
+  ],
+  corpo: `
+<h1>Cuidados após a cirurgia de unha encravada</h1>
+<div class="caixa" data-se="cabecalho=sim">
+<p>Nome: {nome}</p>
+<p>Data do procedimento: {data_proc} &nbsp;&nbsp; Reavaliação: {retorno}</p>
+</div>
+<h2>Hoje e amanhã</h2>
+<ul>
+<li>Fique com o pé para cima, mais alto que o quadril, o máximo de tempo que puder. Isso diminui a dor, o inchaço e o sangramento.</li>
+<li>O dedo fica dormente por algumas horas. Tome {analgesia} antes de a anestesia passar e depois, se precisar, conforme a receita.</li>
+<li>Deixe o curativo fechado e seco até o dia seguinte. Se sangrar e manchar um pouco, é normal. Se encharcar, aperte com firmeza por 10 minutos.</li>
+<li>Use chinelo ou sapato aberto.</li>
+</ul>
+<h2>Do dia seguinte até cicatrizar (2 a 4 semanas)</h2>
+<ul>
+<li>Tire o curativo na hora do banho. Se estiver grudado, molhe bem antes de puxar.</li>
+<li>Lave o dedo com água corrente e sabão neutro. Seque com cuidado.</li>
+<li>Cubra com gaze limpa e esparadrapo ou micropore, sem apertar. Troque uma vez por dia, ou antes se molhar ou sujar.</li>
+<li>Nos primeiros dias, é normal sair um pouco de líquido claro ou amarelado e ter dor leve.</li>
+<li>Não passe pomada, álcool, água oxigenada nem receitas caseiras, a não ser que a equipe tenha orientado.</li>
+<li>Use calçado aberto ou folgado. Evite corrida, futebol e pancadas no dedo até cicatrizar.</li>
+</ul>
+<h2>Para a unha não encravar de novo</h2>
+<ul>
+<li>A unha volta a crescer nesse canto em alguns meses. Deixe crescer, sem arrancar nem cortar o canto.</li>
+<li>Corte a unha reta, sem arredondar os cantos e sem deixar muito curta.</li>
+<li>Use sapatos confortáveis, que não apertem os dedos.</li>
+<li>Se você tem diabetes ou problema de circulação, olhe os pés todos os dias.</li>
+</ul>
+<h2>Procure a UBS ou um pronto-atendimento se tiver</h2>
+<ul>
+<li>Dor que piora depois do segundo dia, em vez de melhorar.</li>
+<li>Vermelhidão ou inchaço que se espalha pelo dedo ou pelo pé.</li>
+<li>Pus com mau cheiro.</li>
+<li>Febre.</li>
+<li>Sangramento que não para depois de 10 minutos apertando.</li>
+<li>Dedo roxo, muito pálido ou frio. Nesse caso, afrouxe o curativo e procure atendimento logo.</li>
+</ul>
+`
+},
+{
+  id: "requisicao-ap", tipo: "impresso", sub: "formulario", grupo: "Pequenas cirurgias",
+  titulo: "Requisição de anatomopatológico", curto: "Anatomopatológico",
   resumo: "Formulário oficial da 4ª CRS, preenchido por cima",
   sinonimos: ["anatomopatológico", "anatomo patologico", "ap", "biópsia", "biopsia", "requisição", "diagnóstika", "diagnostika", "histopatológico"],
   fundo: "img/requisicao-ap.jpg",
@@ -747,7 +980,7 @@ ${EXPLIQUEI("inseriu o implante")}
 /* ===================== OUTROS PROCEDIMENTOS ===================== */
 {
   id: "infiltracao", tipo: "evolucao", grupo: "Outros procedimentos",
-  titulo: "Infiltração articular",
+  titulo: "Infiltração articular", curto: "Infiltração",
   resumo: "Corticoide + lidocaína, com volumes editáveis",
   sinonimos: ["infiltração", "infiltracao", "articulação", "joelho", "ombro", "túnel do carpo", "corticoide", "dexametasona"],
   campos: [
@@ -774,8 +1007,134 @@ ${EXPLIQUEI("inseriu o implante")}
   ]
 },
 {
+  id: "tcle-infiltracao", tipo: "impresso", sub: "termo", grupo: "Outros procedimentos", rascunho: true,
+  titulo: "TCLE · infiltração articular", curto: "Infiltração",
+  resumo: "Linguagem simples e tabela de riscos, no formato do TCLE do DIU com bloqueio",
+  sinonimos: ["tcle", "termo", "consentimento", "infiltração", "infiltracao", "articulação", "joelho", "ombro", "corticoide", "dexametasona"],
+  campos: [
+    { id: "nome", rotulo: "Nome", tipo: "texto", paciente: true },
+    { id: "nasc", rotulo: "Data de nascimento", tipo: "texto", placeholder: "dd/mm/aaaa", paciente: true },
+    { id: "cns", rotulo: "CNS / prontuário", tipo: "texto", paciente: true },
+    { id: "articulacao", rotulo: "Articulação", tipo: "texto", placeholder: "ex.: joelho direito" },
+    { id: "unidade", rotulo: "Unidade", tipo: "texto", lembrar: true, perfil: true },
+    { id: "data", rotulo: "Data", tipo: "data", padrao: "hoje" },
+    { id: "medico", rotulo: "Médico(a)", tipo: "texto", lembrar: true, perfil: true },
+    { id: "crm", rotulo: "CRM", tipo: "texto", lembrar: true, perfil: true }
+  ],
+  corpo: `
+<h1>TCLE – Infiltração articular</h1>
+<p class="sub"><b>Termo de Consentimento Livre e Esclarecido.</b> Leia com calma, tire todas as dúvidas antes de assinar e só assine se concordar. Você fica com uma cópia.</p>
+<h2>1. Identificação</h2>
+<p>Nome: {nome}</p>
+<p>Data de nascimento: {nasc} &nbsp;&nbsp; Prontuário / CNS: {cns}</p>
+<p>Articulação a ser infiltrada: {articulacao}</p>
+<p>Unidade: {unidade} &nbsp;&nbsp; Data: {data}</p>
+<p>Médico(a) responsável: {medico} &nbsp;&nbsp; CRM: {crm}</p>
+<h2>2. O que vai ser feito</h2>
+<p>A infiltração é uma injeção de remédio dentro da articulação, para diminuir a dor e a inflamação. É feita no consultório e leva poucos minutos:</p>
+<ol>
+<li>Limpeza da pele com antisséptico.</li>
+<li>Anestesia da pele com agulha fina (lidocaína), para a picada doer menos.</li>
+<li>Aplicação de corticoide (um anti-inflamatório) misturado com anestésico dentro da articulação.</li>
+<li>Curativo pequeno no local.</li>
+</ol>
+<p>O anestésico alivia a dor logo, mas o efeito passa em algumas horas. O corticoide começa a agir nos dias seguintes, e o alívio costuma durar de semanas a meses. A infiltração ajuda no tratamento, mas não cura o desgaste da articulação e não substitui os exercícios e os outros cuidados.</p>
+<h2>3. Antes de fazer, avise a equipe se você</h2>
+<ul>
+<li>Tem alergia a algum remédio, principalmente anestésico ou corticoide.</li>
+<li>Usa remédio para afinar o sangue, como varfarina, rivaroxabana, apixabana ou clopidogrel.</li>
+<li>Tem diabetes.</li>
+<li>Está com febre, alguma infecção, ou ferida ou machucado na pele perto da articulação.</li>
+<li>Está grávida ou pode estar.</li>
+<li>Já fez infiltração nesta articulação nos últimos 3 meses.</li>
+</ul>
+<h2>4. Benefícios e riscos</h2>
+<p>O principal benefício é diminuir a dor e a inflamação, o que facilita os movimentos, os exercícios e a fisioterapia.</p>
+<table>
+<tr><th>O que pode acontecer</th><th>Frequência</th><th>O que significa</th></tr>
+<tr><td>Dor no local da picada</td><td>Comum</td><td>Passa em horas ou poucos dias. Melhora com gelo e analgésico.</td></tr>
+<tr><td>Piora da dor nas primeiras 24 a 48 horas</td><td>Até 1 em 10</td><td>Reação ao corticoide dentro da articulação. Melhora sozinha, com gelo e repouso.</td></tr>
+<tr><td>Rosto vermelho e quente</td><td>Pouco comum</td><td>Efeito do corticoide. Passa em 1 a 2 dias.</td></tr>
+<tr><td>Aumento da glicose (açúcar no sangue)</td><td>Comum em quem tem diabetes</td><td>Dura alguns dias. Meça a glicose com mais frequência nesse período.</td></tr>
+<tr><td>Pequeno sangramento ou mancha roxa</td><td>Pouco comum</td><td>Passa sozinho.</td></tr>
+<tr><td>Tontura ou desmaio</td><td>Pouco comum</td><td>Reação do corpo à picada. Costuma passar deitado, em minutos.</td></tr>
+<tr><td>Pele mais clara ou afundada no local</td><td>Rara</td><td>Efeito do corticoide na pele. Pode demorar a melhorar ou ficar para sempre.</td></tr>
+<tr><td>Reação ao anestésico</td><td>Rara</td><td>Alergia, ou formigamento na boca, gosto metálico, zumbido ou tontura. Avise na hora: a equipe está preparada para atender.</td></tr>
+<tr><td>Lesão de tendão ou nervo</td><td>Rara</td><td>Pode causar dor, fraqueza ou formigamento que não passa. Avise se acontecer.</td></tr>
+<tr><td>Infecção dentro da articulação</td><td>Muito rara</td><td>Articulação vermelha, quente, inchada e muito dolorida nos dias seguintes, com ou sem febre. Precisa de atendimento no mesmo dia.</td></tr>
+<tr><td>Não melhorar da dor</td><td>Possível</td><td>Nem todo mundo melhora, e o alívio pode durar menos que o esperado.</td></tr>
+</table>
+<h2>5. Alternativas, seus direitos e participação do interno</h2>
+<p><b>Alternativas.</b> Remédios para dor por boca ou em pomada, gelo, exercícios e fisioterapia, perda de peso (para joelho e quadril), órtese ou palmilha e avaliação com especialista. Você também pode decidir não fazer a infiltração agora.</p>
+<p><b>Seus direitos.</b></p>
+<ul>
+<li>Tirar dúvidas antes, durante e depois do procedimento.</li>
+<li>Desistir a qualquer momento, sem perder o atendimento na unidade.</li>
+<li>Ter um acompanhante de sua escolha na sala.</li>
+</ul>
+${INTERNO}
+<h2>6. Depois da infiltração</h2>
+<p>Você recebe uma folha com os cuidados. Nos primeiros 2 a 3 dias, faça repouso relativo da articulação. <b>Procure atendimento no mesmo dia se a articulação ficar vermelha, quente e inchada, se tiver febre, ou se a dor aumentar muito depois do segundo dia.</b></p>
+<h2>7. Declaração e assinaturas</h2>
+<p>Declaro que li (ou que leram para mim) este termo, que entendi as explicações e que tive a chance de fazer perguntas, todas respondidas. Escolho, por vontade própria, fazer a infiltração. Sei que posso desistir a qualquer momento antes do procedimento.</p>
+<p>Local e data: {unidade}, {data}</p>
+<div class="assin"><span></span>Assinatura do(a) paciente (ou responsável legal)</div>
+<div class="assin"><span></span>Testemunha ou acompanhante (nome e assinatura)</div>
+<div class="assin"><span></span>Médico(a) responsável: {medico} &nbsp; CRM {crm}</div>
+<div class="assin"><span></span>Interno(a), se participou (nome e assinatura)</div>
+`
+},
+{
+  id: "cuidados-infiltracao", tipo: "impresso", sub: "cuidados", grupo: "Outros procedimentos", rascunho: true,
+  titulo: "Cuidados pós · infiltração", curto: "Infiltração",
+  resumo: "Repouso relativo, gelo, glicose no diabetes e sinais de infecção",
+  sinonimos: ["cuidados", "orientações", "pós", "infiltração", "infiltracao", "articulação", "joelho", "ombro", "corticoide", "folheto", "paciente"],
+  campos: [
+    QUADRO("Quadro com nome e data"),
+    NOME_PAC,
+    { id: "data_proc", rotulo: "Data da infiltração", tipo: "data", padrao: "hoje" },
+    { id: "articulacao", rotulo: "Articulação", tipo: "texto", placeholder: "ex.: joelho direito" },
+    { id: "repouso", rotulo: "Repouso relativo", tipo: "opcoes", livre: true, opcoes: ["2 a 3 dias", "2 dias", "3 dias"], padrao: "2 a 3 dias", lembrar: true },
+    { id: "analgesia", rotulo: "Analgésico", tipo: "texto", padrao: "Paracetamol" }
+  ],
+  corpo: `
+<h1>Cuidados após a infiltração</h1>
+<div class="caixa" data-se="cabecalho=sim">
+<p>Nome: {nome}</p>
+<p>Data: {data_proc} &nbsp;&nbsp; Articulação: {articulacao}</p>
+</div>
+<h2>Hoje</h2>
+<ul>
+<li>A região pode ficar dormente por algumas horas, por causa do anestésico. Até passar, tenha cuidado ao caminhar, ao subir escadas e ao dirigir.</li>
+<li>Pode tirar o curativo amanhã. O banho pode ser normal.</li>
+<li>Evite piscina, mar e banheira por 2 dias.</li>
+</ul>
+<h2>Nos primeiros {=repouso}</h2>
+<ul>
+<li>Faça repouso relativo: pode fazer as atividades leves do dia a dia, mas evite esforço, impacto, carregar peso e exercício intenso com essa articulação.</li>
+<li>A dor pode aumentar por 1 a 2 dias antes de melhorar. Use gelo por 15 a 20 minutos, até 4 vezes por dia, sempre com um pano entre o gelo e a pele.</li>
+<li>Se precisar, tome {analgesia}, conforme a receita.</li>
+</ul>
+<h2>Nas semanas seguintes</h2>
+<ul>
+<li>O alívio costuma começar em alguns dias e pode durar semanas a meses. Varia de pessoa para pessoa.</li>
+<li>Algumas pessoas ficam com o rosto vermelho e quente por 1 a 2 dias. Passa sozinho.</li>
+<li><b>Se você tem diabetes:</b> a glicose pode subir nos dias seguintes. Meça com mais frequência e procure a unidade se ficar muito alta.</li>
+<li>Volte às atividades aos poucos e continue os exercícios orientados. A infiltração ajuda, mas não substitui o tratamento.</li>
+<li>Em geral, não se repete a infiltração na mesma articulação antes de 3 meses.</li>
+</ul>
+<h2>Procure atendimento no mesmo dia se tiver</h2>
+<ul>
+<li>Articulação vermelha, quente e inchada.</li>
+<li>Febre ou calafrios.</li>
+<li>Dor forte que aumenta depois do segundo dia, em vez de melhorar.</li>
+<li>Pus ou secreção no local da agulha.</li>
+</ul>
+`
+},
+{
   id: "lavagem", tipo: "evolucao", grupo: "Outros procedimentos",
-  titulo: "Lavagem otológica",
+  titulo: "Lavagem otológica", curto: "Lavagem otológica",
   resumo: "SOAP curto; escolher o lado uma vez preenche o texto todo",
   sinonimos: ["lavagem", "otológica", "otologica", "ouvido", "cerume", "cera", "orelha"],
   campos: [
@@ -801,6 +1160,37 @@ ${EXPLIQUEI("inseriu o implante")}
     "- Ao pronto socorro ou UBS de referência se piora clínica/se julgar necessário."
   ]
 },
+{
+  id: "cuidados-lavagem", tipo: "impresso", sub: "cuidados", grupo: "Outros procedimentos", rascunho: true,
+  titulo: "Cuidados pós · lavagem otológica", curto: "Lavagem otológica",
+  resumo: "O que é normal sentir, cotonete e quando procurar a UBS",
+  sinonimos: ["cuidados", "orientações", "pós", "lavagem", "otológica", "otologica", "ouvido", "cerume", "cera", "cotonete", "folheto", "paciente"],
+  campos: [],
+  corpo: `
+<h1>Cuidados após a lavagem do ouvido</h1>
+<h2>É normal nas primeiras horas</h2>
+<ul>
+<li>Sentir o ouvido mais aberto e ouvir os sons mais altos.</li>
+<li>Leve tontura ou zumbido, que passam sozinhos.</li>
+</ul>
+<h2>Cuidados</h2>
+<ul>
+<li>Seque só a parte de fora da orelha, com a ponta da toalha.</li>
+<li>Não coloque nada dentro do ouvido: cotonete, grampo, chave, palito ou pena. Eles empurram a cera para dentro e podem machucar.</li>
+<li>Nos 2 primeiros dias, evite piscina e mar.</li>
+<li>A cera protege o ouvido e sai sozinha. Não precisa limpar por dentro.</li>
+<li>Se a cera costuma acumular, a equipe pode orientar gotas para amolecer a cera de tempos em tempos.</li>
+</ul>
+<h2>Procure a UBS se tiver</h2>
+<ul>
+<li>Dor no ouvido.</li>
+<li>Saída de secreção ou sangue.</li>
+<li>Febre.</li>
+<li>Diminuição da audição que não melhora.</li>
+<li>Tontura forte ou que não passa.</li>
+</ul>
+`
+},
 
 /* ===================== ADMINISTRATIVO ===================== */
 {
@@ -818,5 +1208,15 @@ ${EXPLIQUEI("inseriu o implante")}
   ]
 }
 
+];
+
+/* modelos do mesmo procedimento, na ordem do atendimento: viram os atalhos "Do mesmo procedimento" */
+window.KITS = [
+  ["diu-contraindicacoes", "tcle-diu", "tcle-diu-curto", "tcle-diu-bloqueio", "diu", "cuidados-diu", "cuidados-diu-hormonal"],
+  ["tcle-implanon", "implanon", "orient-implanon"],
+  ["pre-op", "tcle-cirurgia", "exerese", "cuidados-ferida", "requisicao-ap"],
+  ["pre-op", "tcle-cirurgia", "cantoplastia", "cuidados-cantoplastia"],
+  ["tcle-infiltracao", "infiltracao", "cuidados-infiltracao"],
+  ["lavagem", "cuidados-lavagem"]
 ];
 })();
