@@ -4,36 +4,44 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
 <style>
-/* Layout: uma coluna (lista → modelo). No modelo: paciente e atalhos do mesmo procedimento no topo, ajustes, o texto vivo, barra de ação fixa embaixo. */
+/* Lista de procedimentos → procedimento com abas (evolução, termo, cuidados…) → aba Imprimir no fim. Tons pastéis. */
 :root{
-  --bg:#eef2f3;          /* fundo, cinza frio puxado para o petróleo */
+  --bg:#f3f5f9;
   --surface:#ffffff;
-  --ink:#15232a;
-  --muted:#56676f;
-  --line:#d4dde0;
-  --accent:#1d5f78;      /* petróleo */
-  --accent-ink:#ffffff;
-  --accent-soft:#deebf0;
-  --blank:#fff0c9;       /* campo em branco: âmbar */
-  --blank-ink:#6e4500;
-  --blank-line:#d39a1c;
-  --ok:#2d6a3e;
-  --paper:#ffffff;       /* a folha impressa é sempre clara */
+  --ink:#202c38;
+  --muted:#5d6977;
+  --line:#dde4ed;
+  --accent:#3a6b9f;      /* links, títulos pequenos, foco */
+  --accent-soft:#e1ecf9; /* azul pastel: campo preenchido, hover */
+  --accent-line:#a9c5e8;
+  --prim:#c4daf3;        /* botão principal, aba e opção marcadas */
+  --prim-ink:#1a3552;
+  --prim-line:#9dbde3;
+  --blank:#fff1c2;       /* campo em branco: amarelo pastel */
+  --blank-ink:#6a4a00;
+  --blank-line:#dfb54a;
+  --ok:#2d6a4d;
+  --paper:#ffffff;       /* a folha é sempre clara */
   --paper-ink:#1b1b1b;
   --paper-line:#9aa3a7;
+  --paper-blank:#fff3c9; --paper-blank-line:#d8ab3d;
+  --paper-fill:#e5effb;  --paper-fill-line:#8fb2dd;
+  --paper-mark:#5f86b8;
   --ui:"Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
   --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0e1519;--surface:#162127;--ink:#e2eaed;--muted:#94a6ad;--line:#2a3a42;
-  --accent:#74b6d0;--accent-ink:#0a1a20;--accent-soft:#1c3541;
-  --blank:#3b2d0b;--blank-ink:#ffd480;--blank-line:#b8861f;--ok:#7cc48f;
+  --bg:#13181f;--surface:#1b222b;--ink:#e4eaf0;--muted:#9aa7b4;--line:#2b3540;
+  --accent:#9cc0ea;--accent-soft:#22324a;--accent-line:#45648c;
+  --prim:#b4cff0;--prim-ink:#13263d;--prim-line:#b4cff0;
+  --blank:#3a2f13;--blank-ink:#f2d58a;--blank-line:#a48635;--ok:#90d2b2;
   --paper:#f7f6f2;--paper-ink:#1b1b1b;--paper-line:#8d969a;color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0e1519;--surface:#162127;--ink:#e2eaed;--muted:#94a6ad;--line:#2a3a42;
-  --accent:#74b6d0;--accent-ink:#0a1a20;--accent-soft:#1c3541;
-  --blank:#3b2d0b;--blank-ink:#ffd480;--blank-line:#b8861f;--ok:#7cc48f;
+  --bg:#13181f;--surface:#1b222b;--ink:#e4eaf0;--muted:#9aa7b4;--line:#2b3540;
+  --accent:#9cc0ea;--accent-soft:#22324a;--accent-line:#45648c;
+  --prim:#b4cff0;--prim-ink:#13263d;--prim-line:#b4cff0;
+  --blank:#3a2f13;--blank-ink:#f2d58a;--blank-line:#a48635;--ok:#90d2b2;
   --paper:#f7f6f2;--paper-ink:#1b1b1b;--paper-line:#8d969a;color-scheme:dark}
 
 *{box-sizing:border-box}
@@ -47,56 +55,43 @@ button{cursor:pointer}
 .wrap{max-width:820px;margin:0 auto}
 
 /* início */
-.home{padding-block:24px 40px;display:flex;flex-direction:column;gap:18px}
-.home h1{font-size:28px;line-height:1.15;margin:0;text-wrap:balance}
-.home .lead{margin:4px 0 0;color:var(--muted)}
+.home{padding-block:24px 40px;display:flex;flex-direction:column;gap:16px}
+.home h1{font-size:26px;line-height:1.15;margin:0;text-wrap:balance}
 .busca{position:sticky;top:env(safe-area-inset-top,0px);z-index:3;background:var(--bg);padding-block:6px}
 .busca input{width:100%;height:52px;border-radius:12px;border:1px solid var(--line);background:var(--surface);padding:0 16px;font-size:17px}
 .busca input::placeholder{color:var(--muted)}
-.filtros{display:flex;gap:8px;flex-wrap:wrap}
 .res{display:flex;flex-direction:column;gap:20px}
 .grupo h2{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 8px}
 .lista{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
-.item{display:grid;grid-template-columns:2.6rem minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 16px;color:inherit;text-decoration:none;border-top:1px solid var(--line);min-height:62px}
+.item{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;color:inherit;text-decoration:none;border-top:1px solid var(--line);min-height:56px;font-size:17px;font-weight:700;line-height:1.25}
 .item:first-child{border-top:0}
 .item:hover{background:var(--accent-soft)}
-.item b{display:block;font-size:17px;line-height:1.25}
-.item small{display:block;color:var(--muted);font-size:14px;line-height:1.3;margin-top:2px}
-.sigla{font:500 11px var(--mono);letter-spacing:.06em;padding:4px 0;text-align:center;border-radius:4px;border:1px solid var(--line);color:var(--muted)}
-.sigla.imp{border-color:var(--accent);color:var(--accent)}
-.sigla.pos{background:var(--accent-soft);border-color:var(--accent-soft);color:var(--accent)}
-.sigla.ref{border-style:dashed}
-.tag{display:inline-block;font:500 10.5px/1.6 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--blank-ink);background:var(--blank);border-radius:4px;padding:0 5px;margin-right:6px;vertical-align:1px}
-.seta{color:var(--muted);font-size:22px}
+.seta{color:var(--muted);font-size:22px;font-weight:400}
 .vazio-busca{padding:16px;color:var(--muted)}
 
-/* paciente em atendimento: só na memória desta página */
+/* paciente em atendimento (só na memória desta página) */
 .pacbar{display:flex;flex-wrap:wrap;align-items:center;gap:2px 12px;background:var(--accent-soft);border-radius:10px;padding:5px 6px 5px 14px;font-size:14px}
 .pacbar span{flex:1 1 14em;min-width:0}
-.pacbar small{color:var(--muted);font-size:13px}
 .lnk{border:0;background:none;color:var(--accent);font-weight:700;font-size:14px;text-decoration:underline;text-underline-offset:3px;min-height:36px;padding:0 8px;border-radius:8px}
 
-/* cabeçalho do modelo */
-.topo{display:flex;gap:12px;align-items:flex-start;padding-block:16px 12px}
+/* procedimento */
+.topo{display:flex;gap:12px;align-items:center;padding-block:16px 4px}
 .voltar{border:1px solid var(--line);background:var(--surface);border-radius:10px;height:44px;padding:0 14px;font-weight:700;white-space:nowrap}
-.topo h1{font-size:22px;line-height:1.2;margin:2px 0 0;text-wrap:balance}
-.topo small{color:var(--muted);font-size:14px}
-.tipo{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
-
-/* do mesmo procedimento: uma fileira que rola de lado no celular */
-.kit{display:flex;flex-direction:column;gap:6px;min-width:0}
-.kit h2{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0}
-.kit-l{display:flex;gap:6px;overflow-x:auto;scrollbar-width:thin;padding-bottom:2px}
-@media (min-width:700px){.kit-l{flex-wrap:wrap;overflow:visible}}
-.kchip{flex:0 0 auto;white-space:nowrap;display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 12px 4px 5px;min-height:38px;color:inherit;text-decoration:none;font-size:14px;line-height:1.2}
-.kchip:hover{background:var(--accent-soft)}
-.kchip .sigla{min-width:2.7rem;padding:2px 4px}
+.topo h1{font-size:22px;line-height:1.2;margin:0;text-wrap:balance;min-width:0}
+.abas{position:sticky;top:env(safe-area-inset-top,0px);z-index:3;background:var(--bg);display:flex;align-items:center;gap:6px;padding-block:6px}
+.abas-l{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;flex:1 1 auto;min-width:0}
+.abas-l::-webkit-scrollbar{display:none}
+.abas-l.corta{-webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 28px),transparent)}
+.aba{flex:0 0 auto;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 16px;min-height:42px;font-size:15px;font-weight:700;color:var(--muted)}
+.aba[aria-pressed="true"]{background:var(--prim);border-color:var(--prim-line);color:var(--prim-ink)}
+.versoes{display:flex;flex-wrap:wrap;gap:6px}
+.versoes .chip{min-height:36px;padding:6px 12px;font-size:14px}
 .rasc{margin:0;background:var(--blank);color:var(--blank-ink);border-radius:10px;padding:10px 14px;font-size:14px}
 
 /* controles */
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 .chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;min-height:40px;font-size:15px;text-align:left;line-height:1.25}
-.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:700}
+.chip[aria-pressed="true"]{background:var(--prim);border-color:var(--prim-line);color:var(--prim-ink);font-weight:700}
 .inp{display:flex;align-items:center;gap:8px}
 .inp input,.inp textarea{flex:1;min-width:0;border-radius:8px;border:1px solid var(--line);background:var(--surface);padding:0 12px;font-size:16px}
 .inp input{height:44px}
@@ -108,13 +103,11 @@ button{cursor:pointer}
 .rot{font-size:14px;font-weight:700}
 .ajuda{color:var(--muted);font-size:13px}
 
-/* tela do modelo */
 .ed{display:flex;flex-direction:column;gap:14px;padding-bottom:16px}
 .dica{margin:0;color:var(--muted);font-size:14px}
 .ajustes{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:4px 16px}
 .ajustes summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:46px;font-weight:700;font-size:15px}
 .ajustes summary::-webkit-details-marker{display:none}
-.ajustes summary small{font-weight:400;color:var(--muted);font-size:13px;text-align:right}
 .ajustes summary::after{content:"▾";color:var(--muted);transition:transform .15s}
 .ajustes[open] summary::after{transform:rotate(180deg)}
 .aj-lista{display:flex;flex-direction:column;gap:10px;padding:4px 0 14px}
@@ -126,12 +119,12 @@ button{cursor:pointer}
 /* texto da evolução */
 .evo{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;font:14.5px/1.9 var(--mono);white-space:pre-wrap;overflow-wrap:anywhere}
 .evo p{margin:0 0 4px}
-.pill{display:inline;font:inherit;border:0;padding:1px 5px;border-radius:4px;background:var(--accent-soft);color:var(--ink);border-bottom:2px solid var(--accent);-webkit-box-decoration-break:clone;box-decoration-break:clone;text-align:left;white-space:pre-wrap}
+.pill{display:inline;font:inherit;border:0;padding:1px 5px;border-radius:4px;background:var(--accent-soft);color:var(--ink);border-bottom:2px solid var(--accent-line);-webkit-box-decoration-break:clone;box-decoration-break:clone;text-align:left;white-space:pre-wrap}
 .pill.falta{background:var(--blank);color:var(--blank-ink);border-bottom:2px dashed var(--blank-line);font-style:italic}
 .pill.opc{background:transparent;color:var(--muted);border-bottom:2px dashed var(--line)}
 .pill.calc-p{border-bottom-style:dotted;cursor:default}
 
-/* folha impressa */
+/* folha */
 .papel{background:var(--paper);color:var(--paper-ink);border-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,.08),0 8px 28px rgba(20,40,50,.12);padding:clamp(18px,5vw,44px);font:14px/1.5 var(--serif);overflow-wrap:anywhere}
 .papel h1{font-size:18px;line-height:1.25;margin:0 0 10px;font-weight:600;text-wrap:balance;text-transform:uppercase;letter-spacing:.01em}
 .papel h2{font-size:15px;margin:16px 0 6px;font-weight:600}
@@ -152,21 +145,21 @@ button{cursor:pointer}
 .papel .nota{margin-top:22px;font-size:12px;font-style:italic;color:#555}
 .papel .folheto li{margin-bottom:8px}
 .ln{display:inline-block;min-width:9em;border-bottom:1px solid var(--paper-line);height:1.1em;vertical-align:baseline}
+.ln.curta{min-width:4em}
 .ln.longa{min-width:18em}
-.inl{font:inherit;color:inherit;background:#fff6dc;border:0;border-bottom:1.5px dashed #c99a2e;padding:0 4px;border-radius:2px;max-width:100%;min-width:6ch}
-.inl:not(:placeholder-shown){background:#e8f1f5;border-bottom:1.5px solid #1d5f78}
+.inl{font:inherit;color:inherit;background:var(--paper-blank);border:0;border-bottom:1.5px dashed var(--paper-blank-line);padding:0 4px;border-radius:2px;max-width:100%;min-width:6ch}
+.inl:not(:placeholder-shown){background:var(--paper-fill);border-bottom:1.5px solid var(--paper-fill-line)}
 .inl[type="date"]{min-width:10ch}
 textarea.inl{display:block;width:100%;min-height:3.2em;resize:vertical;margin-top:4px}
-.calc-inl{font-weight:600;border-bottom:1px dotted #1d5f78;padding:0 2px}
+.calc-inl{font-weight:600;border-bottom:1px dotted var(--paper-mark);padding:0 2px}
 .calc-inl:empty{display:inline-block;min-width:3em;border-bottom:1px solid var(--paper-line)}
-.so-print{display:none}
-.chk{font:inherit;border:0;background:#fff6dc;border-radius:2px;padding:0 2px;color:inherit;font-size:16px;line-height:1}
+.chk{font:inherit;border:0;background:var(--paper-blank);border-radius:2px;padding:0 2px;color:inherit;font-size:16px;line-height:1}
 
 /* formulário oficial com campos por cima */
 .fundo{position:relative;container-type:inline-size;background:var(--paper);box-shadow:0 1px 2px rgba(0,0,0,.08),0 8px 28px rgba(20,40,50,.12);border-radius:2px;overflow:hidden}
 .fundo img{display:block;width:100%;height:auto}
-.ov{position:absolute;transform:translateY(-100%);border:0;background:rgba(255,236,170,.75);color:#0d2a8a;font:500 1.7cqw/1.2 var(--ui);text-align:left;padding:.2cqw .5cqw;border-radius:.4cqw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:2.4cqw}
-.ov.cheio{background:rgba(222,235,240,.55)}
+.ov{position:absolute;transform:translateY(-100%);border:0;background:rgba(255,240,190,.8);color:#0d2a8a;font:500 1.7cqw/1.2 var(--ui);text-align:left;padding:.2cqw .5cqw;border-radius:.4cqw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:2.4cqw}
+.ov.cheio{background:rgba(220,233,250,.6)}
 .ov.opc{background:rgba(220,225,228,.45)}
 .ov.area{transform:none;white-space:pre-wrap;overflow:auto;align-content:start}
 .ov:empty::after{content:attr(data-r);color:#8a6400;font-style:italic}
@@ -179,11 +172,27 @@ textarea.inl{display:block;width:100%;min-height:3.2em;resize:vertical;margin-to
 .status.pend b{background:var(--blank);padding:1px 6px;border-radius:4px}
 .status.pronto{color:var(--ok);font-weight:700}
 .btn{height:48px;border-radius:10px;border:1px solid var(--line);background:var(--surface);padding:0 16px;font-weight:700;font-size:15px}
-.btn.prim{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);padding:0 22px;flex:1 1 auto}
-.aviso{font-size:13px;color:var(--muted);flex-basis:100%}
-@media (min-width:700px){.status{flex-basis:200px}.btn.prim{flex:0 0 auto}}
+.btn.prim{background:var(--prim);border-color:var(--prim-line);color:var(--prim-ink);padding:0 22px;flex:1 1 auto}
+.aviso{font-size:14px;color:var(--muted);margin:0}
+@media (min-width:700px){.status{flex-basis:200px}.barra .btn.prim{flex:0 0 auto}}
 
-/* folha de preenchimento */
+/* aba Imprimir */
+.imp{display:flex;flex-direction:column;gap:14px;padding-bottom:24px}
+.imp h2{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0}
+.imp-lista{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.imp-item{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 12px;padding:12px 16px;border-top:1px solid var(--line)}
+.imp-item:first-child{border-top:0}
+.imp-ch{display:flex;align-items:flex-start;gap:12px;flex:1 1 15em;min-width:0;cursor:pointer}
+.imp-ch input,.duplex input{width:22px;height:22px;margin:1px 0 0;accent-color:var(--accent);flex:0 0 auto}
+.imp-ch b{display:block;font-size:16px;line-height:1.3}
+.imp-ch small{display:block;color:var(--muted);font-size:13.5px;margin-top:2px}
+.imp-ch small.pend{color:var(--blank-ink)}
+.vias{display:flex;gap:6px}
+.vias .chip{min-height:36px;padding:6px 12px;font-size:14px}
+.duplex{display:flex;align-items:center;gap:12px;font-weight:700;cursor:pointer;padding-inline:4px}
+.imp .btn.prim{width:100%;height:52px;font-size:16px}
+.imp-nota{margin:0;color:var(--muted);font-size:14px}
+
 .veu{position:fixed;inset:0;background:rgba(5,15,20,.35);z-index:20}
 .sheet{position:fixed;left:0;right:0;bottom:0;z-index:21;margin:0 auto;max-width:600px;background:var(--surface);border:1px solid var(--line);border-radius:16px 16px 0 0;
   padding:16px max(16px, env(safe-area-inset-right,0px)) max(16px, env(safe-area-inset-bottom,0px)) max(16px, env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:12px;box-shadow:0 -10px 40px rgba(0,0,0,.18);max-height:80vh;overflow:auto}
@@ -192,34 +201,38 @@ textarea.inl{display:block;width:100%;min-height:3.2em;resize:vertical;margin-to
 .sh-x{border:0;background:none;color:var(--muted);font-weight:700;height:40px}
 .sh-b{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}
 .sheet .chip{min-height:46px;font-size:16px}
-
 .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(96px + env(safe-area-inset-bottom,0px));z-index:30;background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:10px;font-weight:700;font-size:15px;max-width:calc(100% - 32px);text-align:center}
 @media (prefers-reduced-motion:no-preference){.sheet{animation:sobe .18s ease-out}}
 @keyframes sobe{from{transform:translateY(12px);opacity:.4}}
 
+/* o que vai para a impressora: montado na hora de imprimir, com o mesmo estilo na medição das páginas */
+#impressao{display:none}
+.papel.imp-papel{padding:0;box-shadow:none;border-radius:0;font:11pt/1.4 var(--serif);background:#fff;color:#1b1b1b}
+.imp-papel h1,.imp-papel h2{break-after:avoid}
+.imp-papel li,.imp-papel p,.imp-papel tr,.imp-papel .caixa,.imp-papel .assin,.imp-papel .tabela{break-inside:avoid}
+.imp-papel .txt{white-space:pre-wrap}
+.via-n{margin:14px 0 0;text-align:right;font:10pt var(--serif);color:#555}
+.via-form .fundo{width:210mm;height:297mm;box-shadow:none;border-radius:0}
+.via-form .fundo img{width:100%;height:100%;object-fit:fill}
+.via-form .ov{background:none;color:#000}
+.via-form .ov:empty::after{content:none}
 @media print{
-  @page{size:A4;margin:16mm}
+  @page{size:A4;margin:14mm}   /* se mudar a margem, mudar também a área útil em paginasDe() */
   @page formulario{margin:0}
-  body{background:#fff;padding:0}
-  body::before,.topo,.barra,.dica,.ajustes,.toast,.sheet,.veu,.pacbar,.kit,.rasc{display:none!important}
-  .ed{display:block;padding:0}
-  .papel{box-shadow:none;padding:0;border-radius:0;font-size:11.5pt}
-  .inl{background:none!important;border:0;border-bottom:1px solid #777;padding:0}
-  .inl:not(:placeholder-shown){border-bottom:0}
-  .inl::placeholder{color:transparent}
-  .inl[type="date"],.inl[type="text"]{display:none}
-  .so-print{display:inline}
-  .papel h1,.papel h2{break-after:avoid}
-  .papel li,.papel p,.papel tr,.papel .caixa,.papel .assin,.papel .tabela{break-inside:avoid}
-  .chk{background:none}
-  .calc-inl{border:0}
-  .fundo{page:formulario;box-shadow:none;width:210mm;margin:0}
-  .ov{background:none!important;color:#000}
-  .ov:empty::after{content:""}
+  html,body{background:#fff}
+  body{padding:0}
+  body::before{display:none}
+  body > :not(#impressao){display:none!important}
+  #impressao{display:block}
+  .via{break-before:page}
+  .via:first-child{break-before:auto}
+  .branca{break-before:page;height:1px}
+  .via-form{page:formulario}
 }
 </style>
 
 <div class="wrap"><main id="app"></main></div>
+<div id="impressao" aria-hidden="true"></div>
 <div class="veu" id="veu" hidden></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sh-t" hidden>
   <div class="sh-h"><b id="sh-t"></b><button type="button" class="sh-x" id="sh-x">Fechar</button></div>
@@ -233,7 +246,7 @@ textarea.inl{display:block;width:100%;min-height:3.2em;resize:vertical;margin-to
 <script>
 (function(){
 const MODELOS = window.MODELOS || [];
-const KITS = window.KITS || [];
+const PROCS = window.PROCEDIMENTOS || [];
 const app = document.getElementById('app');
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const el = (tag, cls, txt) => { const e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; };
@@ -250,27 +263,25 @@ const cheio = x => String(x ?? '').trim() !== '';
 let reduz = false; try { reduz = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){}
 let podeImprimir = false; try { podeImprimir = window.self === window.top; } catch(e){}
 
-let filtro = 'tudo', busca = '';
+let busca = '';
 const estado = {};   // valores por modelo, só nesta sessão
 const pac = {};      // dados do paciente em atendimento, comuns a todos os modelos. Só na memória: nunca vão para o armazenamento.
-let origem = null;   // modelo de onde se veio pelo atalho "Do mesmo procedimento"
+const auto = {};     // por modelo: valores trazidos de outro modelo e ainda não editados
+const escolha = {};  // versão escolhida em cada aba nesta sessão ("procedimento:aba" → modelo)
+const marcado = {};  // itens desmarcados na impressão ("procedimento:aba" → false)
+const abaDe = {};    // aba aberta em cada procedimento
+let procAtual = null, docAtual = null, origem = null, semPuxar = false;
 let atualizar = () => {};
 let papel = null, ultimoFoco = null;
 
 const modelo = id => MODELOS.find(x => x.id === id);
+const proc = id => PROCS.find(p => p.id === id);
 const campo = (m, id) => m.campos.find(c => c.id === id);
 const vazioDe = c => c.vazio || c.rotulo.toLowerCase();
-
-/* ---------- categorias ---------- */
-function cat(m){
-  if (m.tipo === 'evolucao') return 'evolucao';
-  if (m.tipo === 'impresso' && (m.sub === 'termo' || m.sub === 'cuidados')) return m.sub;
-  return 'outros';
-}
-const SIGLAS = { evolucao: ['EVO', ''], termo: ['TCLE', 'imp'], cuidados: ['PÓS', 'pos'] };
-const sigla = m => SIGLAS[cat(m)] || (m.tipo === 'consulta' ? ['REF', 'ref'] : ['REQ', 'imp']);
-const NOMES = { evolucao: 'Evolução', termo: 'Termo de consentimento', cuidados: 'Cuidados pós' };
-const nomeTipo = m => NOMES[cat(m)] || (m.tipo === 'consulta' ? 'Consulta' : 'Formulário');
+const docsDe = p => p.abas.flatMap(a => a.docs);
+const imprimivel = m => !!m && m.tipo === 'impresso';
+const temImpressao = p => p.abas.some(a => a.docs.some(id => imprimivel(modelo(id))));
+const abasDe = p => temImpressao(p) ? [...p.abas, { nome: 'Imprimir', imprimir: true }] : p.abas;
 
 /* ---------- perfil do profissional (médico, CRM, cidade…): um valor só, para todos os modelos ---------- */
 const perfil = () => store.get('mod.perfil', {});
@@ -396,7 +407,7 @@ function pendPapel(m, v){
   });
   return ids;
 }
-// campos que incluem/tiram trechos ou não aparecem no texto como campo editável: ficam em "Ajustes"
+// campos que incluem ou tiram trechos, ou que não aparecem no texto como campo editável: ficam em "Ajustes"
 function chaves(m){
   if (m.fundo) return [];
   const usados = new Set(), conds = new Set();
@@ -413,12 +424,7 @@ function chaves(m){
   return m.campos.filter(c => c.tipo !== 'calc' && (conds.has(c.id) || !usados.has(c.id)));
 }
 
-/* ---------- do mesmo procedimento ---------- */
-function kitDe(id){
-  const out = [];
-  KITS.forEach(k => { if (k.includes(id)) k.forEach(x => { if (x !== id && !out.includes(x) && modelo(x)) out.push(x); }); });
-  return out;
-}
+/* ---------- entre os modelos do mesmo procedimento ---------- */
 const base = c => c.tipo === 'data' ? 'data' : 'texto';
 // "Exérese de {lesao}|Exérese de lesão de pele": vale a primeira alternativa com todos os campos preenchidos
 function preenche(tpl, a, va){
@@ -429,12 +435,11 @@ function preenche(tpl, a, va){
   }
   return '';
 }
-// ao abrir B: traz dos modelos do mesmo procedimento já abertos o que foi escolhido lá
-// (campos de mesmo nome e os mapeados em A.leva[B]). Só mexe no que em B ainda está no padrão
-// ou foi trazido antes sem edição; o modelo de onde se veio tem prioridade.
-const auto = {};     // por modelo: valores que vieram de outro modelo e ainda não foram editados
-function puxar(b, vb, de){
-  const kit = kitDe(b.id);
+// traz dos outros modelos do procedimento o que foi escolhido lá (campos de mesmo nome e os de A.leva[B]).
+// Só mexe no que em B ainda está no padrão ou veio de outro modelo sem edição. O modelo de onde se veio tem prioridade.
+function puxar(b, vb, de, p){
+  if (!p) return;
+  const kit = docsDe(p).filter(x => x !== b.id && modelo(x));
   const fontes = [...(de && kit.includes(de) ? [de] : []), ...kit.filter(x => x !== de)].filter(x => estado[x]);
   if (!fontes.length) return;
   const iniB = iniciais(b);
@@ -458,6 +463,27 @@ function puxar(b, vb, de){
       poe(c.id, x);
     });
   });
+}
+function prepara(m, p, de){
+  if (!estado[m.id]) estado[m.id] = iniciais(m);
+  const v = estado[m.id];
+  sincroniza(m, v);
+  if (!semPuxar) puxar(m, v, de, p);
+  return v;
+}
+// modelo mostrado na aba: escolhido nesta sessão, pelo que foi marcado em outro modelo, ou o último usado
+function docDaAba(p, i){
+  const a = p.abas[i], k = p.id + ':' + i;
+  if (a.docs.length === 1) return a.docs[0];
+  if (escolha[k] && a.docs.includes(escolha[k])) return escolha[k];
+  if (a.por){
+    const f = modelo(a.por.modelo);
+    const val = norm(((estado[a.por.modelo] || (f ? iniciais(f) : {}))[a.por.campo]) || '');
+    const hit = Object.keys(a.por.valores).find(x => val.includes(norm(x)));
+    if (hit) return a.por.valores[hit];
+  }
+  const salvo = store.get('mod.versao.' + k, null);
+  return a.docs.includes(salvo) ? salvo : a.docs[0];
 }
 
 /* ---------- controles ---------- */
@@ -519,8 +545,8 @@ function controle(m, c, v, aoMudar){
 const temPaciente = () => Object.values(pac).some(cheio);
 function textoPac(){
   const nome = String(pac.nome || '').trim();
-  if (nome) return `Paciente: <b>${esc(nome)}</b> <small>· não fica salvo</small>`;
-  return temPaciente() ? 'Há dados de paciente preenchidos <small>· não ficam salvos</small>' : 'Sem dados de paciente';
+  if (nome) return `Paciente: <b>${esc(nome)}</b>`;
+  return temPaciente() ? 'Há dados de paciente preenchidos' : 'Sem dados de paciente';
 }
 function barraPaciente(){
   if (!temPaciente()) return null;
@@ -531,106 +557,125 @@ function barraPaciente(){
 }
 function atualizaPac(){ const b = document.getElementById('pacbar'); if (b) b.firstChild.innerHTML = textoPac(); }
 function novoPaciente(){
-  [pac, estado, auto].forEach(o => Object.keys(o).forEach(k => delete o[k]));
+  [pac, estado, auto, escolha, marcado].forEach(o => Object.keys(o).forEach(k => delete o[k]));
   rota(); toast('Dados do paciente apagados');
 }
 
 /* ---------- tela inicial ---------- */
 function renderInicio(){
-  atualizar = () => {}; papel = null;
+  atualizar = () => {}; papel = null; procAtual = null; docAtual = null;
   app.innerHTML = '';
   const h = el('div', 'home');
-  h.innerHTML = `<div><h1>Evoluções e Termos</h1><p class="lead">Toque no modelo, preencha os trechos destacados e copie para o prontuário ou imprima.</p></div>`;
+  h.append(el('h1', null, 'Evoluções e Termos'));
   const pb = barraPaciente(); if (pb) h.append(pb);
   const b = el('div', 'busca');
   const q = document.createElement('input'); q.type = 'search'; q.id = 'q'; q.value = busca;
-  q.placeholder = 'Buscar: diu, nevo, unha, termo, cuidados…'; q.setAttribute('aria-label', 'Buscar modelo');
+  q.placeholder = 'Buscar procedimento'; q.setAttribute('aria-label', 'Buscar procedimento');
   b.append(q); h.append(b);
-  const f = el('div', 'filtros');
-  [['tudo','Tudo'],['evolucao','Evoluções'],['termo','Termos'],['cuidados','Cuidados pós'],['outros','Outros']].forEach(([k, t]) => {
-    const c = el('button', 'chip', t); c.type = 'button'; c.setAttribute('aria-pressed', filtro === k);
-    c.onclick = () => { filtro = k; renderInicio(); }; f.append(c);
-  });
-  h.append(f);
   const res = el('div', 'res'); h.append(res); app.append(h);
+  const alvo = p => norm([p.nome, p.grupo, ...(p.sinonimos || []), ...docsDe(p).map(id => { const m = modelo(id); return m ? [m.titulo, ...(m.sinonimos || [])].join(' ') : ''; })].join(' '));
   const desenhar = () => {
     res.innerHTML = '';
     const termos = norm(busca).split(/\s+/).filter(Boolean);
-    const bate = m => { const alvo = norm([m.titulo, m.resumo, m.grupo, ...(m.sinonimos||[])].join(' ')); return termos.every(t => alvo.includes(t)); };
-    const vis = MODELOS.filter(m => (filtro === 'tudo' || cat(m) === filtro) && bate(m));
-    if (!vis.length){ const l = el('div', 'lista'); l.append(el('div', 'vazio-busca', `Nenhum modelo para “${busca}”. Me mande o texto que eu incluo.`)); res.append(l); return; }
-    const rec = store.get('mod.recentes', []).map(id => vis.find(m => m.id === id)).filter(Boolean);
-    if (rec.length && !termos.length) res.append(grupo('Usados por último', rec));
+    const vis = PROCS.filter(p => { const t = alvo(p); return termos.every(x => t.includes(x)); });
+    if (!vis.length){ const l = el('div', 'lista'); l.append(el('div', 'vazio-busca', `Nenhum procedimento encontrado para “${busca}”.`)); res.append(l); return; }
     const grupos = [];
-    vis.forEach(m => { let g = grupos.find(x => x[0] === m.grupo); if (!g) grupos.push(g = [m.grupo, []]); g[1].push(m); });
-    grupos.forEach(([nome, lista]) => res.append(grupo(nome || 'Outros', lista)));
+    vis.forEach(p => { let g = grupos.find(x => x[0] === p.grupo); if (!g) grupos.push(g = [p.grupo, []]); g[1].push(p); });
+    grupos.forEach(([nome, lista]) => {
+      const g = el('section', 'grupo'); g.append(el('h2', null, nome));
+      const l = el('div', 'lista');
+      lista.forEach(p => {
+        const a = el('a', 'item'); a.href = '#p-' + p.id;
+        a.innerHTML = `<span>${esc(p.nome)}</span><span class="seta" aria-hidden="true">›</span>`;
+        l.append(a);
+      });
+      g.append(l); res.append(g);
+    });
   };
   q.oninput = () => { busca = q.value; desenhar(); };
   desenhar();
 }
-function grupo(titulo, lista){
-  const g = el('section', 'grupo'); g.append(el('h2', null, titulo));
-  const l = el('div', 'lista');
-  lista.forEach(m => {
-    const [sg, cl] = sigla(m);
-    const a = el('a', 'item'); a.href = '#m-' + m.id;
-    a.innerHTML = `<span class="sigla ${cl}">${sg}</span><span><b>${esc(m.titulo)}</b><small>${m.rascunho ? '<span class="tag">rascunho</span>' : ''}${esc(m.resumo || '')}</small></span><span class="seta" aria-hidden="true">›</span>`;
-    l.append(a);
-  });
-  g.append(l); return g;
-}
 
-/* ---------- tela do modelo ---------- */
-function topo(m){
+/* ---------- procedimento ---------- */
+function renderProc(p){
+  procAtual = p;
+  fecharSheet();
+  app.innerHTML = ''; papel = null; ultimoFoco = null; atualizar = () => {};
+  const abas = abasDe(p);
+  let i = abaDe[p.id] || 0; if (i >= abas.length) i = 0;
   const t = el('header', 'topo');
-  const b = el('button', 'voltar', '‹ Modelos'); b.type = 'button';
+  const b = el('button', 'voltar', '‹ Voltar'); b.type = 'button';
   b.onclick = () => { location.hash = 'inicio'; };
-  const d = el('div');
-  d.innerHTML = `<span class="tipo">${nomeTipo(m)}</span><h1>${esc(m.titulo)}</h1><small>${esc(m.resumo || '')}</small>`;
-  t.append(b, d); return t;
+  t.append(b, el('h1', null, p.nome));
+  app.append(t);
+  const ed = el('div', 'ed');
+  const pb = barraPaciente(); if (pb){ pb.id = 'pacbar'; ed.append(pb); }
+  if (abas.length > 1) ed.append(linhaAbas(p, abas, i));
+  if (abas[i].imprimir){
+    ed.append(painelImpressao(p));
+    app.append(ed);
+    docAtual = null; origem = null; semPuxar = false;
+    return;
+  }
+  if (p.abas[i].docs.length > 1) ed.append(linhaVersoes(p, i));
+  const m = modelo(docDaAba(p, i));
+  const v = prepara(m, p, origem);
+  origem = null; semPuxar = false; docAtual = m.id;
+  conteudo(m, v, ed, p);
 }
-function kit(m){
-  const ids = kitDe(m.id); if (!ids.length) return null;
-  const nav = el('nav', 'kit'); nav.setAttribute('aria-label', 'Do mesmo procedimento');
-  nav.append(el('h2', null, 'Do mesmo procedimento'));
-  const l = el('div', 'kit-l');
-  ids.forEach(id => {
-    const k = modelo(id); const [sg, cl] = sigla(k);
-    const a = el('a', 'kchip'); a.href = '#m-' + id;
-    a.innerHTML = `<span class="sigla ${cl}">${sg}</span><span>${esc(k.curto || k.titulo)}</span>`;
-    a.addEventListener('click', () => { origem = m.id; });
-    l.append(a);
+// abas do procedimento; Imprimir fica fixa no fim e as outras rolam para o lado quando não cabem
+function linhaAbas(p, abas, i){
+  const n = el('nav', 'abas'); n.setAttribute('aria-label', 'Partes do procedimento');
+  const l = el('div', 'abas-l'); n.append(l);
+  abas.forEach((a, j) => {
+    const b = el('button', 'aba', a.nome); b.type = 'button'; b.setAttribute('aria-pressed', j === i);
+    b.onclick = () => irAba(p, j);
+    (a.imprimir ? n : l).append(b);
   });
-  nav.append(l);
-  return nav;
+  const marca = () => l.classList.toggle('corta', l.scrollLeft + l.clientWidth < l.scrollWidth - 2);
+  l.addEventListener('scroll', marca, { passive: true });
+  requestAnimationFrame(() => {
+    const at = l.querySelector('[aria-pressed="true"]');
+    if (at && at.offsetLeft + at.offsetWidth > l.clientWidth) l.scrollLeft = at.offsetLeft - 8;
+    marca();
+  });
+  return n;
+}
+function irAba(p, j){ origem = docAtual; abaDe[p.id] = j; renderProc(p); window.scrollTo(0, 0); }
+function linhaVersoes(p, i){
+  const a = p.abas[i], k = p.id + ':' + i, atual = docDaAba(p, i);
+  const d = el('div', 'versoes'); d.setAttribute('role', 'group'); d.setAttribute('aria-label', 'Versão');
+  a.docs.forEach(id => {
+    const m = modelo(id);
+    const b = el('button', 'chip', m.curto || m.titulo); b.type = 'button'; b.setAttribute('aria-pressed', id === atual);
+    b.onclick = () => { escolha[k] = id; if (!a.por) store.set('mod.versao.' + k, id); origem = atual; renderProc(p); };
+    d.append(b);
+  });
+  return d;
 }
 function avisoRascunho(){
   const p = el('p', 'rasc');
-  p.innerHTML = '<b>Rascunho meu</b>, ainda não é o texto do serviço. Revise antes de entregar, ou me mande o texto de vocês que eu troco.';
+  p.innerHTML = '<b>Rascunho para revisão.</b> Este texto ainda não foi aprovado pelo serviço.';
   return p;
 }
-function barra(m, v){
+function barra(m, v, p){
   const b = el('div', 'barra');
   const st = el('span', 'status'); st.id = 'status'; st.setAttribute('aria-live', 'polite');
   b.append(st);
-  const editaveis = m.campos.filter(c => c.tipo !== 'calc');
+  const editaveis = m.campos.some(c => c.tipo !== 'calc');
   const folhaLivre = m.tipo === 'impresso' && !m.fundo;
-  if (editaveis.length){
-    const doPaciente = m.tipo === 'impresso' && editaveis.some(c => c.paciente);
-    const limpar = el('button', 'btn', doPaciente ? 'Novo paciente' : 'Limpar'); limpar.type = 'button';
-    limpar.onclick = () => {
-      if (doPaciente) novoPaciente();
-      else { estado[m.id] = iniciais(m); delete auto[m.id]; abrir(m.id, true); toast('Texto voltou ao padrão'); }
-    };
+  if (m.tipo === 'evolucao'){
+    const limpar = el('button', 'btn', 'Limpar'); limpar.type = 'button';
+    limpar.onclick = () => { estado[m.id] = iniciais(m); delete auto[m.id]; semPuxar = true; renderProc(p); toast('Texto voltou ao padrão'); };
     b.append(limpar);
   }
-  if (m.tipo === 'evolucao' || m.fundo || (folhaLivre && editaveis.length)){
-    const p = el('button', 'btn', 'Próximo em branco'); p.type = 'button'; p.id = 'b-prox';
-    p.onclick = () => {
+  if (editaveis){
+    const pr = el('button', 'btn', 'Próximo em branco'); pr.type = 'button'; pr.id = 'b-prox';
+    pr.onclick = () => {
       if (folhaLivre) proximoPapel(m, v, ultimoFoco && papel && papel.contains(ultimoFoco) ? ultimoFoco : null);
       else { const pend = pendentes(m, v); if (pend.length) abrirSheet(m, v, campo(m, pend[0])); }
     };
-    b.append(p);
+    b.append(pr);
   }
   if (m.tipo === 'evolucao'){
     const c = el('button', 'btn prim', 'Copiar evolução'); c.type = 'button';
@@ -638,16 +683,13 @@ function barra(m, v){
       const n = pendentes(m, v).length;
       copiar(textoPlano(m, v)).then(ok => {
         registrar(m, v);
-        toast(ok ? (n ? `Copiado com ${n} em branco (___). Cole no prontuário.` : 'Copiado. Cole no prontuário.') : 'Não consegui copiar. Selecione o texto e copie.');
+        toast(ok ? (n ? `Copiado com ${n} em branco (___). Cole no prontuário.` : 'Copiado. Cole no prontuário.') : 'Não foi possível copiar. Selecione o texto e copie.');
       });
     };
     b.append(c);
-  } else if (podeImprimir){
-    const p = el('button', 'btn prim', 'Imprimir'); p.type = 'button';
-    p.onclick = () => { registrar(m, v); window.print(); };
-    b.append(p);
   } else {
-    b.append(el('span', 'aviso', 'Dentro do Claude a impressão fica bloqueada. Abrindo o arquivo no navegador, aparece o botão Imprimir (A4).'));
+    const ii = abasDe(p).findIndex(a => a.imprimir);
+    if (ii >= 0){ const ir = el('button', 'btn prim', 'Imprimir…'); ir.type = 'button'; ir.onclick = () => irAba(p, ii); b.append(ir); }
   }
   return b;
 }
@@ -655,13 +697,10 @@ function status(m, v){
   const st = document.getElementById('status'); if (!st) return;
   const p = document.getElementById('b-prox');
   atualizaPac();
-  if (m.tipo === 'consulta' || (m.tipo === 'impresso' && !m.campos.some(c => c.tipo !== 'calc'))){
-    st.className = 'status'; st.textContent = m.tipo === 'consulta' ? 'Ficha para consulta rápida.' : 'Pronto para imprimir e entregar.'; return;
-  }
+  if (!m.campos.some(c => c.tipo !== 'calc')){ st.className = 'status'; st.textContent = 'Pronto para imprimir.'; return; }
   const n = pendentes(m, v).length;
   st.className = 'status ' + (n ? 'pend' : 'pronto');
-  if (m.tipo === 'impresso' && !m.fundo) st.innerHTML = n ? `<b>${n}</b> ${n === 1 ? 'campo em branco (sai com linha para escrever à mão)' : 'campos em branco (saem com linha para escrever à mão)'}` : 'Tudo preenchido';
-  else st.innerHTML = n ? `<b>${n}</b> ${n === 1 ? 'campo em branco' : 'campos em branco'}` : 'Tudo preenchido';
+  st.innerHTML = n ? `<b>${n}</b> ${n === 1 ? 'campo em branco' : 'campos em branco'}` : 'Tudo preenchido';
   if (p) p.hidden = !n;
 }
 
@@ -675,7 +714,8 @@ function htmlEvo(m, v){
     return `<button type="button" class="pill ${cls}" data-id="${c.id}" aria-label="${esc(c.rotulo)}: ${esc(x || 'em branco')}">${esc(x || vazioDe(c))}</button>`;
   }).join('') + '</p>').join('');
 }
-// corpo do impresso: {campo} vira campo na folha, {campo=valor} vira ☐/☒, {=campo} só mostra o valor (muda em "Ajustes")
+const tabelas = h => h.replace(/<table>/g, '<div class="tabela"><table>').replace(/<\/table>/g, '</table></div>');
+// folha na tela: {campo} vira campo, {campo=valor} vira ☐/☒, {=campo} só mostra o valor (muda em "Ajustes")
 function htmlPapel(m, v){
   let h = m.corpo.replace(/\{(\w+)=([^}]+)\}/g, (_, id, val) => {
     const on = (v[id] || '') === val;
@@ -687,10 +727,10 @@ function htmlPapel(m, v){
     const ph = esc(c.placeholder || c.rotulo.toLowerCase());
     if (c.tipo === 'calc') return `<span class="calc-inl" data-calc="${id}">${esc(mostra(m, c, v))}</span>`;
     if (c.tipo === 'textolongo') return `<textarea class="inl" data-id="${id}" placeholder="${ph}" aria-label="${esc(c.rotulo)}">${esc(v[id] || '')}</textarea>`;
-    if (c.tipo === 'data') return `<input class="inl" type="date" data-id="${id}" value="${esc(v[id] || '')}" aria-label="${esc(c.rotulo)}"><span class="so-print" data-print="${id}">${esc(mostra(m, c, v)) || '<span class="ln"></span>'}</span>`;
-    return `<input class="inl" type="text" data-id="${id}" value="${esc(v[id] || '')}" placeholder="${ph}" aria-label="${esc(c.rotulo)}" autocomplete="off"><span class="so-print" data-print="${id}">${esc(mostra(m, c, v)) || '<span class="ln"></span>'}</span>`;
+    if (c.tipo === 'data') return `<input class="inl" type="date" data-id="${id}" value="${esc(v[id] || '')}" aria-label="${esc(c.rotulo)}">`;
+    return `<input class="inl" type="text" data-id="${id}" value="${esc(v[id] || '')}" placeholder="${ph}" aria-label="${esc(c.rotulo)}" autocomplete="off">`;
   });
-  return h.replace(/<table>/g, '<div class="tabela"><table>').replace(/<\/table>/g, '</table></div>');
+  return tabelas(h);
 }
 // leva ao próximo campo em branco da folha, depois de "atual" (ou ao primeiro)
 function proximoPapel(m, v, atual){
@@ -705,10 +745,8 @@ function proximoPapel(m, v, atual){
 
 function painelAjustes(m, v, ks, ctrls){
   const aj = el('details', 'ajustes');
-  const resumo = el('summary');
-  resumo.append(el('span', null, 'Ajustes do texto'), el('small', null, 'incluir ou tirar linhas'));
-  aj.append(resumo);
-  // evoluções: começa aberto; folhas para imprimir: começa fechado (o que importa é a folha). Fica a última escolha.
+  aj.append(el('summary', null, 'Ajustes do texto'));
+  // evoluções começam com os ajustes abertos; folhas, fechados. Fica a última escolha de cada tipo.
   const chave = m.tipo === 'evolucao' ? 'mod.ajustes' : 'mod.ajustes.folha';
   aj.open = store.get(chave, m.tipo === 'evolucao');
   aj.addEventListener('toggle', () => store.set(chave, aj.open));
@@ -724,21 +762,16 @@ function painelAjustes(m, v, ks, ctrls){
   return aj;
 }
 
-function renderModelo(m, v){
-  app.innerHTML = ''; papel = null; ultimoFoco = null;
-  app.append(topo(m));
-  const ed = el('div', 'ed');
-  const pb = barraPaciente(); if (pb){ pb.id = 'pacbar'; ed.append(pb); }
-  const k = kit(m); if (k) ed.append(k);
-  if (m.rascunho) ed.append(avisoRascunho());
+function conteudo(m, v, ed, p){
   const ctrls = [];
+  if (m.rascunho) ed.append(avisoRascunho());
   if (m.tipo === 'evolucao'){
-    ed.append(el('p', 'dica', 'Toque nos trechos destacados para mudar. Em âmbar está o que falta; tracejado cinza é opcional.'));
+    ed.append(el('p', 'dica', 'Toque nos trechos destacados para mudar. Amarelo indica o que falta; tracejado cinza é opcional.'));
     const ks = chaves(m);
     if (ks.length) ed.append(painelAjustes(m, v, ks, ctrls));
     const folha = el('article', 'evo'); ed.append(folha);
     folha.onclick = e => { const b = e.target.closest('button.pill'); if (b) abrirSheet(m, v, campo(m, b.dataset.id)); };
-    app.append(ed); app.append(barra(m, v));
+    app.append(ed); app.append(barra(m, v, p));
     atualizar = () => {
       ctrls.forEach(([c, f, ctl]) => { ctl._sync && ctl._sync(); });
       folha.innerHTML = htmlEvo(m, v);
@@ -750,18 +783,21 @@ function renderModelo(m, v){
     const img = el('img'); img.src = m.fundo; img.alt = m.titulo; fundo.append(img);
     const bts = m.campos.map(c => {
       const b = el('button', 'ov' + (c.tipo === 'textolongo' ? ' area' : '')); b.type = 'button'; b.dataset.id = c.id; b.dataset.r = c.rotulo;
-      const p = c.pos; b.style.left = p.x + '%'; b.style.top = p.y + '%'; b.style.width = p.w + '%'; if (p.h) b.style.height = p.h + '%';
+      const q = c.pos; b.style.left = q.x + '%'; b.style.top = q.y + '%'; b.style.width = q.w + '%'; if (q.h) b.style.height = q.h + '%';
       b.setAttribute('aria-label', c.rotulo);
       b.onclick = () => abrirSheet(m, v, c);
       fundo.append(b); return [c, b];
     });
-    ed.append(fundo); app.append(ed); app.append(barra(m, v));
+    ed.append(fundo); app.append(ed); app.append(barra(m, v, p));
     atualizar = () => {
       bts.forEach(([c, b]) => { const x = mostra(m, c, v); b.textContent = x; b.classList.toggle('cheio', !!x); b.classList.toggle('opc', !x && !!c.opcional); });
       status(m, v);
     };
   } else {
-    if (m.campos.some(c => c.tipo !== 'calc')) ed.append(el('p', 'dica', 'Escreva direto na folha. O que ficar em branco sai com linha para preencher à mão.'));
+    if (m.campos.some(c => c.tipo !== 'calc')){
+      const salvo = m.campos.some(c => c.paciente) ? ' Os dados do paciente não ficam salvos.' : '';
+      ed.append(el('p', 'dica', 'Escreva direto na folha. O que ficar em branco sai com uma linha para preencher à mão.' + salvo));
+    }
     const ks = chaves(m);
     if (ks.length) ed.append(painelAjustes(m, v, ks, ctrls));
     const folha = el('article', 'papel'); ed.append(folha); papel = folha;
@@ -769,7 +805,6 @@ function renderModelo(m, v){
     const ajusta = i => { if (i.tagName === 'INPUT' && i.type === 'text') i.style.width = Math.max(i.value.length, i.placeholder.length, 6) + 3 + 'ch'; };
     const refresca = () => {
       folha.querySelectorAll('[data-calc]').forEach(s => { const c = campo(m, s.dataset.calc); s.textContent = c ? mostra(m, c, v) : ''; });
-      folha.querySelectorAll('[data-print]').forEach(s => { const x = mostra(m, campo(m, s.dataset.print), v); s.innerHTML = x ? esc(x) : '<span class="ln"></span>'; });
       folha.querySelectorAll('[data-se]').forEach(e => { e.hidden = !cond(e.dataset.se, v); });
     };
     folha.querySelectorAll('.inl').forEach(i => {
@@ -786,7 +821,8 @@ function renderModelo(m, v){
       const b = e.target.closest('button.chk'); if (!b) return;
       v[b.dataset.id] = b.dataset.val; registrar(m, v); atualizar();
     };
-    app.append(ed); app.append(barra(m, v));
+    app.append(ed);
+    if (m.tipo !== 'consulta') app.append(barra(m, v, p));
     atualizar = () => {
       ctrls.forEach(([c, f, ctl]) => { ctl._sync && ctl._sync(); });
       folha.querySelectorAll('.inl').forEach(i => { const x = v[i.dataset.id] || ''; if (document.activeElement !== i && i.value !== x){ i.value = x; ajusta(i); } });
@@ -799,6 +835,128 @@ function renderModelo(m, v){
 
 function mudou(m, v){ registrar(m, v); atualizar(); }
 
+/* ---------- impressão ---------- */
+const viasPadrao = m => m.sub === 'termo' ? 2 : 1;
+const viasDe = m => { const n = store.get('mod.vias.' + m.id, null); return n === 1 || n === 2 ? n : viasPadrao(m); };
+const itensImpressao = p => p.abas.map((a, i) => ({ k: p.id + ':' + i, m: modelo(docDaAba(p, i)) })).filter(x => imprimivel(x.m));
+// a folha só com os valores, sem campos de edição
+function htmlImpressao(m, v){
+  if (m.fundo){
+    return `<div class="fundo"><img src="${esc(m.fundo)}" alt="">` + m.campos.map(c => {
+      const x = mostra(m, c, v); if (!x) return '';
+      const q = c.pos;
+      return `<span class="ov${c.tipo === 'textolongo' ? ' area' : ''}" style="left:${q.x}%;top:${q.y}%;width:${q.w}%${q.h ? ';height:' + q.h + '%' : ''}">${esc(x)}</span>`;
+    }).join('') + '</div>';
+  }
+  let h = m.corpo.replace(/\{(\w+)=([^}]+)\}/g, (_, id, val) => (v[id] || '') === val ? '☒' : '☐');
+  h = h.replace(/\{(=?)(\w+)\}/g, (_, so, id) => {
+    const c = campo(m, id); if (!c) return '';
+    const x = mostra(m, c, v);
+    if (x) return c.tipo === 'textolongo' ? `<span class="txt">${esc(x)}</span>` : esc(x);
+    if (so || c.tipo === 'calc') return '<span class="ln curta"></span>';
+    return `<span class="ln"${c.opcional ? '' : ` data-falta="${id}"`}></span>`;
+  });
+  return '<div class="papel imp-papel">' + tabelas(h) + '</div>';
+}
+const aplicaSe = (raiz, v) => raiz.querySelectorAll('[data-se]').forEach(e => { if (!cond(e.dataset.se, v)) e.remove(); });
+function faltam(m, v){
+  if (m.fundo) return m.campos.filter(c => c.tipo !== 'calc' && !c.opcional && !mostra(m, c, v)).length;
+  const d = document.createElement('div'); d.innerHTML = htmlImpressao(m, v); aplicaSe(d, v);
+  return new Set([...d.querySelectorAll('[data-falta]')].map(e => e.dataset.falta)).size;
+}
+function painelImpressao(p){
+  const w = el('section', 'imp');
+  w.append(el('h2', null, 'O que imprimir'));
+  const lista = el('div', 'imp-lista');
+  itensImpressao(p).forEach(({ k, m }) => {
+    const v = prepara(m, p, null);
+    const row = el('div', 'imp-item');
+    const lab = el('label', 'imp-ch');
+    const cb = document.createElement('input'); cb.type = 'checkbox'; cb.id = 'imp-' + k.replace(':', '-'); cb.checked = marcado[k] !== false;
+    cb.onchange = () => { marcado[k] = cb.checked; };
+    const n = faltam(m, v);
+    const txt = el('span');
+    txt.innerHTML = `<b>${esc(m.titulo)}</b><small class="${n ? 'pend' : ''}">${n ? (n === 1 ? '1 campo em branco' : n + ' campos em branco') : 'Preenchido'}</small>`;
+    lab.append(cb, txt);
+    const vias = el('div', 'vias'); vias.setAttribute('role', 'group'); vias.setAttribute('aria-label', 'Vias');
+    [1, 2].forEach(nv => {
+      const c = el('button', 'chip', nv === 1 ? '1 via' : '2 vias'); c.type = 'button'; c.setAttribute('aria-pressed', viasDe(m) === nv);
+      c.onclick = () => { store.set('mod.vias.' + m.id, nv); vias.querySelectorAll('.chip').forEach((o, j) => o.setAttribute('aria-pressed', j + 1 === nv)); };
+      vias.append(c);
+    });
+    row.append(lab, vias); lista.append(row);
+  });
+  w.append(lista);
+  const dl = el('label', 'duplex');
+  const dc = document.createElement('input'); dc.type = 'checkbox'; dc.id = 'imp-duplex'; dc.checked = store.get('mod.duplex', true);
+  dl.append(dc, el('span', null, 'Frente e verso'));
+  w.append(dl);
+  const nota = el('p', 'imp-nota');
+  const textoNota = () => dc.checked
+    ? 'Na janela de impressão, marque Frente e verso e escolha Virar na borda longa. Cada via começa em uma folha nova.'
+    : 'Cada página sai em uma folha.';
+  dc.onchange = () => { store.set('mod.duplex', dc.checked); nota.textContent = textoNota(); };
+  if (podeImprimir){
+    const bt = el('button', 'btn prim', 'Imprimir'); bt.type = 'button'; bt.id = 'b-imprimir';
+    bt.onclick = () => imprimir(p);
+    w.append(bt);
+  } else {
+    w.append(el('p', 'aviso', 'Dentro do app do Claude a impressão fica bloqueada. Para imprimir, abra o arquivo no navegador do computador.'));
+  }
+  nota.textContent = textoNota();
+  w.append(nota);
+  return w;
+}
+let montada = false;
+function montarImpressao(p){
+  const alvo = document.getElementById('impressao');
+  alvo.innerHTML = '';
+  const itens = itensImpressao(p).filter(x => marcado[x.k] !== false);
+  itens.forEach(({ m }) => {
+    const v = prepara(m, p, null);
+    const n = viasDe(m);
+    for (let j = 1; j <= n; j++){
+      const s = el('section', 'via' + (m.fundo ? ' via-form' : ''));
+      s.innerHTML = htmlImpressao(m, v);
+      aplicaSe(s, v);
+      if (n > 1 && !m.fundo) s.append(el('p', 'via-n', j + 'ª via'));
+      alvo.append(s);
+    }
+  });
+  montada = itens.length > 0;
+  return montada;
+}
+// conta as páginas de uma via diagramando-a em colunas do tamanho da área útil do A4 com margem de 14 mm (182 × 269 mm)
+function paginasDe(s){
+  if (s.classList.contains('via-form')) return 1;
+  const box = document.createElement('div');
+  box.style.cssText = 'position:fixed;left:-10000px;top:0;width:182mm;height:269mm;columns:182mm;column-gap:0;column-fill:auto;visibility:hidden';
+  box.append(s.cloneNode(true));
+  document.body.append(box);
+  const n = Math.max(1, Math.round(box.scrollWidth / box.clientWidth));
+  box.remove();
+  return n;
+}
+// frente e verso: depois de uma via com número ímpar de páginas entra uma página em branco
+function paginar(){
+  const secs = [...document.querySelectorAll('#impressao .via')];
+  secs.forEach((s, i) => {
+    const n = paginasDe(s); s.dataset.paginas = n;
+    if (i < secs.length - 1 && n % 2 === 1) s.after(el('div', 'branca'));
+  });
+}
+async function imprimir(p){
+  if (!montarImpressao(p)){ toast('Marque pelo menos um documento.'); return; }
+  try { await document.fonts.ready; } catch(e){}
+  if (store.get('mod.duplex', true)) paginar();
+  window.print();
+}
+window.addEventListener('beforeprint', () => {
+  if (montada || !procAtual) return;
+  if (montarImpressao(procAtual) && store.get('mod.duplex', true)) paginar();
+});
+window.addEventListener('afterprint', () => { montada = false; document.getElementById('impressao').innerHTML = ''; });
+
 /* ---- folha de preenchimento ---- */
 const sheet = document.getElementById('sheet'), veu = document.getElementById('veu');
 let sheetCtx = null;
@@ -806,7 +964,7 @@ function abrirSheet(m, v, c){
   if (!c) return;
   sheetCtx = {m, v, c};
   document.getElementById('sh-t').textContent = c.rotulo + (c.sufixo && c.tipo !== 'opcoes' ? ` (${c.sufixo})` : '');
-  document.getElementById('sh-a').textContent = c.ajuda || (c.paciente ? 'Não fica salvo. Vale para os outros modelos enquanto esta página estiver aberta.' : c.perfil ? 'Fica salvo neste aparelho e vale para todos os modelos.' : c.lembrar ? 'Fica salvo neste aparelho para a próxima vez.' : c.opcional ? 'Opcional: pode ficar em branco.' : '');
+  document.getElementById('sh-a').textContent = c.ajuda || (c.paciente ? 'Não fica salvo. Aparece nos outros documentos enquanto esta página estiver aberta.' : c.perfil ? 'Fica salvo neste aparelho e vale para todos os documentos.' : c.lembrar ? 'Fica salvo neste aparelho para a próxima vez.' : c.opcional ? 'Pode ficar em branco.' : '');
   const box = document.getElementById('sh-c'); box.innerHTML = '';
   const ctl = controle(m, c, v, (val, como) => {
     v[c.id] = val; mudou(m, v); atualizaProx();
@@ -829,7 +987,7 @@ function proximo(){
   const {m, v, c} = sheetCtx;
   const pend = pendentes(m, v).filter(id => id !== c.id);
   if (pend.length) abrirSheet(m, v, campo(m, pend[0]));
-  else { fecharSheet(); if (!pendentes(m, v).length) toast(m.tipo === 'evolucao' ? 'Tudo preenchido. É só copiar.' : 'Tudo preenchido.'); }
+  else { fecharSheet(); if (!pendentes(m, v).length) toast('Tudo preenchido.'); }
 }
 function fecharSheet(){ sheet.hidden = true; veu.hidden = true; sheetCtx = null; }
 document.getElementById('sh-x').onclick = fecharSheet;
@@ -855,21 +1013,17 @@ let tt;
 function toast(msg){ const t = document.getElementById('toast'); t.textContent = msg; t.hidden = false; clearTimeout(tt); tt = setTimeout(() => { t.hidden = true; }, 2600); }
 
 /* ---------- navegação ---------- */
-function abrir(id, semPuxar){
-  const m = modelo(id); if (!m){ renderInicio(); return; }
-  if (!estado[id]) estado[id] = iniciais(m);
-  const v = estado[id];
-  sincroniza(m, v);
-  if (!semPuxar) puxar(m, v, origem);
-  origem = null;
-  const rec = store.get('mod.recentes', []).filter(x => x !== id); rec.unshift(id); store.set('mod.recentes', rec.slice(0, 3));
-  fecharSheet();
-  renderModelo(m, v);
-  window.scrollTo(0, 0);
-}
 function rota(){
   const h = location.hash.replace('#', '');
-  if (h.startsWith('m-')) abrir(h.slice(2)); else { origem = null; fecharSheet(); renderInicio(); }
+  let p = null;
+  if (h.startsWith('p-')) p = proc(h.slice(2));
+  else if (h.startsWith('m-')){   // links antigos, de quando cada documento tinha sua página
+    const id = h.slice(2);
+    p = PROCS.find(x => docsDe(x).includes(id));
+    if (p){ const i = p.abas.findIndex(a => a.docs.includes(id)); abaDe[p.id] = i; if (p.abas[i].docs.length > 1) escolha[p.id + ':' + i] = id; }
+  }
+  if (p){ if (procAtual !== p) origem = null; renderProc(p); window.scrollTo(0, 0); }
+  else { origem = null; fecharSheet(); renderInicio(); }
 }
 window.addEventListener('hashchange', rota);
 rota();
