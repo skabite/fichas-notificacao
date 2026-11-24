@@ -10,6 +10,7 @@ Ferramentas de apoio à APS (medicina de família, Santa Maria – RS).
   - Dados de paciente nunca vão para o armazenamento do navegador.
   - A impressão conta as páginas de cada via para o frente e verso. Se mudar a margem do `@page`, mudar também a área útil em `paginasDe()`.
   - Campos de data são texto com máscara dd/mm/aaaa. Não usar `<input type="date">`: o formato dele muda com o idioma do navegador.
+- `sigss/`: favorito (bookmarklet) que lança vários procedimentos de uma vez no SIGSS de Santa Maria. Editar `lancar.js` e rodar `python3 sigss/montar.py` para gerar o `index.html` de instalação. Usa as funções da própria tela (`grava`, `novo`, `selectItemChosen`). Não guardar HAR nem nada com dados de paciente no repositório.
 - `fichas/`, `indice.json`, `fontes.md`, `baixar.py`: fichas de notificação do SINAN.
 
 ## Preferências do usuário
