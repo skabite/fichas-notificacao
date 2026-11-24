@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lançar procedimentos</title>
+<style>
+:root{--bg:#f3f5f9;--surface:#fff;--ink:#202c38;--muted:#5d6977;--line:#dde4ed;--prim:#c4daf3;--prim-line:#9dbde3;--prim-ink:#1a3552;--blank:#fff1c2;--blank-ink:#6a4a00}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#13181f;--surface:#1b222b;--ink:#e4eaf0;--muted:#9aa7b4;--line:#2b3540;--prim:#b4cff0;--prim-line:#b4cff0;--prim-ink:#13263d;--blank:#3a2f13;--blank-ink:#f2d58a}}
+:root[data-theme="dark"]{--bg:#13181f;--surface:#1b222b;--ink:#e4eaf0;--muted:#9aa7b4;--line:#2b3540;--prim:#b4cff0;--prim-line:#b4cff0;--prim-ink:#13263d;--blank:#3a2f13;--blank-ink:#f2d58a}
+*{box-sizing:border-box}
+body{margin:0;padding:24px 16px 40px;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+h1{font-size:26px;line-height:1.2;margin:0}
+h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:8px 0 0}
+p,ol{margin:0}
+ol{padding-left:1.3em;display:flex;flex-direction:column;gap:6px}
+.caixa{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.fav{align-self:flex-start;display:inline-block;background:var(--prim);border:1px solid var(--prim-line);color:var(--prim-ink);font-weight:700;text-decoration:none;border-radius:10px;padding:12px 18px;cursor:grab}
+.aviso{background:var(--blank);color:var(--blank-ink);border-radius:10px;padding:10px 14px;font-size:15px}
+textarea{width:100%;height:90px;border:1px solid var(--line);border-radius:8px;padding:8px;font:12px/1.3 ui-monospace,monospace;background:var(--surface);color:var(--ink)}
+button{align-self:flex-start;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:8px 14px;font:inherit;cursor:pointer}
+</style>
+</head>
+<body>
+<main>
+<h1>Lançar procedimentos no SIGSS</h1>
+<p>Um botão na barra de favoritos que lança vários procedimentos do mesmo paciente de uma vez, na tela de Procedimento ambulatorial.</p>
+
+<div class="caixa">
+<h2>Instalar</h2>
+<ol>
+<li>Deixe a barra de favoritos à vista (Ctrl+Shift+B).</li>
+<li>Arraste este botão para a barra: <a class="fav" href="{{LINK}}">Lançar procedimentos</a></li>
+</ol>
+<p>Se não der para arrastar: copie o código abaixo, clique com o botão direito na barra de favoritos, escolha "Adicionar favorito" e cole o código no campo do endereço (URL).</p>
+<textarea id="cod" readonly>{{CODIGO}}</textarea>
+<button type="button" onclick="var t=document.getElementById('cod');t.select();try{navigator.clipboard.writeText(t.value)}catch(e){document.execCommand('copy')}this.textContent='Copiado'">Copiar código</button>
+</div>
+
+<div class="caixa">
+<h2>Usar</h2>
+<ol>
+<li>No atendimento do paciente, abra a tela de Procedimento ambulatorial, como faria para lançar o primeiro.</li>
+<li>Clique em "Lançar procedimentos" na barra de favoritos.</li>
+<li>Confira o nome do paciente no topo do quadro.</li>
+<li>Marque os procedimentos. Busque por nome ou código e toque na ☆ para guardar nos favoritos.</li>
+<li>Clique em "Lançar". Cada um é gravado pela própria tela do SIGSS, um depois do outro.</li>
+</ol>
+<p class="aviso">Se o SIGSS mostrar alguma pergunta ou erro, o lançamento para ali. Responda na tela e clique em "Lançar" de novo: os que já foram gravados saem da lista.</p>
+<p>Os favoritos ficam salvos neste navegador. O botão não guarda nenhum dado de paciente.</p>
+</div>
+</main>
+</body>
+</html>
