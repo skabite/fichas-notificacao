@@ -67,6 +67,10 @@ const ANTISS_PELE = { id: "antisseptico", rotulo: "Antisséptico", tipo: "opcoes
 const INTERC = (padrao) => ({ id: "intercorrencia", rotulo: "Intercorrências", tipo: "opcoes", livre: true,
   opcoes: ["sem intercorrências", "com pequeno sangramento local, contido com compressão"], padrao: padrao || "sem intercorrências" });
 
+/* corticoides para infiltração; dá para escrever outro */
+const CORTICOIDE = () => ({ id: "corticoide", rotulo: "Corticoide", tipo: "opcoes", livre: true, lembrar: true,
+  opcoes: ["dexametasona 4mg/mL", "betametasona 5mg/mL + 2mg/mL (Betatrinta)", "triancinolona hexacetonida 20mg/mL"], padrao: "dexametasona 4mg/mL" });
+
 /* textos comuns dos termos */
 const DECL_FINAL = `
 <p>Entendi as explicações que me foram prestadas, em linguagem clara e simples, esclarecendo-me todas as dúvidas que me ocorreram.</p>`;
@@ -954,7 +958,7 @@ ${EXPLIQUEI("inseriu o implante")}
   campos: [
     { id: "articulacao", rotulo: "Articulação", tipo: "opcoes", livre: true, opcoes: ["joelho direito", "joelho esquerdo", "ombro direito", "ombro esquerdo"], vazio: "nome da articulação" },
     { id: "antisseptico", rotulo: "Antisséptico", tipo: "opcoes", livre: true, lembrar: true, opcoes: ["Clorexidina solução aquosa", "PVPI solução aquosa"], padrao: "Clorexidina solução aquosa" },
-    { id: "corticoide", rotulo: "Corticoide", tipo: "opcoes", livre: true, opcoes: ["dexametasona 4mg/mL"], padrao: "dexametasona 4mg/mL", lembrar: true },
+    CORTICOIDE(),
     { id: "cort_ml", rotulo: "Volume do corticoide", tipo: "numero", sufixo: "mL", padrao: "2,5", lembrar: true },
     { id: "lido_ml", rotulo: "Volume de lidocaína", tipo: "numero", sufixo: "mL", padrao: "2,5", lembrar: true },
     INTERC()
@@ -1094,6 +1098,34 @@ ${INTERNO}
 `
 },
 {
+  id: "gatilho", tipo: "evolucao", grupo: "Outros procedimentos", rascunho: true,
+  titulo: "Infiltração de dedo em gatilho",
+  sinonimos: ["dedo em gatilho", "gatilho", "tenossinovite estenosante", "polia A1", "bainha", "tendão flexor", "infiltração", "infiltracao", "corticoide", "betametasona", "betatrinta", "dexametasona"],
+  campos: [
+    { id: "dedo", rotulo: "Dedo", tipo: "opcoes", opcoes: ["1º", "2º", "3º", "4º", "5º"], vazio: "____" },
+    { id: "mao", rotulo: "Mão", tipo: "opcoes", opcoes: ["direita", "esquerda"], vazio: "____" },
+    { id: "antisseptico", rotulo: "Antisséptico", tipo: "opcoes", livre: true, lembrar: true, opcoes: ["Clorexidina solução aquosa", "PVPI solução aquosa"], padrao: "Clorexidina solução aquosa" },
+    CORTICOIDE(),
+    { id: "cort_ml", rotulo: "Volume do corticoide", tipo: "numero", sufixo: "mL", padrao: "1", lembrar: true },
+    { id: "lido_ml", rotulo: "Volume de lidocaína", tipo: "numero", sufixo: "mL", padrao: "1", lembrar: true },
+    INTERC()
+  ],
+  linhas: [
+    "PROCEDIMENTO DE INFILTRAÇÃO DE BAINHA DE TENDÃO FLEXOR (DEDO EM GATILHO):",
+    "- Vem para execução de procedimento de infiltração em bainha do tendão flexor do {dedo} dedo da mão {mao}, por dedo em gatilho.",
+    "- Inicialmente conversado a respeito de procedimento e fornecidas informações gerais, cuidados e riscos inerentes ao procedimento. Paciente ciente, deseja execução do procedimento.",
+    "- Paciente nega alergia medicamentosa.",
+    "{#}. Realizada limpeza de pele com {antisseptico}.",
+    "{#}. Realizada anestesia local (botão anestésico em pele) com Lidocaína 2% sem vasoconstrictor.",
+    "{#}. Realizada infiltração em bainha do tendão flexor, ao nível da polia A1, com {corticoide} ({cort_ml}mL) + lidocaína 2% sem vasoconstrictor ({lido_ml}mL) {intercorrencia}.",
+    "{#}. Realizada limpeza externa de pele com soro fisiológico 0,9%.",
+    "{#}. Realizado curativo com gaze e micropore.",
+    "- Orientado cuidados gerais e cuidados com local infiltrado.",
+    "- Orientado repouso relativo da mão nos primeiros 2 a 3 dias pós procedimento.",
+    "- Ao pronto socorro ou UBS de referência se necessário."
+  ]
+},
+{
   id: "lavagem", tipo: "evolucao", grupo: "Outros procedimentos",
   titulo: "Lavagem otológica",
   sinonimos: ["lavagem", "otológica", "otologica", "ouvido", "cerume", "cera", "orelha"],
@@ -1215,6 +1247,9 @@ window.PROCEDIMENTOS = [
       { nome: "Termo", docs: ["tcle-infiltracao"] },
       { nome: "Cuidados", docs: ["cuidados-infiltracao"] }
     ] },
+  { id: "gatilho", nome: "Dedo em gatilho", grupo: "Outros procedimentos",
+    sinonimos: ["dedo em gatilho", "gatilho", "tenossinovite", "polia", "bainha", "tendão", "infiltração", "infiltracao", "corticoide", "mão"],
+    abas: [{ nome: "Evolução", docs: ["gatilho"] }] },
   { id: "lavagem", nome: "Lavagem otológica", grupo: "Outros procedimentos",
     sinonimos: ["lavagem", "otológica", "otologica", "ouvido", "cerume", "cera", "orelha"],
     abas: [
